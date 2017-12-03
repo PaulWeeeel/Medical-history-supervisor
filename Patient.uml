@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>com.hwwz.medicalhistorysupervisor.repository.PatientRepository</OriginalElement>
+  <nodes>
+    <node x="287.0" y="670.0">javax.persistence.Entity</node>
+    <node x="282.0" y="755.0">com.hwwz.medicalhistorysupervisor.domain.Patient</node>
+    <node x="43.125" y="170.0">org.springframework.data.repository.PagingAndSortingRepository</node>
+    <node x="232.625" y="340.0">com.hwwz.medicalhistorysupervisor.repository.PatientRepository</node>
+    <node x="545.0" y="420.0">org.springframework.web.bind.annotation.RequestMapping</node>
+    <node x="0.0" y="670.0">org.springframework.boot.context.properties.ConfigurationProperties</node>
+    <node x="447.0" y="505.0">com.hwwz.medicalhistorysupervisor.controller.PatientController</node>
+    <node x="439.0" y="670.0">com.hwwz.medicalhistorysupervisor.domain.Result</node>
+    <node x="85.25" y="590.0">com.hwwz.medicalhistorysupervisor.enums.ResultEnum</node>
+    <node x="26.5" y="85.0">org.springframework.data.repository.CrudRepository</node>
+    <node x="358.0" y="420.0">org.springframework.web.bind.annotation.RestController</node>
+    <node x="161.0" y="0.0">org.springframework.data.repository.NoRepositoryBean</node>
+    <node x="170.0" y="420.0">java.io.Serializable</node>
+    <node x="339.125" y="170.0">org.springframework.data.repository.query.QueryByExampleExecutor</node>
+    <node x="107.75" y="505.0">java.lang.Enum</node>
+    <node x="0.0" y="0.0">org.springframework.data.repository.Repository</node>
+    <node x="0.0" y="420.0">java.lang.Comparable</node>
+    <node x="246.125" y="255.0">org.springframework.data.jpa.repository.JpaRepository</node>
+    <node x="24.5" y="755.0">com.hwwz.medicalhistorysupervisor.properties.PatientProperties</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.hwwz.medicalhistorysupervisor.properties.PatientProperties" target="org.springframework.boot.context.properties.ConfigurationProperties">
+      <point x="0.0" y="-17.5" />
+      <point x="0.0" y="17.5" />
+    </edge>
+    <edge source="org.springframework.data.repository.CrudRepository" target="org.springframework.data.repository.Repository">
+      <point x="-44.0" y="-17.5" />
+      <point x="0.0" y="17.5" />
+    </edge>
+    <edge source="org.springframework.data.jpa.repository.JpaRepository" target="org.springframework.data.repository.query.QueryByExampleExecutor">
+      <point x="55.0" y="-17.5" />
+      <point x="383.625" y="230.0" />
+      <point x="462.625" y="230.0" />
+      <point x="0.0" y="17.5" />
+    </edge>
+    <edge source="java.lang.Enum" target="java.lang.Comparable">
+      <point x="-25.25" y="-17.5" />
+      <point x="133.0" y="480.0" />
+      <point x="75.0" y="480.0" />
+      <point x="0.0" y="17.5" />
+    </edge>
+    <edge source="com.hwwz.medicalhistorysupervisor.controller.PatientController" target="org.springframework.web.bind.annotation.RequestMapping">
+      <point x="46.5" y="-17.5" />
+      <point x="586.5" y="480.0" />
+      <point x="638.5" y="480.0" />
+      <point x="0.0" y="17.5" />
+    </edge>
+    <edge source="com.hwwz.medicalhistorysupervisor.domain.Patient" target="javax.persistence.Entity">
+      <point x="0.0" y="-17.5" />
+      <point x="0.0" y="17.5" />
+    </edge>
+    <edge source="org.springframework.data.jpa.repository.JpaRepository" target="org.springframework.data.repository.NoRepositoryBean">
+      <point x="0.0" y="-17.5" />
+      <point x="328.625" y="60.0" />
+      <point x="326.0" y="60.0" />
+      <point x="66.0" y="17.5" />
+    </edge>
+    <edge source="java.lang.Enum" target="java.io.Serializable">
+      <point x="25.25" y="-17.5" />
+      <point x="183.5" y="480.0" />
+      <point x="241.5" y="480.0" />
+      <point x="0.0" y="17.5" />
+    </edge>
+    <edge source="com.hwwz.medicalhistorysupervisor.controller.PatientController" target="org.springframework.web.bind.annotation.RestController">
+      <point x="-46.5" y="-17.5" />
+      <point x="493.5" y="480.0" />
+      <point x="441.5" y="480.0" />
+      <point x="0.0" y="17.5" />
+    </edge>
+    <edge source="org.springframework.data.repository.PagingAndSortingRepository" target="org.springframework.data.repository.CrudRepository">
+      <point x="-68.75" y="-17.5" />
+      <point x="111.875" y="145.0" />
+      <point x="114.5" y="145.0" />
+      <point x="0.0" y="17.5" />
+    </edge>
+    <edge source="org.springframework.data.jpa.repository.JpaRepository" target="org.springframework.data.repository.PagingAndSortingRepository">
+      <point x="-55.0" y="-17.5" />
+      <point x="273.625" y="230.0" />
+      <point x="180.625" y="230.0" />
+      <point x="0.0" y="17.5" />
+    </edge>
+    <edge source="org.springframework.data.repository.CrudRepository" target="org.springframework.data.repository.NoRepositoryBean">
+      <point x="44.0" y="-17.5" />
+      <point x="158.5" y="60.0" />
+      <point x="194.0" y="60.0" />
+      <point x="-66.0" y="17.5" />
+    </edge>
+    <edge source="com.hwwz.medicalhistorysupervisor.enums.ResultEnum" target="java.lang.Enum">
+      <point x="0.0" y="-17.5" />
+      <point x="0.0" y="17.5" />
+    </edge>
+    <edge source="org.springframework.data.repository.PagingAndSortingRepository" target="org.springframework.data.repository.NoRepositoryBean">
+      <point x="68.75" y="-17.5" />
+      <point x="249.375" y="145.0" />
+      <point x="253.375" y="145.0" />
+      <point x="253.375" y="60.0" />
+      <point x="260.0" y="60.0" />
+      <point x="0.0" y="17.5" />
+    </edge>
+    <edge source="com.hwwz.medicalhistorysupervisor.repository.PatientRepository" target="org.springframework.data.jpa.repository.JpaRepository">
+      <point x="0.0" y="-17.5" />
+      <point x="0.0" y="17.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="366.0" y="395.0" />
+  <SelectedNodes>
+    <node>com.hwwz.medicalhistorysupervisor.repository.PatientRepository</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
