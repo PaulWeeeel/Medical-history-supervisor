@@ -61,6 +61,16 @@
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
 		</dependency>
+		<dependency>
+			<groupId>com.hwwz</groupId>
+			<artifactId>medical-history-supervisor</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>iflytek</groupId>
+			<artifactId>iflytek-voice</artifactId>
+			<version>1.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -71,6 +81,5 @@
 			</plugin>
 		</plugins>
 	</build>
-
 
 </project>
