@@ -1,10 +1,12 @@
 package com.hwwz.medicalhistorysupervisor.domain;
 
+import com.hwwz.medicalhistorysupervisor.enums.ResultEnum;
+
 /**
  * @author: Aliweea
  * @date: 2017/12/1/001 19:17
  */
-public class Result <T>{
+public class Result {
 
 	/** error code */
 	private Integer code;
@@ -13,7 +15,14 @@ public class Result <T>{
 	private String msg;
 
 	/** concrete content */
-	private T data;
+	private Object data;
+
+	public Result() { }
+
+	public Result(ResultEnum resultEnum) {
+		code = resultEnum.getCode();
+		msg = resultEnum.getMessage();
+	}
 
 	public Integer getCode() {
 		return code;
@@ -31,11 +40,11 @@ public class Result <T>{
 		this.msg = msg;
 	}
 
-	public T getData() {
+	public Object getData() {
 		return data;
 	}
 
-	public void setData(T data) {
+	public void setData(Object data) {
 		this.data = data;
 	}
 }

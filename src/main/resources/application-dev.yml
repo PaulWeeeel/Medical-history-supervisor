@@ -1,0 +1,10 @@
+server:
+    port: 8080
+
+patient:
+    id: 155
+    name: 李先生
+    gender: 男
+    age: 35
+    address: 上海市杨浦区阳光小区9号楼409室
+    occupation: 教师

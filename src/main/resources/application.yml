@@ -1,21 +1,18 @@
 server:
-  port: 8080
+    port: 8080
 
 spring:
     datasource:
         driver-class-name: com.mysql.jdbc.Driver
-        url: jdbc:mysql://127.0.0.1:3306/medical_history?useSSL=false
+        url: jdbc:mysql://127.0.0.1:3306/medical_history??useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=true
         username: Aliweea
         password: Aa1534267890
     jpa:
         hibernate:
             ddl-auto: update
+            dialect: org.hibernate.dialect.MySQL5InnoDBDialect
         show-sql: true
-
-patient:
-    id: 155
-    name: 李先生
-    gender: 男
-    age: 35
-    address: 上海市杨浦区阳光小区9号楼409室
-    occupation: 教师
+    thymeleaf:
+      cache: false
+      prefix: classpath:/templates/
+      suffix: .html

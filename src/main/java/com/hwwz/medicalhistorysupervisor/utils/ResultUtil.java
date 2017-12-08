@@ -1,6 +1,7 @@
 package com.hwwz.medicalhistorysupervisor.utils;
 
 import com.hwwz.medicalhistorysupervisor.domain.Result;
+import com.hwwz.medicalhistorysupervisor.enums.ResultEnum;
 
 /**
  * @author: Aliweea
@@ -13,9 +14,7 @@ public class ResultUtil {
 	}
 
 	public static Result success(Object object) {
-		Result result = new Result();
-		result.setCode(0);
-		result.setMsg("success");
+		Result result = new Result(ResultEnum.SUCCESS);
 		result.setData(object);
 		return result;
 	}
@@ -24,6 +23,11 @@ public class ResultUtil {
 		Result result = new Result();
 		result.setCode(code);
 		result.setMsg(msg);
+		return result;
+	}
+
+	public static Result error(ResultEnum resultEnum) {
+		Result result = new Result(resultEnum);
 		return result;
 	}
 }
