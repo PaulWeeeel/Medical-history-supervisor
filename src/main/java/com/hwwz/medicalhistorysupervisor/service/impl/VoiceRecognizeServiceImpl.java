@@ -1,6 +1,7 @@
-package com.hwwz.medicalhistorysupervisor.service;
+package com.hwwz.medicalhistorysupervisor.service.impl;
 
 
+import com.hwwz.medicalhistorysupervisor.service.VoiceRecognizeService;
 import com.iflytek.cloud.speech.*;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 @Service
-public class VoiceRecognizeServiceImpl implements VoiceRecognizeService{
+public class VoiceRecognizeServiceImpl implements VoiceRecognizeService {
 
     private static final String APPID = "5a238678";
 
