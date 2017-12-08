@@ -61,10 +61,22 @@
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
 		</dependency>
+<<<<<<< HEAD
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+=======
+		<dependency>
+			<groupId>com.hwwz</groupId>
+			<artifactId>medical-history-supervisor</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>iflytek</groupId>
+			<artifactId>iflytek-voice</artifactId>
+			<version>1.0</version>
+>>>>>>> 990e1f0dff9dafcbbe9b46f756d96fb37af66f2f
 		</dependency>
 	</dependencies>
 
@@ -77,5 +89,8 @@
 		</plugins>
 	</build>
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 990e1f0dff9dafcbbe9b46f756d96fb37af66f2f
 </project>

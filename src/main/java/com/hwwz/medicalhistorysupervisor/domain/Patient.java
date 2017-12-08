@@ -1,5 +1,6 @@
 package com.hwwz.medicalhistorysupervisor.domain;
 
+<<<<<<< HEAD
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -8,6 +9,17 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
+=======
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+>>>>>>> 990e1f0dff9dafcbbe9b46f756d96fb37af66f2f
 
 /**
  * @author: Aliweea
@@ -16,6 +28,7 @@ import java.util.List;
 @Entity
 public class Patient {
 
+<<<<<<< HEAD
 	private Integer id;
 
 	private String name;
@@ -35,6 +48,29 @@ public class Patient {
 
 	@Id
 	@GeneratedValue
+=======
+	@Id
+	@GeneratedValue
+	private Integer id;
+
+	@NotBlank(message = "姓名不能为空")
+	@Size(max = 20, message = "姓名的长度应该不超过10个中文字符")
+	private String name;
+
+	@NotNull(message = "性别不能为空")
+	private Boolean gender;
+
+	@Max(value = 300, message = "年龄不能超过300岁")
+	private Integer age;
+
+	@Size(max = 100, message = "地址的长度应该不超过50个中文字符")
+	private String address;
+
+	@Size(max = 20, message="职业的长度应该不超过10个中文字符")
+	private String occupation;
+
+
+>>>>>>> 990e1f0dff9dafcbbe9b46f756d96fb37af66f2f
 	public Integer getId() {
 		return id;
 	}
@@ -43,8 +79,11 @@ public class Patient {
 		this.id = id;
 	}
 
+<<<<<<< HEAD
 	@NotBlank(message = "姓名不能为空")
 	@Size(max = 20, message = "姓名的长度应该不超过10个中文字符")
+=======
+>>>>>>> 990e1f0dff9dafcbbe9b46f756d96fb37af66f2f
 	public String getName() {
 		return name;
 	}
@@ -53,7 +92,10 @@ public class Patient {
 		this.name = name;
 	}
 
+<<<<<<< HEAD
 	@NotNull(message = "性别不能为空")
+=======
+>>>>>>> 990e1f0dff9dafcbbe9b46f756d96fb37af66f2f
 	public Boolean getGender() {
 		return gender;
 	}
@@ -62,7 +104,10 @@ public class Patient {
 		this.gender = gender;
 	}
 
+<<<<<<< HEAD
 	@Max(value = 300, message = "年龄不能超过300岁")
+=======
+>>>>>>> 990e1f0dff9dafcbbe9b46f756d96fb37af66f2f
 	public Integer getAge() {
 		return age;
 	}
@@ -71,7 +116,10 @@ public class Patient {
 		this.age = age;
 	}
 
+<<<<<<< HEAD
 	@Size(max = 100, message = "地址的长度应该不超过50个中文字符")
+=======
+>>>>>>> 990e1f0dff9dafcbbe9b46f756d96fb37af66f2f
 	public String getAddress() {
 		return address;
 	}
@@ -80,7 +128,10 @@ public class Patient {
 		this.address = address;
 	}
 
+<<<<<<< HEAD
 	@Size(max = 20, message="职业的长度应该不超过10个中文字符")
+=======
+>>>>>>> 990e1f0dff9dafcbbe9b46f756d96fb37af66f2f
 	public String getOccupation() {
 		return occupation;
 	}
@@ -89,6 +140,7 @@ public class Patient {
 		this.occupation = occupation;
 	}
 
+<<<<<<< HEAD
 	@Size(max = 13, message="手机号的长度应该不超过13个字符")
 	public String getPhone() {
 		return phone;
@@ -112,4 +164,6 @@ public class Patient {
 	public String toString(){
 		return "[]";
 	}
+=======
+>>>>>>> 990e1f0dff9dafcbbe9b46f756d96fb37af66f2f
 }
