@@ -1,60 +1,76 @@
 package com.hwwz.medicalhistorysupervisor.service.impl;
 
-
-import com.hwwz.medicalhistorysupervisor.service.VoiceRecognizeService;
 import com.iflytek.cloud.speech.*;
 import org.springframework.stereotype.Service;
+import com.hwwz.medicalhistorysupervisor.service.VoiceRecognizeService;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
-@Service
-public class VoiceRecognizeServiceImpl implements VoiceRecognizeService {
+/**
+ * @author: HuShili
+ * @date: 2017/12/7
+ * @description: none
+ */
 
-    private static final String APPID = "5a238678";
+@Service
+public class VoiceRecognizeServiceImpl implements VoiceRecognizeService{
+
+    private static final String appid = "5a238678";
 
     private StringBuffer mResult = new StringBuffer();
 
-    /** 最大等待时间， 单位ms */
+    /** max waiting time*/
     private int maxWaitTime = 500;
-    /** 每次等待时间 */
+    /** per check time */
     private int perWaitTime = 100;
-    /** 出现异常时最多重复次数 */
+    /** max request time */
     private int maxQueueTimes = 3;
-    /** 音频文件 */
+    /** voice file */
     private File file = null;
+    /** user words format */
+    private String user_word = "{\"userword\":[{\"name\":\"MHS words\",\"words\":[ \"MHS\"";
 
-    // *************************************音频文件听写*************************************
+
+    static {
+        Setting.setShowLog( false );
+        SpeechUtility.createUtility(SpeechConstant.APPID + "=" + appid);
+    }
+
+    // *************************************Voice file transform*************************************
 
     /**
-     * 听写
+     * do recognize
      * @return
      * @throws InterruptedException
      */
+    @Override
     public String doRecognize(File file) throws InterruptedException {
         maxWaitTime = 500;
         maxQueueTimes = 3;
+        this.file = file;
+        return ParseAttempt();
+    }
 
-        if(maxQueueTimes <= 0) {
+    private String ParseAttempt() throws InterruptedException{
+        if (maxQueueTimes <= 0) {
             mResult.setLength(0);
-            mResult.append("解析异常！");
+            mResult.append("Voice parse error!");
             return mResult.toString();
         }
-        this.file = file;
 
         if (SpeechRecognizer.getRecognizer() == null)
             SpeechRecognizer.createRecognizer();
         return RecognizePcmfileByte();
     }
-
     /**
-     * 自动化测试注意要点 如果直接从音频文件识别，需要模拟真实的音速，防止音频队列的堵塞
+     * original voice file needed
      * @throws InterruptedException
      */
     private String RecognizePcmfileByte() throws InterruptedException {
-        // 1、读取音频文件
+        //file to buffer
         FileInputStream fis = null;
         byte[] voiceBuffer = null;
         try {
@@ -73,19 +89,17 @@ public class VoiceRecognizeServiceImpl implements VoiceRecognizeService {
                 e.printStackTrace();
             }
         }
-        // 2、音频流听写
+        // buffer checked
         if (0 == voiceBuffer.length) {
             mResult.append("no audio avaible!");
         } else {
-            //解析之前将存出结果置为空
+            //reset result
             mResult.setLength(0);
             SpeechRecognizer recognizer = SpeechRecognizer.getRecognizer();
             recognizer.setParameter(SpeechConstant.DOMAIN, "iat");
             recognizer.setParameter(SpeechConstant.LANGUAGE, "zh_cn");
             recognizer.setParameter(SpeechConstant.AUDIO_SOURCE, "-1");
-            //写音频流时，文件是应用层已有的，不必再保存
-//          recognizer.setParameter(SpeechConstant.ASR_AUDIO_PATH,
-//                  "./iflytek.pcm");
+            recognizer.setParameter(SpeechConstant.ACCENT, "mandarin");
             recognizer.setParameter( SpeechConstant.RESULT_TYPE, "plain" );
             recognizer.startListening(recListener);
             ArrayList<byte[]> buffers = splitBuffer(voiceBuffer,
@@ -101,11 +115,11 @@ public class VoiceRecognizeServiceImpl implements VoiceRecognizeService {
             }
             recognizer.stopListening();
 
-            // 在原有的代码基础上主要添加了这个while代码等待音频解析完成，recognizer.isListening()返回true，说明解析工作还在进行
+            // prevent analysis from stopped by the next request and check finished
             while(recognizer.isListening()) {
                 if(maxWaitTime < 0) {
                     mResult.setLength(0);
-                    mResult.append("解析超时！");
+                    mResult.append("Parse out of time!");
                     break;
                 }
                 Thread.sleep(perWaitTime);
@@ -116,15 +130,11 @@ public class VoiceRecognizeServiceImpl implements VoiceRecognizeService {
     }
 
     /**
-     * 将字节缓冲区按照固定大小进行分割成数组
+     * user-defined voice file buffer
      *
      * @param buffer
-     *            缓冲区
      * @param length
-     *            缓冲区大小
-     * @param spsize
-     *            切割块大小
-     * @return
+     * @param spsize size of every block
      */
     private ArrayList<byte[]> splitBuffer(byte[] buffer, int length, int spsize) {
         ArrayList<byte[]> array = new ArrayList<byte[]>();
@@ -154,28 +164,78 @@ public class VoiceRecognizeServiceImpl implements VoiceRecognizeService {
      */
     private RecognizerListener recListener = new RecognizerListener() {
 
-        public void onBeginOfSpeech() { }
-
-        public void onEndOfSpeech() { }
-
-        public void onVolumeChanged(int volume) { }
-
-        public void onResult(RecognizerResult result, boolean islast) {
-            mResult.append(result.getResultString());
+        public void onBeginOfSpeech() {
+            System.out.println( "onBeginOfSpeech enter" );
+            System.out.println("*************开始录音*************");
         }
 
-        public void onError(SpeechError error) {
-            try {
-                doRecognize(file);
-                maxQueueTimes--;
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                throw new RuntimeException(e);
+        public void onEndOfSpeech() {
+            System.out.println( "onEndOfSpeech enter" );
+        }
+
+        public void onVolumeChanged(int volume) {
+            System.out.println( "onVolumeChanged enter" );
+            if (volume > 0)
+                System.out.println("*************音量值:" + volume + "*************");
+
+        }
+
+        public void onResult(RecognizerResult result, boolean islast) {
+            System.out.println( "onResult enter" );
+            mResult.append(result.getResultString());
+
+            if( islast ){
+                System.out.println("识别结果为:" + mResult.toString());
+                mResult.delete(0, mResult.length());
             }
         }
 
-        public void onEvent(int eventType, int arg1, int agr2, String msg) { }
+        public void onError(SpeechError error) {
+            System.out.println("*************" + error.getErrorCode()
+                    + "*************");
+        }
+
+        public void onEvent(int eventType, int arg1, int agr2, String msg) {
+            System.out.println( "onEvent enter" );
+        }
 
     };
 
+    // *************************************User words upload*************************************
+
+    @Override
+    public boolean doUpload(String string){
+        user_word += ",\"" + string + "\"";
+        SpeechRecognizer recognizer = SpeechRecognizer.getRecognizer();
+        if ( recognizer == null) {
+            recognizer = SpeechRecognizer.createRecognizer();
+
+            if( null == recognizer ){
+                System.out.println( "获取识别实例实败！" );
+                return false;
+            }
+        }
+
+        UserWords userwords = new UserWords(user_word + " ]}]}");
+        recognizer.setParameter( SpeechConstant.DATA_TYPE, "userword" );
+        recognizer.updateLexicon("userwords",
+                userwords.toString(),
+                lexiconListener);
+        return true;
+    }
+
+    /**
+     * 词表上传监听器
+     */
+    LexiconListener lexiconListener = new LexiconListener() {
+        @Override
+        public void onLexiconUpdated(String lexiconId, SpeechError error) {
+            if (error == null)
+                System.out.println("*************上传成功*************");
+            else
+                System.out.println("*************" + error.getErrorCode()
+                        + "*************");
+        }
+
+    };
 }
