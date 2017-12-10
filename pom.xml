@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.hwwz</groupId>
@@ -61,12 +61,6 @@
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
 		</dependency>
-<<<<<<< HEAD
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-thymeleaf</artifactId>
-=======
 		<dependency>
 			<groupId>com.hwwz</groupId>
 			<artifactId>medical-history-supervisor</artifactId>
@@ -76,7 +70,6 @@
 			<groupId>iflytek</groupId>
 			<artifactId>iflytek-voice</artifactId>
 			<version>1.0</version>
->>>>>>> 990e1f0dff9dafcbbe9b46f756d96fb37af66f2f
 		</dependency>
 	</dependencies>
 
@@ -89,8 +82,4 @@
 		</plugins>
 	</build>
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 990e1f0dff9dafcbbe9b46f756d96fb37af66f2f
 </project>
