@@ -65,7 +65,12 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
 
+		<dependency>
+			<groupId>iflytek</groupId>
+			<artifactId>iflytek-voice</artifactId>
+			<version>1.0</version>
 		</dependency>
 	</dependencies>
 
