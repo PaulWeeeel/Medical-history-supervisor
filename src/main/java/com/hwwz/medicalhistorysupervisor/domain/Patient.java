@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
@@ -34,7 +36,8 @@ public class Patient {
 
 	private List<CaseHistory> caseHistoryList;
 
-
+	@Id
+	@GeneratedValue
 	public Integer getId() {
 		return id;
 	}
