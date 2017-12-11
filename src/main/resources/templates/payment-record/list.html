@@ -23,19 +23,19 @@
 		</thead>
 		<tbody>
 		<tr  th:each="paymentRecord : ${paymentRecords}">
-			<th scope="row" th:text="*{id}">1</th>
-			<td th:text="*{type}">进货</td>
-			<td th:text="*{number}">0</td>
-			<td th:text="${dateTime}">2000-10-01 10:00:00</td>
-			<td><a th:href="@{/paymentRecord/toEdit(id=*{id})}">edit</a></td>
-			<td><a th:href="@{/paymentRecord/delete(id=*{id})}" methods="DELETE">delete</a></td>
+			<th scope="row" th:text="${paymentRecord.id}">1</th>
+			<td th:text="${paymentRecord.type}">进货</td>
+			<td th:text="${paymentRecord.number}">0</td>
+			<td th:text="${paymentRecord.dateTime}">2000-10-01 10:00:00</td>
+			<td><a th:href="@{/paymentRecord/toEdit(id=${paymentRecord.id})}">edit</a></td>
+			<td><a th:href="@{/paymentRecord/delete(id=${paymentRecord.id})}" methods="DELETE">delete</a></td>
 		</tr>
 		</tbody>
 	</table>
 </div>
 <div class="form-group">
 	<div class="col-sm-2 control-label">
-		<a href="/toAdd" th:href="@{/paymentRecord/add}" class="btn btn-info">添加记录</a>
+		<a href="/add" th:href="@{/paymentRecord/add}" class="btn btn-info">添加记录</a>
 	</div>
 </div>
 

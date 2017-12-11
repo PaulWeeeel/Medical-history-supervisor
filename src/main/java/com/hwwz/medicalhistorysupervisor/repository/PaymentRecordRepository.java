@@ -11,5 +11,5 @@ import java.util.List;
  * @date: 2017/12/4/004 0:41
  */
 public interface PaymentRecordRepository extends JpaRepository<PaymentRecord, Integer> {
-	public List<PaymentRecord> findAllByDateTimeBetween(Timestamp start, Timestamp end);
+	List<PaymentRecord> findAllByDateTimeBetween(Timestamp start, Timestamp end);
 }

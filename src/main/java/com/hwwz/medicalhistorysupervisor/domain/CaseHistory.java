@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 import java.sql.Timestamp;
 import java.util.List;
@@ -21,17 +19,15 @@ public class CaseHistory {
 
 	private String disease;
 
+    private String imageUrl;
+
 	private Timestamp onset;
-
-	private String details;
-
-	private  Integer level;
 
 	private Timestamp dateTime;
 
 	private Patient patient;
 
-	private List<Medicine> medicineList;
+	private List<MedicineRecord> medicineRecordList;
 
 	@Id
 	@GeneratedValue
@@ -53,6 +49,14 @@ public class CaseHistory {
 		this.disease = disease;
 	}
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
 	public Timestamp getOnset() {
 		return onset;
 	}
@@ -61,26 +65,7 @@ public class CaseHistory {
 		this.onset = onset;
 	}
 
-	@Size(max = 300, message = "长度应该不超过150个中文字符")
-	public String getDetails() {
-		return details;
-	}
-
-	public void setDetails(String details) {
-		this.details = details;
-	}
-
-	@Min(value = 1, message = "等级不能低于1")
-	@Max(value = 10, message = "等级不能高于10")
-	public Integer getLevel() {
-		return level;
-	}
-
-	public void setLevel(Integer level) {
-		this.level = level;
-	}
-
-	public Timestamp getDateTime() {
+    public Timestamp getDateTime() {
 		return dateTime;
 	}
 
@@ -88,7 +73,7 @@ public class CaseHistory {
 		this.dateTime = dateTime;
 	}
 
-	@ManyToOne(optional = false)
+	@ManyToOne()
 	public Patient getPatient() {
 		return patient;
 	}
@@ -98,13 +83,13 @@ public class CaseHistory {
 		this.patient = patient;
 	}
 
-	@OneToMany(mappedBy = "caseHistory", fetch = FetchType.LAZY)
-	public List<Medicine> getMedicineList() {
-		return medicineList;
+	@OneToMany(mappedBy = "caseHistory")
+	public List<MedicineRecord> getMedicineRecordList() {
+		return medicineRecordList;
 	}
 
 	@JsonBackReference
-	public void setMedicineList(List<Medicine> medicineList) {
-		this.medicineList = medicineList;
+	public void setMedicineRecordList(List<MedicineRecord> medicineRecordList) {
+		this.medicineRecordList = medicineRecordList;
 	}
 }

@@ -11,5 +11,5 @@ import java.util.List;
  */
 
 public interface PatientRepository  extends JpaRepository<Patient, Integer>{
-	public List<Patient> findByName(String name);
+	List<Patient> findByName(String name);
 }

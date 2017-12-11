@@ -40,7 +40,7 @@ public class PatientController {
 		return "patient/list";
 	}
 
-	@GetMapping(value = "toAdd")
+	@GetMapping(value = "/toAdd")
 	public String toAdd() {
 		return "patient/add";
 	}
