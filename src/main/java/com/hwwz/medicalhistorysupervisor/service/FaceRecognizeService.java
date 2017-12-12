@@ -10,8 +10,4 @@ import java.io.File;
 public interface FaceRecognizeService {
     /*get the user of a img file of the face*/
     public String doRecognize(File file);
-    /*add a new face to the faceset*/
-    public boolean addFace(File file);
-    /*delete a face from the faceset*/
-    public boolean deleteFace(File file);
 }

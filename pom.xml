@@ -72,6 +72,12 @@
 			<artifactId>iflytek-voice</artifactId>
 			<version>1.0</version>
 		</dependency>
+
+		<dependency>
+			<groupId>facepp</groupId>
+			<artifactId>facepp_face</artifactId>
+			<version>1.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>

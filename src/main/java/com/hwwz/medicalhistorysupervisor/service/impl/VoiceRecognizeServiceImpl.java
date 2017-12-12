@@ -31,7 +31,7 @@ public class VoiceRecognizeServiceImpl implements VoiceRecognizeService{
     /** voice file */
     private File file = null;
     /** user words format */
-    private String user_word = "{\"userword\":[{\"name\":\"MHS words\",\"words\":[ \"MHS\"";
+    private static String user_word = "{\"userword\":[{\"name\":\"MHS words\",\"words\":[ \"MHS\"";
 
 
     static {
