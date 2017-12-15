@@ -2,12 +2,15 @@
 ## Before build
 Add local dependency: 
 
-cmd at Medical-history-supervisor\src\libs
+remove the dependencies of jpa first
 
-mvn install:install-file -Dfile= Msc.jar -DgroupId=iflytek -DartifactId=iflytek-voice -Dversion=1.0 -Dpackaging=jar
+cmd at ..\Medical-history-supervisor
 
-mvn install:install-file -Dfile= FaceppSDK.jar -DgroupId=facepp -DartifactId=facepp_face -Dversion=1.0 -Dpackaging=jar
+mvn install:install-file -Dfile= src\libs\Msc.jar -DgroupId=iflytek -DartifactId=iflytek-voice -Dversion=1.0 -Dpackaging=jar
 
+mvn install:install-file -Dfile= src\libs\FaceppSDK.jar -DgroupId=facepp -DartifactId=facepp_face -Dversion=1.0 -Dpackaging=jar
+
+add back the dependencies of jpa finally
 
 ## Base
 
