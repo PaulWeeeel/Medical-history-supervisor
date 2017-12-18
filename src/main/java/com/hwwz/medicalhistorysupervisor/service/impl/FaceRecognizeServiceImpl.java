@@ -34,10 +34,12 @@ public class FaceRecognizeServiceImpl implements FaceRecognizeService {
         commonOperate = new CommonOperate(key, secret, false);
         FaceSet = new FaceSetOperate(key, secret, false);
 
-        if(faceToken.isEmpty())
+        if(faceToken.isEmpty()){
             createFaceSet();
+        }
     }
 
+    @Override
     public String doRecognize(File file) {
         String result = searchFace(file);
 
@@ -47,8 +49,9 @@ public class FaceRecognizeServiceImpl implements FaceRecognizeService {
             addFace(token);
             return token;
         }
-        else
+        else{
             return result;
+        }
     }
 
     private boolean createFaceSet(){
