@@ -2,7 +2,6 @@ package com.hwwz.medicalhistorysupervisor.service.impl;
 
 import com.hwwz.medicalhistorysupervisor.service.FaceRecognizeService;
 import com.megvii.cloud.http.CommonOperate;
-import com.megvii.cloud.http.FaceOperate;
 import com.megvii.cloud.http.FaceSetOperate;
 import com.megvii.cloud.http.Response;
 
@@ -34,31 +33,38 @@ public class FaceRecognizeServiceImpl implements FaceRecognizeService {
     public FaceRecognizeServiceImpl(){
         commonOperate = new CommonOperate(key, secret, false);
         FaceSet = new FaceSetOperate(key, secret, false);
+
+        if(faceToken.isEmpty())
+            createFaceSet();
     }
 
-    @Override
     public String doRecognize(File file) {
         String result = searchFace(file);
 
-        //need to make a credible threshold here to replace the "result == null" statement
+        //new user input
         if(result == null) {
             String token = getFace(file);
             addFace(token);
-            return null;
+            return token;
         }
         else
             return result;
     }
 
     private boolean createFaceSet(){
+        boolean success = true;
         try {
-            //创建人脸库，并往里加人脸
+            //创建人脸库，并往里加人脸(null)
             //create faceSet and add face
             String faceTokens = createFaceTokens(faceToken);
             Response faceset = FaceSet.createFaceSet(null, "test", null, faceTokens, null, 1);
             String faceSetResult = new String(faceset.getContent());
 
-            faceSetToken = faceSetResult;
+            try {
+                faceSetToken = faceSetResult.substring(19, 19 + 32);
+            }catch (StringIndexOutOfBoundsException e) {
+                success = false;
+            }
 
             System.out.println("faceSetResult:" + faceSetResult);
             if (faceset.getStatus() == 200) {
@@ -67,30 +73,47 @@ public class FaceRecognizeServiceImpl implements FaceRecognizeService {
                 System.out.println(faceSetResult);
                 return true;
             } else {
-                System.out.println("\nfaceSet creat faile");
+                System.out.println("\nfaceSet creat failed");
                 System.out.println("\ncreate result: ");
                 System.out.println(faceSetResult);
-                return false;
+                success = false;
             }
         }catch (Exception e) {
             e.printStackTrace();
+        }
+
+        if(!success) {
+            createFaceSet();
         }
         return true;
     }
 
     private String getFace(File file){
         String token = new String();
+        boolean  success = true;
 
         try {
             //检测第一个人脸，传的是本地图片文件
             //detect first face by local file
             Response response = commonOperate.detectByte(getBitSet(file), 0, null);
             token = getFaceToken(response);
-            faceToken.add(token);
-            System.out.println("faceToken: ");
-            System.out.println(token);
+
+            System.out.println("get result:");
+            System.out.println("faceToken: " + token);
+
+            if(token.contains("CONCURRENCY_LIMIT_EXCEEDED")) {
+                success = false;
+            }
+            else {
+                faceToken.add(token);
+                return token;
+            }
         }catch (Exception e) {
             e.printStackTrace();
+        }
+
+        if(!success) {
+            token = getFace(file);
         }
 
         return token;
@@ -99,6 +122,15 @@ public class FaceRecognizeServiceImpl implements FaceRecognizeService {
     private String searchFace(File file){
         String result = new String();
 
+        String first = new String();
+        String first_confidence = new String();
+        String first_token = new String();
+        String threshold = new String();
+
+        String best_result = new String();
+        boolean success = true;
+        boolean retry = false;
+
         try {
             //调用搜索API，得到结果
             //use search API to find face
@@ -106,19 +138,65 @@ public class FaceRecognizeServiceImpl implements FaceRecognizeService {
             result = new String(res.getContent());
             System.out.println("search result: ");
             System.out.println(result);
+
+            if(result.contains("EMPTY_FACESET")) {
+                addFace(getFace(file));
+                success = false;
+            }
+            else if(result.contains("CONCURRENCY_LIMIT_EXCEEDED")) {
+                success = false;
+            }
         }catch (Exception e) {
             e.printStackTrace();
         }
 
-        return result;
+        if(!success) {
+            best_result = searchFace(file);
+            retry = true;
+        }
+        else if(!retry){
+            first = result.substring(result.indexOf("results") + 11);
+            first = first.substring(0, first.indexOf("}") + 1);
+            threshold = result.substring(result.indexOf("1e-5") + 6);
+            threshold = threshold.substring(0, 7);
+
+            first_confidence = first.substring(first.indexOf("confidence") + 13, first.indexOf(","));
+            first_token = first.substring(first.indexOf("face_token") + 14, first.indexOf("}") - 1);
+            System.out.println("\nfirst token: " + first_token);
+            System.out.println("\nfisrt confidence: " + first_confidence);
+            System.out.println("\nthreshold" + threshold);
+
+            if(Double.parseDouble(first_confidence) > Double.parseDouble(threshold)) {
+                best_result = first_token;
+            }
+            else {
+                best_result = null;
+            }
+        }
+
+        return best_result;
     }
 
     private boolean addFace(String token){
+        String result = new String();
+        boolean success = true;
+
         try {
             Response res = FaceSet.addFaceByFaceToken(token, faceSetToken);
+            result = new String(res.getContent());
+            System.out.println("add result: ");
+            System.out.println(result);
+
+            if(result.contains("CONCURRENCY_LIMIT_EXCEEDED")) {
+                success = false;
+            }
         }catch (Exception e) {
             e.printStackTrace();
             return false;
+        }
+
+        if(!success) {
+            addFace(token);
         }
         return true;
     }
@@ -218,3 +296,4 @@ public class FaceRecognizeServiceImpl implements FaceRecognizeService {
         return rs / 9;
     }
 }
+
