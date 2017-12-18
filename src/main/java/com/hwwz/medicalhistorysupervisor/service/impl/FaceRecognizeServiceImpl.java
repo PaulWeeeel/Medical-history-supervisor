@@ -54,7 +54,6 @@ public class FaceRecognizeServiceImpl implements FaceRecognizeService {
     private boolean createFaceSet(){
         boolean success = true;
         try {
-            //创建人脸库，并往里加人脸(null)
             //create faceSet and add face
             String faceTokens = createFaceTokens(faceToken);
             Response faceset = FaceSet.createFaceSet(null, "test", null, faceTokens, null, 1);
@@ -93,7 +92,6 @@ public class FaceRecognizeServiceImpl implements FaceRecognizeService {
         boolean  success = true;
 
         try {
-            //检测第一个人脸，传的是本地图片文件
             //detect first face by local file
             Response response = commonOperate.detectByte(getBitSet(file), 0, null);
             token = getFaceToken(response);
@@ -132,7 +130,6 @@ public class FaceRecognizeServiceImpl implements FaceRecognizeService {
         boolean retry = false;
 
         try {
-            //调用搜索API，得到结果
             //use search API to find face
             Response res = commonOperate.searchByFaceSetToken(null, null, getBitSet(file), faceSetToken, 1);
             result = new String(res.getContent());
@@ -155,6 +152,7 @@ public class FaceRecognizeServiceImpl implements FaceRecognizeService {
             retry = true;
         }
         else if(!retry){
+            //do analysis
             first = result.substring(result.indexOf("results") + 11);
             first = first.substring(0, first.indexOf("}") + 1);
             threshold = result.substring(result.indexOf("1e-5") + 6);
@@ -218,10 +216,10 @@ public class FaceRecognizeServiceImpl implements FaceRecognizeService {
     }
 
     private byte[] getBitSet(File file) throws IOException{
-        BufferedImage bi= ImageIO.read(file);//通过imageio将图像载入
-        int h=bi.getHeight();//获取图像的高
-        int w=bi.getWidth();//获取图像的宽
-        int rgb=bi.getRGB(0, 0);//获取指定坐标的ARGB的像素值
+        BufferedImage bi= ImageIO.read(file);//read image by ImageIO
+        int h=bi.getHeight();//get height
+        int w=bi.getWidth();//get width
+        int rgb=bi.getRGB(0, 0);//get (0,0) rgb
         int[][] gray=new int[w][h];
         for (int x = 0; x < w; x++) {
             for (int y = 0; y < h; y++) {
@@ -264,7 +262,7 @@ public class FaceRecognizeServiceImpl implements FaceRecognizeService {
         int r=Integer.parseInt(str.substring(2,4),16);
         int g=Integer.parseInt(str.substring(4,6),16);
         int b=Integer.parseInt(str.substring(6,8),16);
-        //or 直接new个color对象
+        //or new
         Color c=new Color(rgb);
         r=c.getRed();
         g=c.getGreen();
@@ -274,7 +272,7 @@ public class FaceRecognizeServiceImpl implements FaceRecognizeService {
     }
 
     /**
-     * 自己加周围8个灰度值再除以9，算出其相对灰度值
+     * Get average grey level
      * @param gray
      * @param x
      * @param y

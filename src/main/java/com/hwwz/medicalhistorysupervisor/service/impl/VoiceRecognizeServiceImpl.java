@@ -47,11 +47,19 @@ public class VoiceRecognizeServiceImpl implements VoiceRecognizeService{
      * @throws InterruptedException
      */
     @Override
-    public String doRecognize(File file) throws InterruptedException {
+    public String doRecognize(File file){
         maxWaitTime = 500;
         maxQueueTimes = 3;
         this.file = file;
-        return ParseAttempt();
+
+        String result = new String();
+        try{
+            result = ParseAttempt();
+        }catch (Exception e){
+            System.out.println("Voice Recognize Failed!");
+            return null;
+        }
+        return result;
     }
 
     private String ParseAttempt() throws InterruptedException{
@@ -100,12 +108,14 @@ public class VoiceRecognizeServiceImpl implements VoiceRecognizeService{
             recognizer.setParameter(SpeechConstant.LANGUAGE, "zh_cn");
             recognizer.setParameter(SpeechConstant.AUDIO_SOURCE, "-1");
             recognizer.setParameter(SpeechConstant.ACCENT, "mandarin");
-            recognizer.setParameter( SpeechConstant.RESULT_TYPE, "plain" );
+            recognizer.setParameter(SpeechConstant.RESULT_TYPE, "plain" );
+            recognizer.setParameter(SpeechConstant.SAMPLE_RATE, "8000" );
+
             recognizer.startListening(recListener);
             ArrayList<byte[]> buffers = splitBuffer(voiceBuffer,
                     voiceBuffer.length, 4800);
             for (int i = 0; i < buffers.size(); i++) {
-                // 每次写入msc数据4.8K,相当150ms录音数据
+                // every time write 4.8k data to msc which equals 150ms voice file
                 recognizer.writeAudio(buffers.get(i), 0, buffers.get(i).length);
                 try {
                     Thread.sleep(150);
@@ -160,13 +170,13 @@ public class VoiceRecognizeServiceImpl implements VoiceRecognizeService{
     }
 
     /**
-     * 听写监听器
+     * RecognizerListener
      */
     private RecognizerListener recListener = new RecognizerListener() {
 
         public void onBeginOfSpeech() {
             System.out.println( "onBeginOfSpeech enter" );
-            System.out.println("*************开始录音*************");
+            System.out.println("*************Voice Recognize Start*************");
         }
 
         public void onEndOfSpeech() {
@@ -176,7 +186,7 @@ public class VoiceRecognizeServiceImpl implements VoiceRecognizeService{
         public void onVolumeChanged(int volume) {
             System.out.println( "onVolumeChanged enter" );
             if (volume > 0)
-                System.out.println("*************音量值:" + volume + "*************");
+                System.out.println("*************Volume:" + volume + "*************");
 
         }
 
@@ -185,7 +195,7 @@ public class VoiceRecognizeServiceImpl implements VoiceRecognizeService{
             mResult.append(result.getResultString());
 
             if( islast ){
-                System.out.println("识别结果为:" + mResult.toString());
+                System.out.println("Voice result:" + mResult.toString());
                 mResult.delete(0, mResult.length());
             }
         }
@@ -211,7 +221,7 @@ public class VoiceRecognizeServiceImpl implements VoiceRecognizeService{
             recognizer = SpeechRecognizer.createRecognizer();
 
             if( null == recognizer ){
-                System.out.println( "获取识别实例实败！" );
+                System.out.println( "Failed to get recognizer!" );
                 return false;
             }
         }
@@ -225,13 +235,13 @@ public class VoiceRecognizeServiceImpl implements VoiceRecognizeService{
     }
 
     /**
-     * 词表上传监听器
+     * LexiconListener
      */
     LexiconListener lexiconListener = new LexiconListener() {
         @Override
         public void onLexiconUpdated(String lexiconId, SpeechError error) {
             if (error == null)
-                System.out.println("*************上传成功*************");
+                System.out.println("*************Upload Success*************");
             else
                 System.out.println("*************" + error.getErrorCode()
                         + "*************");

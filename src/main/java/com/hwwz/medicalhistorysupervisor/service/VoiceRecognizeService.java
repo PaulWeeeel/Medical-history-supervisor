@@ -9,8 +9,17 @@ import java.io.File;
  */
 
 public interface VoiceRecognizeService {
-    /*upload a word file to improve the accuracy*/
+    /**
+     * upload a word file to improve the accuracy
+     * @param string
+     * @return true for success or false for failure
+     */
     public boolean doUpload(String string);
-    /*transform voice file to a String buffer*/
-    public String doRecognize(File file) throws InterruptedException;
+
+    /**
+     * transform voice file to a String buffer
+     * @param file
+     * @return string (all content) or null for error
+     */
+    public String doRecognize(File file);
 }
