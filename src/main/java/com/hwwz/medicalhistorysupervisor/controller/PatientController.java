@@ -34,16 +34,14 @@ public class PatientController {
 
 	@RequestMapping(value = "/list")
 	public String list(Model model) throws Exception {
-		List<Patient> patients = patientService.getAllPatients();
-		;
-		model.addAttribute("patients", patients);
+		model.addAttribute("patientList", patientService.getAllPatients());
 		return "patient/list";
 	}
 
-	@GetMapping(value = "/toAdd")
-	public String toAdd() {
-		return "patient/add";
-	}
+//	@GetMapping(value = "/toAdd")
+//	public String toAdd() {
+//		return "patient/add";
+//	}
 
 	@PostMapping(value = "/add")
 	public String add(@Valid Patient patient, BindingResult bindingResult) throws Exception {
@@ -62,9 +60,9 @@ public class PatientController {
 	public String getPatientById(Model model, @PathVariable("id") Integer id) throws Exception {
 		try {
 			Patient patient = patientService.getPatientById(id);
-			List<CaseHistory> caseHistories = patient.getCaseHistoryList();
+			List<CaseHistory> caseHistoryList = patient.getCaseHistoryList();
 			model.addAttribute("patient", patient);
-			model.addAttribute("caseHistories", caseHistories);
+			model.addAttribute("caseHistoryList", caseHistoryList);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -72,24 +70,24 @@ public class PatientController {
 	}
 
 
-	@GetMapping(value = "/list", params = {"name"})
-	public String getPatientsByName(Model model, @RequestParam("name") String name) throws Exception {
-		List<Patient> patients;
-		try {
-			patients = patientService.getPatientsByName(name);
-			model.addAttribute("patients", patients);
-		} catch (Exception e) {
-			throw e;
-		}
-		return "patient/list";
-	}
+//	@GetMapping(value = "/list", params = {"name"})
+//	public String getPatientsByName(Model model, @RequestParam("name") String name) throws Exception {
+//		List<Patient> patients;
+//		try {
+//			patients = patientService.getPatientsByName(name);
+//			model.addAttribute("patients", patients);
+//		} catch (Exception e) {
+//			throw e;
+//		}
+//		return "patient/list";
+//	}
 
-	@GetMapping(value = "/toEdit")
-	public String toEdit(Model model, @RequestParam("id") Integer id) {
-		Patient patient = patientService.getPatientById(id);
-		model.addAttribute("patient", patient);
-		return "patient/edit";
-	}
+//	@GetMapping(value = "/toEdit")
+//	public String toEdit(Model model, @RequestParam("id") Integer id) {
+//		Patient patient = patientService.getPatientById(id);
+//		model.addAttribute("patient", patient);
+//		return "patient/edit";
+//	}
 
 	@PutMapping(value = "/edit")
 	public String edit(@Valid Patient patient, BindingResult bindingResult) throws Exception {

@@ -22,7 +22,7 @@
 		</tr>
 		</thead>
 		<tbody>
-		<tr  th:each="patient : ${patients}">
+		<tr  th:each="patient : ${patientList}">
 			<th scope="row" th:text="${patient.id}">1</th>
 			<td th:text="${patient.name}">neo</td>
 			<td th:text="${patient.gender}">Otto</td>

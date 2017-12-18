@@ -36,7 +36,7 @@
 		</tr>
 		</thead>
 		<tbody>
-		<tr  th:each="caseHistory : ${caseHistorys}">
+		<tr  th:each="caseHistory : ${caseHistoryList}">
 			<th scope="row" th:text="${caseHistory.id}">1</th>
 			<td th:text="${caseHistory.disease}">6</td>
 			<td th:text="${caseHistory.level}">neo</td>

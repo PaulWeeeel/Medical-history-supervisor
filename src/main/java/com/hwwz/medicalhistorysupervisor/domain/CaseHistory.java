@@ -1,10 +1,8 @@
 package com.hwwz.medicalhistorysupervisor.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -30,7 +28,7 @@ public class CaseHistory {
 	private List<MedicineRecord> medicineRecordList;
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getId() {
 		return id;
 	}
@@ -39,8 +37,7 @@ public class CaseHistory {
 		this.id = id;
 	}
 
-	@NotBlank(message = "疾病名称不能为空")
-	@Size(max = 100, message = "疾病名称的长度应该不超过50个中文字符")
+	@Column(nullable = false, length = 100)
 	public String getDisease() {
 		return disease;
 	}
@@ -73,7 +70,7 @@ public class CaseHistory {
 		this.dateTime = dateTime;
 	}
 
-	@ManyToOne()
+	@ManyToOne
 	public Patient getPatient() {
 		return patient;
 	}

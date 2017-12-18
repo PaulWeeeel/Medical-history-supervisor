@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -37,13 +36,12 @@ public class CaseHistoryController {
 	@GetMapping(value = "/toAdd", params = {"patientId"})
 	public String toAdd(Model model, @RequestParam("patientId") Integer patientId) {
 		model.addAttribute("patientId", patientId);
-		return "case_history/add";
+		return "case-history/add";
 	}
 
 	@PostMapping(value = "/add")
-	public String add(@Valid CaseHistory caseHistory) {
-		caseHistory.setDateTime(new Timestamp(System.currentTimeMillis()));
-		caseHistoryService.add(caseHistory);
+	public String add(@Valid CaseHistory caseHistory, @RequestParam("patientId") Integer patientId) {
+		caseHistoryService.add(caseHistory, patientId);
 		return "redirect:/case-history/list";
 	}
 
@@ -64,6 +62,6 @@ public class CaseHistoryController {
 	@DeleteMapping(value = "/delete", params = {"id"})
 	public String delete(@RequestParam("id") Integer id){
 		caseHistoryService.delete(id);
-		return "direct:/case-history/list";
+		return "redirect:/case-history/list";
 	}
 }

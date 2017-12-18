@@ -22,10 +22,10 @@
 		</tr>
 		</thead>
 		<tbody>
-		<tr  th:each="caseHistory : ${caseHistorys}">
+		<tr  th:each="caseHistory : ${caseHistoryList}">
 			<th scope="row" th:text="${caseHistory.id}">1</th>
 			<td th:text="${caseHistory.disease}">neo</td>
-			<td th:text="${caseHistory.level}">Otto</td>
+			<td th:text="${caseHistory.onset}">6</td>
 			<td th:text="${caseHistory.dateTime}">6</td>
 			<td><a th:href="@{/case-history/toEdit(id=${caseHistory.id})}">edit</a></td>
 			<td><a th:href="@{/case-history/delete(id=${caseHistory.id})}" methods="DELETE">delete</a></td>

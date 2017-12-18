@@ -1,11 +1,14 @@
 package com.hwwz.medicalhistorysupervisor.service.impl;
 
 import com.hwwz.medicalhistorysupervisor.domain.CaseHistory;
+import com.hwwz.medicalhistorysupervisor.domain.Patient;
 import com.hwwz.medicalhistorysupervisor.repository.CaseHistoryRepository;
+import com.hwwz.medicalhistorysupervisor.repository.PatientRepository;
 import com.hwwz.medicalhistorysupervisor.service.CaseHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -18,9 +21,12 @@ public class CaseHistoryServiceImpl implements CaseHistoryService {
 	@Autowired
 	private CaseHistoryRepository caseHistoryRepository;
 
+	@Autowired
+	private PatientRepository patientRepository;
+
 	@Override
 	public List<CaseHistory> getAllCaseHistory() {
-		return caseHistoryRepository.findAllCaseHistory();
+		return caseHistoryRepository.findAll();
 	}
 
 	@Override
@@ -34,7 +40,10 @@ public class CaseHistoryServiceImpl implements CaseHistoryService {
 	}
 
 	@Override
-	public void add(CaseHistory caseHistory) {
+	public void add(CaseHistory caseHistory, Integer patientId) {
+		caseHistory.setDateTime(new Timestamp(System.currentTimeMillis()));
+		Patient patient = patientRepository.getOne(patientId);
+		caseHistory.setPatient(patient);
 		caseHistoryRepository.save(caseHistory);
 	}
 

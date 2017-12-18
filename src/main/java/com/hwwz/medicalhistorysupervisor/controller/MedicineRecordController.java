@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/medicine-record")
-public class MedicineController {
+public class MedicineRecordController {
 	
 	@Autowired
 	private MedicineRecordService medicineRecordService;

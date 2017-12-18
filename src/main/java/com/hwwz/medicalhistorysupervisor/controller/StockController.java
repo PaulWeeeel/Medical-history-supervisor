@@ -3,16 +3,17 @@ package com.hwwz.medicalhistorysupervisor.controller;
 import com.hwwz.medicalhistorysupervisor.domain.Stock;
 import com.hwwz.medicalhistorysupervisor.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 /**
  * @author: Aliweea
  * @date: 2017/12/8/008 13:30
  */
-@RestController
+@Controller
 @RequestMapping(value = "/stock")
 public class StockController {
 
@@ -20,26 +21,27 @@ public class StockController {
     private StockService stockService;
 
     @GetMapping(value = "/list")
-    public List<Stock> list() {
-        return stockService.getAllStocks();
+    public String list(Model model) {
+        model.addAttribute("stockList", stockService.getAllStocks());
+        return "stock";
     }
 
     @PostMapping(value = "/add")
-    public List<Stock> add(@Valid Stock stock) {
+    public String add(@Valid Stock stock) {
         stockService.add(stock);
-        return list();
+        return "redirect:stock";
     }
 
     @PutMapping(value = "/edit")
-    public List<Stock> edit(@Valid Stock stock) {
+    public String edit(@Valid Stock stock) {
         stockService.update(stock);
-        return list();
+        return "redirect:stock";
     }
 
 
     @DeleteMapping(value = "/delete")
-    public List<Stock> delete(@RequestParam("id") Integer id) {
+    public String delete(@RequestParam("id") Integer id) {
         stockService.delete(id);
-        return list();
+        return "redirect:stock";
     }
 }

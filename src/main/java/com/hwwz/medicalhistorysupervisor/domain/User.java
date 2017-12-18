@@ -1,8 +1,10 @@
 package com.hwwz.medicalhistorysupervisor.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
@@ -18,6 +20,8 @@ public class User {
 
 	 private String password;
 
+	 private String phone;
+
 	 @Id
 	 @GeneratedValue
 	 public Integer getId() {
@@ -29,6 +33,7 @@ public class User {
 	 }
 
 	 @Size(max = 20, message = "用户名应该不超过10个中文字符或20个英文字符")
+     @NotNull
 	 public String getUsername() {
 	 	return username;
 	 }
@@ -38,6 +43,7 @@ public class User {
 	 }
 
 	 @Size(max = 20, message = "密码应该不超过10个中文字符或20个英文字符")
+     @NotNull
 	 public String getPassword() {
 	 	return password;
 	 }
@@ -45,4 +51,13 @@ public class User {
 	 public void setPassword(String password) {
 	 	this.password = password;
 	 }
+
+	 @Column(length = 11)
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 }

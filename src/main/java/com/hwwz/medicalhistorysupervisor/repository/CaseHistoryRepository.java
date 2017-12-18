@@ -11,11 +11,14 @@ import java.util.List;
  * @date: 2017/12/4/004 0:24
  */
 public interface CaseHistoryRepository extends JpaRepository<CaseHistory, Integer> {
-	//public List<CaseHistory> findByPatientId(Integer id);
+	List<CaseHistory> findByPatientId(Integer id);
 
-	@Query(value = "select * from case_history left outer join patient", nativeQuery = true)
-	List<CaseHistory> findAllCaseHistory();
+	@Query(value = "select * from case_history order by id desc limit ?1", nativeQuery = true)
+	List<CaseHistory> getLastestCaseHistories(Integer size);
 
-	@Query(value = "select * from case-history ch left outer join patient p where p.id = ?1", nativeQuery = true)
-	List<CaseHistory> findByPatientId(Integer patientId);
+//	@Query(value = "select * from case_history left outer join patient", nativeQuery = true)
+//	List<CaseHistory> findAllCaseHistory();
+//
+//	@Query(value = "select * from case-history ch left outer join patient p where p.id = ?1", nativeQuery = true)
+//	List<CaseHistory> findByPatientId(Integer patientId);
 }

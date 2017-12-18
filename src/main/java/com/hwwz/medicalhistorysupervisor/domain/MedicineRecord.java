@@ -37,7 +37,7 @@ public class MedicineRecord {
         this.id = id;
     }
 
-    @Column(length = 40)
+    @Column(nullable = false, length = 40)
     public String getMedicine() {
         return medicine;
     }
