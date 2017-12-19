@@ -7,6 +7,7 @@ import com.megvii.cloud.http.Response;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
  * @date: 2017/12/8
  * @description: none
  */
+@Service("FaceRecognizeService")
 public class FaceRecognizeServiceImpl implements FaceRecognizeService {
     private final String key = "PfCvIGWrsgybKHUDb_K0h-KJL7Saxphk";
     private final String secret = "YdWwMZZtXoDzVQH3Fh7NTONRPboZhWGf";

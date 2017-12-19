@@ -1,5 +1,7 @@
 package com.hwwz.medicalhistorysupervisor.service;
 
+import org.springframework.stereotype.Component;
+
 import java.io.File;
 
 /**
@@ -7,6 +9,7 @@ import java.io.File;
  * @date: 2017/12/8
  * @description: none
  */
+@Component
 public interface FaceRecognizeService {
     /**
      * get the user of a img file of the face

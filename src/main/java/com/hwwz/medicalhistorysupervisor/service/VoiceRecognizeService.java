@@ -1,5 +1,7 @@
 package com.hwwz.medicalhistorysupervisor.service;
 
+import org.springframework.stereotype.Component;
+
 import java.io.File;
 
 /**
@@ -7,7 +9,7 @@ import java.io.File;
  * @date: 2017/12/7
  * @description: none
  */
-
+@Component
 public interface VoiceRecognizeService {
     /**
      * upload a word file to improve the accuracy

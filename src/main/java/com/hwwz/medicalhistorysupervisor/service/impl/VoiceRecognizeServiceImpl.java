@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * @description: none
  */
 
-@Service
+@Service("VoiceRecognizeService")
 public class VoiceRecognizeServiceImpl implements VoiceRecognizeService{
 
     private static final String appid = "5a238678";
