@@ -30,7 +30,15 @@ public class BaseController {
     @RequestMapping("/index")
     public String index(Model model) {
         baseService.getRecentInfo(model, RECORDSIZE);
+        model.addAttribute("title", "hello");
         return "index";
+    }
+
+    @RequestMapping("/home")
+    public String home(Model model) {
+        baseService.getRecentInfo(model, RECORDSIZE);
+        model.addAttribute("title", "hello");
+        return "home";
     }
 
     @GetMapping("/register")
