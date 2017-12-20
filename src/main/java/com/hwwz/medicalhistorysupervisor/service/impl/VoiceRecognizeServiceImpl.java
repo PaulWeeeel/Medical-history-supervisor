@@ -18,8 +18,9 @@ import java.util.ArrayList;
 @Service("VoiceRecognizeService")
 public class VoiceRecognizeServiceImpl implements VoiceRecognizeService{
 
+    /** API key */
     private static final String appid = "5a238678";
-
+    /** result buffer */
     private StringBuffer mResult = new StringBuffer();
 
     /** max waiting time*/
@@ -32,6 +33,8 @@ public class VoiceRecognizeServiceImpl implements VoiceRecognizeService{
     private File file = null;
     /** user words format */
     private static String user_word = "{\"userword\":[{\"name\":\"MHS words\",\"words\":[ \"MHS\"";
+    /** thread lock for user words upload */
+    private boolean lexiconListenerLock = false;
 
 
     static {
@@ -73,6 +76,7 @@ public class VoiceRecognizeServiceImpl implements VoiceRecognizeService{
             SpeechRecognizer.createRecognizer();
         return RecognizePcmfileByte();
     }
+
     /**
      * original voice file needed
      * @throws InterruptedException
@@ -228,9 +232,42 @@ public class VoiceRecognizeServiceImpl implements VoiceRecognizeService{
 
         UserWords userwords = new UserWords(user_word + " ]}]}");
         recognizer.setParameter( SpeechConstant.DATA_TYPE, "userword" );
+
+        lexiconListenerLock = true;
+
         recognizer.updateLexicon("userwords",
                 userwords.toString(),
                 lexiconListener);
+
+        try {
+            while (lexiconListenerLock) {
+                if (maxWaitTime < 0) {
+                    mResult.setLength(0);
+                    mResult.append("Upload out of time!");
+                    break;
+                }
+                Thread.sleep(perWaitTime);
+                maxWaitTime -= perWaitTime;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        System.out.println("\nUser words now:\n" + user_word);
+        return true;
+    }
+
+    @Override
+    public boolean resetUserWord(ArrayList<String> userWords){
+        user_word = "{\"userword\":[{\"name\":\"MHS words\",\"words\":[ \"MHS\"";
+
+        for (String userWord: userWords) {
+            lexiconListenerLock = true;
+
+            doUpload(userWord);
+
+        }
+
         return true;
     }
 
@@ -245,6 +282,7 @@ public class VoiceRecognizeServiceImpl implements VoiceRecognizeService{
             else
                 System.out.println("*************" + error.getErrorCode()
                         + "*************");
+            lexiconListenerLock = false;
         }
 
     };

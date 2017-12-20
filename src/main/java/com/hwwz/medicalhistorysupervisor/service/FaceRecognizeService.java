@@ -3,6 +3,7 @@ package com.hwwz.medicalhistorysupervisor.service;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
+import java.util.ArrayList;
 
 /**
  * @author: HuShili
@@ -17,4 +18,10 @@ public interface FaceRecognizeService {
      * @return string of the face token of the user (if new, new a token)
      */
     public String doRecognize(File file);
+    /**
+     * reset the face set using existing face tokens
+     * @param faceTokens
+     * @return true if success, otherwise false
+     */
+    public boolean resetFaceSet(ArrayList<String> faceTokens);
 }

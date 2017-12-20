@@ -24,12 +24,18 @@ import java.util.ArrayList;
  */
 @Service("FaceRecognizeService")
 public class FaceRecognizeServiceImpl implements FaceRecognizeService {
+    /* API key */
     private final String key = "PfCvIGWrsgybKHUDb_K0h-KJL7Saxphk";
+    /* API secret */
     private final String secret = "YdWwMZZtXoDzVQH3Fh7NTONRPboZhWGf";
 
+    /* local face set */
     private static ArrayList<String> faceToken = new ArrayList<String>();
+    /* string used in request */
     private static String faceSetToken;
+    /* API operation on face img */
     private CommonOperate commonOperate;
+    /* API operation on face set */
     private FaceSetOperate FaceSet;
 
     public FaceRecognizeServiceImpl(){
@@ -56,6 +62,47 @@ public class FaceRecognizeServiceImpl implements FaceRecognizeService {
         }
     }
 
+    @Override
+    public boolean resetFaceSet(ArrayList<String> faceTokens){
+        clearFaceSet();
+        for (String token: faceTokens) {
+            faceToken.add(token);
+            System.out.println(addFace(token));
+        }
+        return true;
+    }
+
+    /**
+     * Delete the face set
+     * @return true if success
+     */
+    private boolean clearFaceSet(){
+        boolean success = true;
+        try {
+            Response response = FaceSet.deleteFaceSetByToken(faceSetToken, 0);
+            String result = new String(response.getContent());
+
+            if(result.contains("CONCURRENCY_LIMIT_EXCEEDED")) {
+                success = false;
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if(!success){
+            clearFaceSet();
+        }
+
+        faceToken = new ArrayList<String>();
+        System.out.println("FaceSet removed!");
+        createFaceSet();
+        return true;
+    }
+
+    /**
+     * Create a new face set with no content
+     * @return
+     */
     private boolean createFaceSet(){
         boolean success = true;
         try {
@@ -92,6 +139,11 @@ public class FaceRecognizeServiceImpl implements FaceRecognizeService {
         return true;
     }
 
+    /**
+     * Get the token of a img file
+     * @param file
+     * @return token of the face
+     */
     private String getFace(File file){
         String token = new String();
         boolean  success = true;
@@ -122,6 +174,11 @@ public class FaceRecognizeServiceImpl implements FaceRecognizeService {
         return token;
     }
 
+    /**
+     * Search the face from the input file among the existing face set
+     * @param file
+     * @return face token, if new, return a new token
+     */
     private String searchFace(File file){
         String result = new String();
 
@@ -180,6 +237,11 @@ public class FaceRecognizeServiceImpl implements FaceRecognizeService {
         return best_result;
     }
 
+    /**
+     * Add a face to the face set
+     * @param token
+     * @return true if success
+     */
     private boolean addFace(String token){
         String result = new String();
         boolean success = true;
@@ -204,6 +266,11 @@ public class FaceRecognizeServiceImpl implements FaceRecognizeService {
         return true;
     }
 
+    /**
+     * Create a token string from the token array
+     * @param faceTokens
+     * @return token string
+     */
     private String createFaceTokens(ArrayList<String> faceTokens){
         if(faceTokens == null || faceTokens.size() == 0){
             return "";
@@ -220,6 +287,11 @@ public class FaceRecognizeServiceImpl implements FaceRecognizeService {
         return face.toString();
     }
 
+    /**
+     * Get the byte file form a img file
+     * @param file
+     * @return byte array
+     */
     private byte[] getBitSet(File file) throws IOException{
         BufferedImage bi= ImageIO.read(file);//read image by ImageIO
         int h=bi.getHeight();//get height
@@ -251,6 +323,11 @@ public class FaceRecognizeServiceImpl implements FaceRecognizeService {
         return out.toByteArray();
     }
 
+    /**
+     * Get face token from the json in the response
+     * @param response
+     * @return face token
+     */
     private String getFaceToken(Response response) throws JSONException {
         if(response.getStatus() != 200){
             return new String(response.getContent());

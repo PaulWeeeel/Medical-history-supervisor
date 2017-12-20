@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.File;
+import java.util.ArrayList;
 
 /**
  * @author: HuShili
@@ -24,6 +25,13 @@ public class FaceRecognizeServiceImplTest {
     @Test
     public void APITest() throws Exception {
         File file = new File("src/test/file/test.jpg");
-        System.out.println(faceRecognizeServiceImpl.doRecognize(file));
+        String token = new String();
+        ArrayList<String> tokens = new ArrayList<String>();
+
+        token = faceRecognizeServiceImpl.doRecognize(file);
+        System.out.println(token);
+
+        tokens.add(token);
+        System.out.println(faceRecognizeServiceImpl.resetFaceSet(tokens));
     }
 }
