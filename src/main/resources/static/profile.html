@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="ThemeBucket">
+  <link rel="shortcut icon" href="#" type="image/png">
+
+  <title>人物简介</title>
+
+  <link href="css/style.css" rel="stylesheet">
+  <link href="css/style-responsive.css" rel="stylesheet">
+
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+  <script src="js/html5shiv.js"></script>
+  <script src="js/respond.min.js"></script>
+  <![endif]-->
+</head>
+
+<body class="sticky-header">
+
+<section>
+    <!-- left side start-->
+    <div class="left-side sticky-left-side">
+
+        <!--logo and iconic logo start-->
+        <div class="logo">
+            <a href="index.html"><img src="images/logo.png" alt=""></a>
+        </div>
+
+        <div class="logo-icon text-center">
+            <a href="index.html"><img src="images/logo_icon.png" alt=""></a>
+        </div>
+        <!--logo and iconic logo end-->
+
+
+        <div class="left-side-inner">
+
+            <!--sidebar nav start-->
+            <ul class="nav nav-pills nav-stacked custom-nav">
+                <li><a href="home.html"><i class="fa fa-home"></i> <span>首页</span></a></li>
+                <li class="menu-list"><a href=""><i class="fa fa-laptop"></i> <span>病人管理</span></a>
+                    <ul class="sub-menu-list">
+                        <li><a href="patient1.html"> 今日病人</a></li>
+                        <li><a href="patient2.html"> 全部病人</a></li>
+                    </ul>
+                </li>
+                <li><a href="new_patient.html"><i class="fa fa-bullhorn"></i> <span>新建病人</span></a></li>
+                <li><a href="disease.html"><i class="fa fa-bar-chart-o"></i> <span>疾病管理</span></a></li>
+                <li><a href="medicine.html"><i class="fa fa-th-list"></i> <span>药品库存</span></a></li>
+                <li><a href="stock.html"><i class="fa fa-book"></i> <span>收支记录</span></a></li>
+            </ul>
+            <!--sidebar nav end-->
+
+        </div>
+    </div>
+    <!-- left side end-->
+    
+    <!-- main content start-->
+    <div class="main-content" >
+
+        <!-- header section start-->
+        <div class="header-section">
+
+        <!--toggle button start-->
+        <a class="toggle-btn"><i class="fa fa-bars"></i></a>
+        <!--toggle button end-->
+
+        <!--search start-->
+        <form class="searchform" action="home.html" method="post">
+            <input type="text" class="form-control" name="keyword" placeholder="搜索" />
+        </form>
+        <!--search end-->
+
+        <!--notification menu start -->
+        <div class="menu-right">
+            <ul class="notification-menu">
+                <li>
+                    <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        <img src="images/photos/user-avatar.png" alt="" />
+                        王主任
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
+                        <li><a href="profile.html"><i class="fa fa-user"></i>  人物简介</a></li>
+                        <li><a href="#"><i class="fa fa-cog"></i>  个人设置</a></li>
+                        <li><a href="login.html"><i class="fa fa-sign-out"></i> 注销</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+        <!--notification menu end -->
+
+        </div>
+        <!-- header section end-->
+
+        <!-- page heading start-->
+        <div class="page-heading">
+            <h3>
+                个人简介
+            </h3>
+        </div>
+        <!-- page heading end-->
+
+        <!--body wrapper start-->
+        <div class="wrapper" style="position: relative;left: 25%">
+            <div class="col-md-6">
+                <div class="col-md-12">
+                            <div class="panel">
+                                <div class="panel-body">
+                                    <div class="profile-pic text-center">
+                                        <img alt="" src="images/photos/user-avatar.png">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                <div class="col-md-12">
+                            <div class="panel">
+                                <div class="panel-body">
+                                    <ul class="p-info">
+                                        <li>
+                                            <div class="title">姓名</div>
+                                            <div class="desk">王主任</div>
+                                        </li>
+                                        <li>
+                                            <div class="title">性别</div>
+                                            <div class="desk">男</div>
+                                        </li>
+                                        <li>
+                                            <div class="title">出生日期</div>
+                                            <div class="desk">1950年10月15日</div>
+                                        </li>
+                                        <li>
+                                            <div class="title">职位</div>
+                                            <div class="desk">皮肤科主任医师、教授、博士生导师</div>
+                                        </li>
+                                        <li>
+                                            <div class="title">个人简介</div>
+                                            <div class="desk">
+                                                1996年大学毕业后一直在诊所工作，同年任皮肤科主治医师，1988年考取香港郑裕彤奖学金，1993年任硕导，1996年晋升为教授、主任医师，2000年任博士生导师。
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="title">个人事迹</div>
+                                            <div class="desk">
+                                                王主任从事皮肤病学医疗，教学，科研和预防工作28年，积累了丰富的临床经验和高超的医疗技术，是国内外著名的皮肤病学专家。
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+            </div>
+        </div>
+    </div>
+        <!--body wrapper end-->
+
+
+        <!--footer section start-->
+        <footer class="sticky-footer">
+            2017 &copy; Medical History Supervisor
+        </footer>
+        <!--footer section end-->
+    <!-- main content end-->
+</section>
+
+<!-- Placed js at the end of the document so the pages load faster -->
+<script src="js/jquery-1.10.2.min.js"></script>
+<script src="js/jquery-ui-1.9.2.custom.min.js"></script>
+<script src="js/jquery-migrate-1.2.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/modernizr.min.js"></script>
+<script src="js/jquery.nicescroll.js"></script>
+
+
+<!--common scripts for all pages-->
+<script src="js/scripts.js"></script>
+
+</body>
+</html>
