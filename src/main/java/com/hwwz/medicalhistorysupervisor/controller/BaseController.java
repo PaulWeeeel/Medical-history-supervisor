@@ -37,7 +37,6 @@ public class BaseController {
     @RequestMapping("/home")
     public String home(Model model) {
         baseService.getRecentInfo(model, RECORDSIZE);
-        model.addAttribute("title", "hello");
         return "home";
     }
 

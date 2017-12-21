@@ -15,17 +15,19 @@ public class CaseHistory {
 
 	private Integer id;
 
-	private String disease;
-
-    private String imageUrl;
-
 	private Timestamp onset;
+
+    private Double fee;
 
 	private Timestamp dateTime;
 
 	private Patient patient;
 
-	private List<MedicineRecord> medicineRecordList;
+	private List<Disease> diseaseList;
+
+	private List<SymptomFigure> imageUrlList;
+
+    private List<MedicineRecord> medicineRecordList;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,23 +38,6 @@ public class CaseHistory {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
-	@Column(nullable = false, length = 100)
-	public String getDisease() {
-		return disease;
-	}
-
-	public void setDisease(String disease) {
-		this.disease = disease;
-	}
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
 
 	public Timestamp getOnset() {
 		return onset;
@@ -66,7 +51,15 @@ public class CaseHistory {
 		return dateTime;
 	}
 
-	public void setDateTime(Timestamp dateTime) {
+    public Double getFee() {
+        return fee;
+    }
+
+    public void setFee(Double fee) {
+        this.fee = fee;
+    }
+
+    public void setDateTime(Timestamp dateTime) {
 		this.dateTime = dateTime;
 	}
 
@@ -80,7 +73,28 @@ public class CaseHistory {
 		this.patient = patient;
 	}
 
-	@OneToMany(mappedBy = "caseHistory")
+	@ManyToMany
+    @JoinTable(joinColumns = { @JoinColumn(name = "caseHistory_id") }, inverseJoinColumns = {
+            @JoinColumn(name = "disease_id") })
+    public List<Disease> getDiseaseList() {
+        return diseaseList;
+    }
+
+    @JsonBackReference
+    public void setDiseaseList(List<Disease> diseaseList) {
+        this.diseaseList = diseaseList;
+    }
+
+    @OneToMany(mappedBy = "caseHistory")
+    public List<SymptomFigure> getImageUrlList() {
+        return imageUrlList;
+    }
+
+    public void setImageUrlList(List<SymptomFigure> imageUrlList) {
+        this.imageUrlList = imageUrlList;
+    }
+
+    @OneToMany(mappedBy = "caseHistory")
 	public List<MedicineRecord> getMedicineRecordList() {
 		return medicineRecordList;
 	}

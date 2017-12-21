@@ -2,6 +2,7 @@ package com.hwwz.medicalhistorysupervisor.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
@@ -18,6 +19,8 @@ public class Disease {
 	private Integer level;
 
 	private Integer risk_degree;
+
+	private CaseHistory caseHistory;
 
 	@Id
 	@Size(max = 40, message = "疾病名称不能超过20个中文字符")
@@ -48,4 +51,13 @@ public class Disease {
 	public void setRisk_degree(Integer risk_degree) {
 		this.risk_degree = risk_degree;
 	}
+
+	@ManyToOne
+    public CaseHistory getCaseHistory() {
+        return caseHistory;
+    }
+
+    public void setCaseHistory(CaseHistory caseHistory) {
+        this.caseHistory = caseHistory;
+    }
 }
