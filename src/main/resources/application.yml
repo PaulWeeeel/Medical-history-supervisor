@@ -1,12 +1,16 @@
 server:
     port: 8080
+    session:
+      timeout: 10
+      cookie:
+        comment: test cookie comment
 
 spring:
     datasource:
         driver-class-name: com.mysql.jdbc.Driver
         url: jdbc:mysql://127.0.0.1:3306/medical_history??useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=true
-        username: Aliweea
-        password: Aa1534267890
+        username: paul
+        password: wy806380634
     jpa:
         hibernate:
             ddl-auto: update
@@ -16,3 +20,11 @@ spring:
       cache: false
       prefix: classpath:/templates/
       suffix: .html
+    http:
+      encoding:
+        charset: utf-8
+
+Token:
+#  maxAge: 15000
+#  SECRET: qwe123asd456zxc789t
+#  signatureAlgorithm: SignatureAlgorithm.HS256

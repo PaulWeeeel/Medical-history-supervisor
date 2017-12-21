@@ -1,8 +1,10 @@
 package com.hwwz.medicalhistorysupervisor.controller;
 
+import com.hwwz.medicalhistorysupervisor.configuration.Authorization;
 import com.hwwz.medicalhistorysupervisor.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,6 +21,7 @@ public class BaseController {
     private BaseService baseService;
 
     @RequestMapping("/index")
+    @Authorization
     public String index() {
         return "index";
     }
@@ -27,6 +30,7 @@ public class BaseController {
     public String register(){
         return "base/register";
     }
+
 
     @PostMapping("/register")
     public String register(@RequestParam("username") String username,
@@ -46,8 +50,8 @@ public class BaseController {
 
     @PostMapping("/login")
     public String login(@RequestParam("username") String username,
-                        @RequestParam("password") String password){
-        if (baseService.login(username, password)){
+                        @RequestParam("password") String password,Model model){
+        if (baseService.login(username, password,model)){
             return "index";
         }else {
             return "base/login";

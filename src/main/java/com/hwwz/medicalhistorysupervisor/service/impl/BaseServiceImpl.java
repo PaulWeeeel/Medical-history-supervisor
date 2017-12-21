@@ -3,8 +3,14 @@ package com.hwwz.medicalhistorysupervisor.service.impl;
 import com.hwwz.medicalhistorysupervisor.domain.User;
 import com.hwwz.medicalhistorysupervisor.repository.UserRepository;
 import com.hwwz.medicalhistorysupervisor.service.BaseService;
+import com.hwwz.medicalhistorysupervisor.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+
+import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author: Aliweea
@@ -33,9 +39,13 @@ public class BaseServiceImpl implements BaseService {
     }
 
     @Override
-    public Boolean login(String username, String password) {
+    public Boolean login(String username, String password,Model model) {
         User user = userRepository.findByUsernameAndPassword(username, password);
         if (user != null) {
+            Map<String, Object> m = new HashMap<String, Object>();
+            m.put("userid", user.getId());
+            String token = JwtUtil.createJavaWebToken(m);
+            model.addAttribute("token",token);
             return true;
         }
         return false;
