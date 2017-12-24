@@ -16,3 +16,10 @@ spring:
       cache: false
       prefix: classpath:/templates/
       suffix: .html
+
+JwtSetting:
+  max-age: 18000000 #5小时
+  s-e-c-r-e-t: ou1218hw8houht11oub
+
+
+

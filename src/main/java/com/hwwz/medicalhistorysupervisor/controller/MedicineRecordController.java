@@ -1,5 +1,6 @@
 package com.hwwz.medicalhistorysupervisor.controller;
 
+import com.hwwz.medicalhistorysupervisor.configuration.Authorization;
 import com.hwwz.medicalhistorysupervisor.domain.MedicineRecord;
 import com.hwwz.medicalhistorysupervisor.service.MedicineRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/medicine-record")
+@Authorization//该类方法都需登录
 public class MedicineRecordController {
 	
 	@Autowired

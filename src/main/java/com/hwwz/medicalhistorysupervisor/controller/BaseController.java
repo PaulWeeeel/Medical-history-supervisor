@@ -2,6 +2,7 @@ package com.hwwz.medicalhistorysupervisor.controller;
 
 import com.hwwz.medicalhistorysupervisor.configuration.Authorization;
 import com.hwwz.medicalhistorysupervisor.service.BaseService;
+import com.hwwz.medicalhistorysupervisor.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +28,7 @@ public class BaseController {
 
     @Autowired
     private BaseService baseService;
+
 
     @RequestMapping("/index")
     @Authorization//有此标记的方法检查登录状态

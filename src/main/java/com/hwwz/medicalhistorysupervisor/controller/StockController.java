@@ -1,5 +1,6 @@
 package com.hwwz.medicalhistorysupervisor.controller;
 
+import com.hwwz.medicalhistorysupervisor.configuration.Authorization;
 import com.hwwz.medicalhistorysupervisor.domain.Stock;
 import com.hwwz.medicalhistorysupervisor.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import javax.validation.Valid;
  */
 @Controller
 @RequestMapping(value = "/stock")
+@Authorization//该类方法都需登录
 public class StockController {
 
     @Autowired

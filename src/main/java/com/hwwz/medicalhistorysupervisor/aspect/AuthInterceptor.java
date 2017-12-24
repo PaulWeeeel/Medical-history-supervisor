@@ -2,6 +2,7 @@ package com.hwwz.medicalhistorysupervisor.aspect;
 
 import com.hwwz.medicalhistorysupervisor.configuration.Authorization;
 import com.hwwz.medicalhistorysupervisor.utils.JwtUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -21,6 +22,8 @@ import java.util.Map;
 @Component
 public class AuthInterceptor extends HandlerInterceptorAdapter {
 
+    @Autowired
+    private JwtUtil jwtUtil;
     @Override
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response, Object handler) throws Exception {
@@ -40,7 +43,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
                 jwt=cookie.getValue();
             }
         }
-        Map<String,Object> claims= JwtUtil.parserJavaWebToken(jwt);
+        Map<String,Object> claims=jwtUtil.parserJavaWebToken(jwt);
         if(claims!=null)
         {
             //获取用户id并以此身份进行操作

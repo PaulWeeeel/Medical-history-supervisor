@@ -31,6 +31,8 @@ public class BaseServiceImpl implements BaseService {
 
     @Autowired
     private PaymentRecordRepository paymentRecordRepository;
+    @Autowired
+    private JwtUtil jwtUtil;
 
     @Override
     public void getRecentInfo(Model model, Integer size) {
@@ -62,7 +64,7 @@ public class BaseServiceImpl implements BaseService {
         if (user != null) {
             HashMap<String, Object> m = new HashMap<String, Object>();
                         m.put("userid", user.getId());
-                        String token = JwtUtil.createJavaWebToken(m);
+                        String token =jwtUtil.createJavaWebToken(m);
             return token;
         }
         return "";
