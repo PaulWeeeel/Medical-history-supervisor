@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>voice-upload</title>
+    <script src="js/voice-recorder.js"></script>
+</head>
+<body>
+    <span style="white-space:pre">        </span><audio controls autoplay></audio>
+    <input type="button" value="Start" onclick="startRecording()"/>
+    <input type="button" value="Upload" onclick="obtainRecord()"/>
+    <input type="button" value="Stop" onclick="stopRecord()"/>
+    <input type="button" value="Replay" onclick="playRecord()"/>
+</body>
+<script>
+
+    /* Audio */
+    var recorder;
+    var audio = document.querySelector('audio');
+
+    function startRecording() {
+        HZRecorder.get(function (rec) {
+            recorder = rec;
+            recorder.start();
+        });
+    }
+
+    function obtainRecord(){
+        var record = recorder.getBlob();
+        var url = "";
+        recorder.upload(url,  function (result) {
+            console.log(result);
+        });
+        debugger;
+    };
+
+    function stopRecord(){
+        recorder.stop();
+    };
+
+    function playRecord(){
+        recorder.play(audio);
+    };
+</script>
+</html>

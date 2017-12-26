@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>picture-upload</title>
+    <script src="js/image-recorder.js"></script>
+</head>
+<body>
+    <video src="" id="video"></video>
+    <button id="snap">Picture</button>
+    <button id="upload">Upload</button>
+    <canvas id="canvas" width="320" height="180"></canvas>
+</body>
+
+<script>
+    /* video */
+    // Prefer camera resolution nearest to 1280x720.
+    var constraints = { audio: false, video: { width: 320, height: 180 } };
+
+    navigator.mediaDevices.getUserMedia(constraints)
+        .then(function(mediaStream) {
+            var video = document.querySelector('video');
+            video.srcObject = mediaStream;
+            video.onloadedmetadata = function(e) {
+                video.play();
+            };
+        })
+        .catch(function(err) { console.log(err.name + ": " + err.message); }); // always check for errors at the end.
+
+    document.getElementById("snap")
+        .addEventListener("click", function() {
+            var canvans = document.getElementById("canvas"),//get canvas interface
+                context = canvas.getContext("2d");
+            context.drawImage(video, 0, 0, 320, 180);//draw the picture here
+
+            //var imgData = canvans.toDataURL("image/jpg");//get in jpg format
+
+            //upload imgData here
+            //var url = "";
+            //uploadImg(url, imgData, function (result) {
+            //    console.log(result);
+            //})
+        });
+    document.getElementById("upload")
+        .addEventListener("click", function () {
+            var canvans = document.getElementById("canvas"),//get canvas interface
+                context = canvas.getContext("2d");
+
+            var imgData = canvans.toDataURL("image/jpg");//get in jpg format
+
+            //upload imgData here
+            var url = "";//add backend path here
+            uploadImg(url, imgData, function (result) {
+                console.log(result);
+            });
+        });
+</script>
+</html>
