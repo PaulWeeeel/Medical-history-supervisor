@@ -22,10 +22,10 @@ public class StockController {
     @Autowired
     private StockService stockService;
 
-    @GetMapping(value = "/list")
+    @GetMapping(value = "/stock")
     public String list(Model model) {
         model.addAttribute("stockList", stockService.getAllStocks());
-        return "stock";
+        return "stock/stock";
     }
 
     @PostMapping(value = "/add")

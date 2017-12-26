@@ -47,4 +47,7 @@ public class PatientServiceImpl implements PatientService {
 	public void deletePatient(Integer id) {
 		patientRepository.delete(id);
 	}
+
+
+	public List<Patient> getTodayPatient(){return patientRepository.getTodayPatient();}
 }

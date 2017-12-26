@@ -4,6 +4,8 @@ import com.hwwz.medicalhistorysupervisor.configuration.Authorization;
 import com.hwwz.medicalhistorysupervisor.domain.MedicineRecord;
 import com.hwwz.medicalhistorysupervisor.service.MedicineRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -14,8 +16,8 @@ import java.util.List;
  * @date: 2017/12/8/008 11:56
  */
 
-@RestController
-@RequestMapping(value = "/medicine-record")
+@Controller
+@RequestMapping(value = "/medicine")
 @Authorization//该类方法都需登录
 public class MedicineRecordController {
 	
@@ -55,27 +57,28 @@ public class MedicineRecordController {
 		return "redirect:/medicine-record/list";
 	}*/
 
-	@GetMapping(value = "/list")
-	public List<MedicineRecord> list() {
-		return medicineRecordService.getAllMedicineRecord();
+	@GetMapping(value = "/medicine")
+	public String list(Model model) {
+		model.addAttribute("medicineList",medicineRecordService.getAllMedicineRecord());
+		return "medicine/medicine";
 	}
 
 	@PostMapping(value = "/add")
-	public List<MedicineRecord> add(@Valid MedicineRecord medicineRecord) {
+	public String add(@Valid MedicineRecord medicineRecord) {
 		medicineRecordService.add(medicineRecord);
-		return list();
+		return "medicine/medicine";
 	}
 
 	@PutMapping(value = "/edit")
-	public List<MedicineRecord> edit(@Valid MedicineRecord medicineRecord) {
+	public String edit(@Valid MedicineRecord medicineRecord) {
 		medicineRecordService.update(medicineRecord);
-		return list();
+		return "medicine/medicine";
 	}
 
 
 	@DeleteMapping(value = "/delete")
-	public List<MedicineRecord> delete(@RequestParam("id") Integer id) {
+	public String delete(@RequestParam("id") Integer id) {
 		medicineRecordService.delete(id);
-		return list();
+		return "medicine/medicine";
 	}
 }

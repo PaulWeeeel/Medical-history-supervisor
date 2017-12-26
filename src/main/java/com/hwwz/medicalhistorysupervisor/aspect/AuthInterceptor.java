@@ -31,7 +31,8 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
         HandlerMethod handlerMethod=(HandlerMethod)handler;
         Method method=handlerMethod.getMethod();//获取被拦截的方法
         Authorization auth=method.getAnnotation(Authorization.class);
-        if (auth==null) {
+        Authorization authpkg=method.getDeclaringClass().getAnnotation(Authorization.class);
+        if (auth==null&&authpkg==null) {
             return true;
         }
         String jwt = "";

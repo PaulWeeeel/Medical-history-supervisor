@@ -34,10 +34,10 @@ public class PatientController {
 		return "redirect:/patient/list";
 	}
 
-	@RequestMapping(value = "/list")
+	@RequestMapping(value = "/listAll")
 	public String list(Model model) throws Exception {
 		model.addAttribute("patientList", patientService.getAllPatients());
-		return "patient/list";
+		return "patient/listAll";
 	}
 
 //	@GetMapping(value = "/toAdd")
@@ -57,6 +57,11 @@ public class PatientController {
 		}
 		return "redirect:/patient/list";
 	}
+	@GetMapping(value="/add")
+	public String add()
+	{
+		return "patient/add";
+	}
 
 	@GetMapping(value = "/home/{id}")
 	public String getPatientById(Model model, @PathVariable("id") Integer id) throws Exception {
@@ -70,7 +75,15 @@ public class PatientController {
 		}
 		return "patient/home";
 	}
-
+	@GetMapping(value = "/today-patient")
+	public String getTodayPatient(Model model) throws Exception {
+		try {
+			model.addAttribute("patientList", patientService.getTodayPatient());
+		} catch (Exception e) {
+			throw e;
+		}
+		return "patient/today-patient";
+	}
 
 //	@GetMapping(value = "/list", params = {"name"})
 //	public String getPatientsByName(Model model, @RequestParam("name") String name) throws Exception {
