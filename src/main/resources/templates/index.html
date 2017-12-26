@@ -1,5 +1,5 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
@@ -14,13 +14,20 @@
 
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
-  <script src="js/html5shiv.js"></script>
-  <script src="js/respond.min.js"></script>
-  <![endif]-->
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript">
+            function setToken()
+            {
+                document.cookie="token="+document.getElementById("token").innerHTML;
+            }
+    </script>
 </head>
 
-<body class="sticky-header">
-
+<body class="sticky-header" onload="setToken()">
+<p id="token" th:text="${token}">token</p>
 <section>
     <!-- left side start-->
     <div class="left-side sticky-left-side">
@@ -41,16 +48,17 @@
 
             <!--sidebar nav start-->
             <ul class="nav nav-pills nav-stacked custom-nav">
-                <li class="active"><a href="index.html"><i class="fa fa-home"></i> <span>首页</span></a></li>
+                <li class="active"><a href="home.html"><i class="fa fa-home"></i> <span>首页</span></a></li>
                 <li class="menu-list"><a href=""><i class="fa fa-laptop"></i> <span>病人管理</span></a>
                     <ul class="sub-menu-list">
-                        <li><a href="patient1.html"> 今日病人</a></li>
-                        <li><a href="patient2.html"> 全部病人</a></li>
+                        <li><a href="patient/today-patient.html"> 今日病人</a></li>
+                        <li><a href="patient/listAll.html"> 全部病人</a></li>
                     </ul>
                 </li>
-                <li><a href="new.html"><i class="fa fa-bullhorn"></i> <span>新建病人</span></a></li>
-                <li><a href="#"><i class="fa fa-book"></i> <span>就诊记录</span></a></li>
-                <li><a href="medicine.html"><i class="fa fa-th-list"></i> <span>库存收支</span></a></li>
+                <li><a href="patient/add.html"><i class="fa fa-bullhorn"></i> <span>新建病人</span></a></li>
+                <li><a href="disease/disease.html"><i class="fa fa-bar-chart-o"></i> <span>疾病管理</span></a></li>
+                <li><a href="medicine/medicine.html"><i class="fa fa-th-list"></i> <span>药品库存</span></a></li>
+                <li><a href="stock/stock.html"><i class="fa fa-book"></i> <span>收支记录</span></a></li>
             </ul>
             <!--sidebar nav end-->
 
@@ -64,35 +72,35 @@
         <!-- header section start-->
         <div class="header-section">
 
-        <!--toggle button start-->
-        <a class="toggle-btn"><i class="fa fa-bars"></i></a>
-        <!--toggle button end-->
+            <!--toggle button start-->
+            <a class="toggle-btn"><i class="fa fa-bars"></i></a>
+            <!--toggle button end-->
 
-        <!--search start-->
-        <form class="searchform" action="index.html" method="post">
-            <input type="text" class="form-control" name="keyword" placeholder="搜索" />
-        </form>
-        <!--search end-->
+            <!--search start-->
+            <form class="searchform" action="home.html" method="post">
+                <input type="text" class="form-control" name="keyword" placeholder="搜索" />
+            </form>
+            <!--search end-->
 
-        <!--notification menu start -->
-        <div class="menu-right">
-            <ul class="notification-menu">
-                <li>
-                    <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                        <img src="images/photos/user-avatar.png" alt="" />
-                        王主任
-                        <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
-                        <li><a href="profile.html"><i class="fa fa-user"></i>  人物简介</a></li>
-                        <li><a href="#"><i class="fa fa-cog"></i>  个人设置</a></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out"></i> 注销</a></li>
-                    </ul>
-                </li>
+            <!--notification menu start -->
+            <div class="menu-right">
+                <ul class="notification-menu">
+                    <li>
+                        <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            <img src="images/photos/user-avatar.png" alt="" />
+                            王主任
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
+                            <li><a href="profile.html"><i class="fa fa-user"></i>  人物简介</a></li>
+                            <li><a href="#"><i class="fa fa-cog"></i>  个人设置</a></li>
+                            <li><a href="login.html"><i class="fa fa-sign-out"></i> 注销</a></li>
+                        </ul>
+                    </li>
 
-            </ul>
-        </div>
-        <!--notification menu end -->
+                </ul>
+            </div>
+            <!--notification menu end -->
 
         </div>
         <!-- header section end-->
@@ -100,263 +108,84 @@
         <!-- page heading start-->
         <div class="page-heading">
             <h3>
-                首页
+                MHS诊所
             </h3>
         </div>
         <!-- page heading end-->
-
         <!--body wrapper start-->
         <div class="wrapper">
+
             <div class="row">
-                <div class="col-sm-6">
-                    <section class="panel">
-                        <header class="panel-heading">
-                            最近病人
-                            <span class="tools pull-right">
-                                <a href="javascript:;" class="fa fa-chevron-down"></a>
-                                <a href="javascript:;" class="fa fa-times"></a>
-                             </span>
-                        </header>
-                        <div class="panel-body">
-                            <table class="table table-striped">
-                                <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>时间</th>
-                                    <th>姓名</th>
-                                    <th>手机号</th>
-                                    <th>金额</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>11</td>
-                                    <td>11</td>
-                                    <td>11</td>
-                                    <td>11</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>22</td>
-                                    <td>22</td>
-                                    <td>22</td>
-                                    <td>22</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>33</td>
-                                    <td>33</td>
-                                    <td>33</td>
-                                    <td>33</td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>44</td>
-                                    <td>44</td>
-                                    <td>44</td>
-                                    <td>44</td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td>55</td>
-                                    <td>55</td>
-                                    <td>55</td>
-                                    <td>55</td>
-                                </tr>
-                                </tbody>
-                            </table>
+                <div class="col-sm-12">
+
+                    <!--price start-->
+                    <div class="col-lg-3 col-sm-3">
+                        <div class="pricing-table most-popular">
+                            <div class="pricing-head">
+                                <h1> 今日就诊数 </h1>
+
+                            </div>
+                            <div class="pricing-quote" th:text="${todayCaseHistoryNumber}">
+                                38<span class="note">人次</span>
+                                <p>今日</p>
+                            </div>
+                            <ul class="list-unstyled">
+                            </ul>
                         </div>
-                    </section>
-                </div>
-                <div class="col-sm-6">
-                    <section class="panel">
-                        <header class="panel-heading">
-                            就诊记录
-                            <span class="tools pull-right">
-                                <a href="javascript:;" class="fa fa-chevron-down"></a>
-                                <a href="javascript:;" class="fa fa-times"></a>
-                             </span>
-                        </header>
-                        <div class="panel-body">
-                            <table class="table table-striped">
-                                <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>时间</th>
-                                    <th>姓名</th>
-                                    <th>手机号</th>
-                                    <th>金额</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>11</td>
-                                    <td>11</td>
-                                    <td>11</td>
-                                    <td>11</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>22</td>
-                                    <td>22</td>
-                                    <td>22</td>
-                                    <td>22</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>33</td>
-                                    <td>33</td>
-                                    <td>33</td>
-                                    <td>33</td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>44</td>
-                                    <td>44</td>
-                                    <td>44</td>
-                                    <td>44</td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td>55</td>
-                                    <td>55</td>
-                                    <td>55</td>
-                                    <td>55</td>
-                                </tr>
-                                </tbody>
-                            </table>
+                    </div>
+                    <div class="col-lg-3 col-sm-3">
+                        <div class="pricing-table">
+                            <div class="pricing-head">
+                                <h1> 今日收入 </h1>
+
+                            </div>
+                            <div class="pricing-quote" th:text="${todayPaymentRecordNumber}">
+                                1932<span class="note">￥</span>
+                                <p>今日</p>
+                            </div>
+                            <ul class="list-unstyled">
+                            </ul>
                         </div>
-                    </section>
+                    </div>
+                    <div class="col-lg-3 col-sm-3">
+                        <div class="pricing-table most-popular">
+                            <div class="pricing-head">
+                                <h1> 总就诊数 </h1>
+
+                            </div>
+                            <div class="pricing-quote" th:text="${allCaseHistoryNumber}">
+                                496<span class="note">人次</span>
+                                <p>总计</p>
+                            </div>
+                            <ul class="list-unstyled">
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-3">
+                        <div class="pricing-table">
+                            <div class="pricing-head">
+                                <h1> 总收入 </h1>
+
+                            </div>
+                            <div class="pricing-quote" th:text="${allPaymentRecordNumber}">
+                                2949535.16<span class="note">￥</span>
+                                <p>总计</p>
+                            </div>
+                            <ul class="list-unstyled">
+                            </ul>
+                        </div>
+                    </div>
+                    <!--price end-->
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-6">
-                    <section class="panel">
-                        <header class="panel-heading">
-                            收支记录
-                            <span class="tools pull-right">
-                                <a href="javascript:;" class="fa fa-chevron-down"></a>
-                                <a href="javascript:;" class="fa fa-times"></a>
-                             </span>
-                        </header>
-                        <div class="panel-body">
-                            <table class="table table-striped">
-                                <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>类型</th>
-                                    <th>时间</th>
-                                    <th>金额</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>11</td>
-                                    <td>11</td>
-                                    <td>11</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>22</td>
-                                    <td>22</td>
-                                    <td>22</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>33</td>
-                                    <td>33</td>
-                                    <td>33</td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>44</td>
-                                    <td>44</td>
-                                    <td>44</td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td>55</td>
-                                    <td>55</td>
-                                    <td>55</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </section>
-                </div>
-                <div class="col-sm-6">
-                    <section class="panel">
-                        <header class="panel-heading">
-                            药品库存
-                            <span class="tools pull-right">
-                                <a href="javascript:;" class="fa fa-chevron-down"></a>
-                                <a href="javascript:;" class="fa fa-times"></a>
-                             </span>
-                        </header>
-                        <div class="panel-body">
-                            <table class="table table-striped">
-                                <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>药名</th>
-                                    <th>库存</th>
-                                    <th>单价</th>
-                                    <th>成本</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>11</td>
-                                    <td>11</td>
-                                    <td>11</td>
-                                    <td>11</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>22</td>
-                                    <td>22</td>
-                                    <td>22</td>
-                                    <td>22</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>33</td>
-                                    <td>33</td>
-                                    <td>33</td>
-                                    <td>33</td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>44</td>
-                                    <td>44</td>
-                                    <td>44</td>
-                                    <td>44</td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td>55</td>
-                                    <td>55</td>
-                                    <td>55</td>
-                                    <td>55</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </section>
-                </div>
-            </div>
+
         </div>
         <!--body wrapper end-->
 
-
         <!--footer section start-->
-        <footer class="sticky-footer">
-            2017 &copy; Medical History Supervisor
-        </footer>
+        <!--<footer class="">-->
+            <!--2014 &copy; AdminEx by ThemeBucket-->
+        <!--</footer>-->
         <!--footer section end-->
 
 

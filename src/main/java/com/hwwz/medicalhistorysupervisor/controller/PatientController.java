@@ -1,5 +1,6 @@
 package com.hwwz.medicalhistorysupervisor.controller;
 
+import com.hwwz.medicalhistorysupervisor.configuration.Authorization;
 import com.hwwz.medicalhistorysupervisor.domain.CaseHistory;
 import com.hwwz.medicalhistorysupervisor.domain.Patient;
 import com.hwwz.medicalhistorysupervisor.service.CaseHistoryService;
@@ -19,6 +20,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping(value = "/patient")
+@Authorization//该类方法都需登录
 public class PatientController {
 
 	@Autowired

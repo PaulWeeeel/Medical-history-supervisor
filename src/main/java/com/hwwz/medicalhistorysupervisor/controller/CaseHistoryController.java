@@ -1,5 +1,6 @@
 package com.hwwz.medicalhistorysupervisor.controller;
 
+import com.hwwz.medicalhistorysupervisor.configuration.Authorization;
 import com.hwwz.medicalhistorysupervisor.domain.CaseHistory;
 import com.hwwz.medicalhistorysupervisor.service.CaseHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping(value = "/case-history")
+@Authorization//该类方法都需登录
 public class CaseHistoryController {
 
 	@Autowired

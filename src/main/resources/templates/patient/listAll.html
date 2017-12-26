@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="ThemeBucket">
-    <link rel="shortcut icon" href="#" type="image/png">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <meta name="description" content="" />
+    <meta name="author" content="ThemeBucket" />
+    <link rel="shortcut icon" href="#" type="image/png" />
 
     <title>全部病人</title>
 
@@ -14,8 +14,8 @@
     <link href="js/advanced-datatable/css/demo_table.css" rel="stylesheet" />
     <link rel="stylesheet" href="js/data-tables/DT_bootstrap.css" />
 
-    <link href="css/style.css" rel="stylesheet">
-    <link href="css/style-responsive.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/style-responsive.css" rel="stylesheet" />
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -32,11 +32,11 @@
 
         <!--logo and iconic logo start-->
         <div class="logo">
-            <a href="index.html"><img src="images/logo.png" alt=""></a>
+            <a href="../index.html"><img src="images/logo.png" alt=""></a>
         </div>
 
         <div class="logo-icon text-center">
-            <a href="index.html"><img src="images/logo_icon.png" alt=""></a>
+            <a href="../index.html"><img src="images/logo_icon.png" alt=""></a>
         </div>
         <!--logo and iconic logo end-->
 
@@ -45,18 +45,18 @@
 
             <!--sidebar nav start-->
             <ul class="nav nav-pills nav-stacked custom-nav">
-                <li><a href="home.html"><i class="fa fa-home"></i> <span>首页</span></a></li>
+                <li><a href="../home.html"><i class="fa fa-home"></i> <span>首页</span></a></li>
                 <li class="menu-list nav-active"><a href=""><i class="fa fa-laptop"></i> <span>病人管理</span></a>
                     <ul class="sub-menu-list">
-                        <li><a href="patient1.html"> 今日病人</a></li>
-                        <li class="active"><a href="patient2.html"> 全部病人</a></li>
+                        <li><a href="today-patient.html"> 今日病人</a></li>
+                        <li class="active"><a href="listAll.html"> 全部病人</a></li>
                     </ul>
                 </li>
 
-                <li><a href="new_patient.html"><i class="fa fa-bullhorn"></i> <span>新建病人</span></a></li>
-                <li><a href="disease.html"><i class="fa fa-bar-chart-o"></i> <span>疾病管理</span></a></li>
-                <li><a href="medicine.html"><i class="fa fa-th-list"></i> <span>药品库存</span></a></li>
-                <li><a href="stock.html"><i class="fa fa-book"></i> <span>收支记录</span></a></li>
+                <li><a href="add.html"><i class="fa fa-bullhorn"></i> <span>新建病人</span></a></li>
+                <li><a href="../disease/disease.html"><i class="fa fa-bar-chart-o"></i> <span>疾病管理</span></a></li>
+                <li><a href="../medicine/medicine.html"><i class="fa fa-th-list"></i> <span>药品库存</span></a></li>
+                <li><a href="../stock/stock.html"><i class="fa fa-book"></i> <span>收支记录</span></a></li>
             </ul>
             <!--sidebar nav end-->
 
@@ -75,7 +75,7 @@
             <!--toggle button end-->
 
             <!--search start-->
-            <form class="searchform" action="home.html" method="post">
+            <form class="searchform" action="../home.html" method="post">
                 <input type="text" class="form-control" name="keyword" placeholder="搜索" />
             </form>
             <!--search end-->
@@ -90,9 +90,9 @@
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
-                            <li><a href="profile.html"><i class="fa fa-user"></i>  人物简介</a></li>
+                            <li><a href="../profile.html"><i class="fa fa-user"></i>  人物简介</a></li>
                             <li><a href="#"><i class="fa fa-cog"></i>  个人设置</a></li>
-                            <li><a href="login.html"><i class="fa fa-sign-out"></i> 注销</a></li>
+                            <li><a href="../login.html"><i class="fa fa-sign-out"></i> 注销</a></li>
                         </ul>
                     </li>
 
@@ -143,7 +143,7 @@
                                         <td>15801793021</td>
                                         <td>17.12.12</td>
                                         <td>330¥</td>
-                                        <td><a class="edit" href="patient.html">详情</a></td>
+                                        <td><a class="edit" href="home.html">详情</a></td>
                                     </tr>
                                     <tr class="gradeC">
                                         <td>000002</td>
@@ -155,7 +155,7 @@
                                         <td>15833393021</td>
                                         <td>17.12.10.13</td>
                                         <td>110¥</td>
-                                        <td><a class="edit" href="patient.html">详情</a></td>
+                                        <td><a class="edit" href="home.html">详情</a></td>
                                     </tr>
                                     <tr class="gradeA">
                                         <td>000003</td>
@@ -167,7 +167,7 @@
                                         <td>15822223021</td>
                                         <td>17.09.12</td>
                                         <td>25¥</td>
-                                        <td><a class="edit" href="patient.html">详情</a></td>
+                                        <td><a class="edit" href="home.html">详情</a></td>
                                     </tr>
                                     <tr class="gradeA">
                                         <td>000004</td>
@@ -179,7 +179,7 @@
                                         <td>15801555021</td>
                                         <td>17.05.23</td>
                                         <td>98¥</td>
-                                        <td><a class="edit" href="patient.html">详情</a></td>
+                                        <td><a class="edit" href="home.html">详情</a></td>
                                     </tr>
                                     <tr class="gradeA">
                                         <td>000005</td>
@@ -191,7 +191,7 @@
                                         <td>15823793021</td>
                                         <td>17.04.14</td>
                                         <td>440¥</td>
-                                        <td><a class="edit" href="patient.html">详情</a></td>
+                                        <td><a class="edit" href="home.html">详情</a></td>
                                     </tr>
                                     <tr class="gradeA">
                                         <td>000005</td>
@@ -203,7 +203,7 @@
                                         <td>15823793021</td>
                                         <td>17.04.14</td>
                                         <td>440¥</td>
-                                        <td><a class="edit" href="patient.html">详情</a></td>
+                                        <td><a class="edit" href="home.html">详情</a></td>
                                     </tr>
                                     <tr class="gradeA">
                                         <td>000005</td>
@@ -215,7 +215,7 @@
                                         <td>15823793021</td>
                                         <td>17.04.14</td>
                                         <td>440¥</td>
-                                        <td><a class="edit" href="patient.html">详情</a></td>
+                                        <td><a class="edit" href="home.html">详情</a></td>
                                     </tr>
                                     <tr class="gradeA">
                                         <td>000005</td>
@@ -227,7 +227,7 @@
                                         <td>15823793021</td>
                                         <td>17.04.14</td>
                                         <td>440¥</td>
-                                        <td><a class="edit" href="patient.html">详情</a></td>
+                                        <td><a class="edit" href="home.html">详情</a></td>
                                     </tr>
                                     <tr class="gradeA">
                                         <td>000005</td>
@@ -239,7 +239,7 @@
                                         <td>15823793021</td>
                                         <td>17.04.14</td>
                                         <td>440¥</td>
-                                        <td><a class="edit" href="patient.html">详情</a></td>
+                                        <td><a class="edit" href="home.html">详情</a></td>
                                     </tr>
                                     <tr class="gradeA">
                                         <td>000005</td>
@@ -251,7 +251,7 @@
                                         <td>15823793021</td>
                                         <td>17.04.14</td>
                                         <td>440¥</td>
-                                        <td><a class="edit" href="patient.html">详情</a></td>
+                                        <td><a class="edit" href="home.html">详情</a></td>
                                     </tr>
                                     <tr class="gradeA">
                                         <td>000005</td>
@@ -263,7 +263,7 @@
                                         <td>15823793021</td>
                                         <td>17.04.14</td>
                                         <td>440¥</td>
-                                        <td><a class="edit" href="patient.html">详情</a></td>
+                                        <td><a class="edit" href="home.html">详情</a></td>
                                     </tr>
                                     <tr class="gradeA">
                                         <td>000005</td>
@@ -275,7 +275,7 @@
                                         <td>15823793021</td>
                                         <td>17.04.14</td>
                                         <td>440¥</td>
-                                        <td><a class="edit" href="patient.html">详情</a></td>
+                                        <td><a class="edit" href="home.html">详情</a></td>
                                     </tr>
                                     <tr class="gradeA">
                                         <td>000005</td>
@@ -287,7 +287,7 @@
                                         <td>15823793021</td>
                                         <td>17.04.14</td>
                                         <td>440¥</td>
-                                        <td><a class="edit" href="patient.html">详情</a></td>
+                                        <td><a class="edit" href="home.html">详情</a></td>
                                     </tr>
                                     <tr class="gradeA">
                                         <td>000005</td>
@@ -299,7 +299,7 @@
                                         <td>15823793021</td>
                                         <td>17.04.14</td>
                                         <td>440¥</td>
-                                        <td><a class="edit" href="patient.html">详情</a></td>
+                                        <td><a class="edit" href="home.html">详情</a></td>
                                     </tr>
                                     <tr class="gradeA">
                                         <td>000005</td>
@@ -311,7 +311,7 @@
                                         <td>15823793021</td>
                                         <td>17.04.14</td>
                                         <td>440¥</td>
-                                        <td><a class="edit" href="patient.html">详情</a></td>
+                                        <td><a class="edit" href="home.html">详情</a></td>
                                     </tr>
                                     <tr class="gradeA">
                                         <td>000005</td>
@@ -323,7 +323,7 @@
                                         <td>15823793021</td>
                                         <td>17.04.14</td>
                                         <td>440¥</td>
-                                        <td><a class="edit" href="patient.html">详情</a></td>
+                                        <td><a class="edit" href="home.html">详情</a></td>
                                     </tr>
                                     <tr class="gradeA">
                                         <td>000005</td>
@@ -335,7 +335,7 @@
                                         <td>15823793021</td>
                                         <td>17.04.14</td>
                                         <td>440¥</td>
-                                        <td><a class="edit" href="patient.html">详情</a></td>
+                                        <td><a class="edit" href="home.html">详情</a></td>
                                     </tr>
                                     <tr class="gradeA">
                                         <td>000005</td>
@@ -347,7 +347,7 @@
                                         <td>15823793021</td>
                                         <td>17.04.14</td>
                                         <td>440¥</td>
-                                        <td><a class="edit" href="patient.html">详情</a></td>
+                                        <td><a class="edit" href="home.html">详情</a></td>
                                     </tr>
                                     <tr class="gradeA">
                                         <td>000005</td>
@@ -359,7 +359,7 @@
                                         <td>15823793021</td>
                                         <td>17.04.14</td>
                                         <td>440¥</td>
-                                        <td><a class="edit" href="patient.html">详情</a></td>
+                                        <td><a class="edit" href="home.html">详情</a></td>
                                     </tr>
                                     <tr class="gradeA">
                                         <td>000005</td>
@@ -371,7 +371,7 @@
                                         <td>15823793021</td>
                                         <td>17.04.14</td>
                                         <td>440¥</td>
-                                        <td><a class="edit" href="patient.html">详情</a></td>
+                                        <td><a class="edit" href="home.html">详情</a></td>
                                     </tr>
                                     <tr class="gradeA">
                                         <td>000005</td>
@@ -383,7 +383,7 @@
                                         <td>15823793021</td>
                                         <td>17.04.14</td>
                                         <td>440¥</td>
-                                        <td><a class="edit" href="patient.html">详情</a></td>
+                                        <td><a class="edit" href="home.html">详情</a></td>
                                     </tr>
                                     <tr class="gradeA">
                                         <td>000005</td>
@@ -395,7 +395,7 @@
                                         <td>15823793021</td>
                                         <td>17.04.14</td>
                                         <td>440¥</td>
-                                        <td><a class="edit" href="patient.html">详情</a></td>
+                                        <td><a class="edit" href="home.html">详情</a></td>
                                     </tr>
                                     <tr class="gradeA">
                                         <td>000005</td>
@@ -407,7 +407,7 @@
                                         <td>15823793021</td>
                                         <td>17.04.14</td>
                                         <td>440¥</td>
-                                        <td><a class="edit" href="patient.html">详情</a></td>
+                                        <td><a class="edit" href="home.html">详情</a></td>
                                     </tr>
                                     <tr class="gradeA">
                                         <td>000005</td>
@@ -419,7 +419,7 @@
                                         <td>15823793021</td>
                                         <td>17.04.14</td>
                                         <td>440¥</td>
-                                        <td><a class="edit" href="patient.html">详情</a></td>
+                                        <td><a class="edit" href="home.html">详情</a></td>
                                     </tr>
                                     <tr class="gradeA">
                                         <td>000005</td>
@@ -431,7 +431,7 @@
                                         <td>15823793021</td>
                                         <td>17.04.14</td>
                                         <td>440¥</td>
-                                        <td><a class="edit" href="patient.html">详情</a></td>
+                                        <td><a class="edit" href="home.html">详情</a></td>
                                     </tr>
                                     <tr class="gradeA">
                                         <td>000005</td>
@@ -443,7 +443,7 @@
                                         <td>15823793021</td>
                                         <td>17.04.14</td>
                                         <td>440¥</td>
-                                        <td><a class="edit" href="patient.html">详情</a></td>
+                                        <td><a class="edit" href="home.html">详情</a></td>
                                     </tr>
                                     <tr class="gradeA">
                                         <td>000005</td>
@@ -455,7 +455,7 @@
                                         <td>15823793021</td>
                                         <td>17.04.14</td>
                                         <td>440¥</td>
-                                        <td><a class="edit" href="patient.html">详情</a></td>
+                                        <td><a class="edit" href="home.html">详情</a></td>
                                     </tr>
                                     <tr class="gradeA">
                                         <td>000005</td>
@@ -467,7 +467,7 @@
                                         <td>15823793021</td>
                                         <td>17.04.14</td>
                                         <td>440¥</td>
-                                        <td><a class="edit" href="patient.html">详情</a></td>
+                                        <td><a class="edit" href="home.html">详情</a></td>
                                     </tr>
                                     <tr class="gradeA">
                                         <td>000005</td>
@@ -479,7 +479,7 @@
                                         <td>15823793021</td>
                                         <td>17.04.14</td>
                                         <td>440¥</td>
-                                        <td><a class="edit" href="patient.html">详情</a></td>
+                                        <td><a class="edit" href="home.html">详情</a></td>
                                     </tr>
                                     <tr class="gradeA">
                                         <td>000005</td>
@@ -491,7 +491,7 @@
                                         <td>15823793021</td>
                                         <td>17.04.14</td>
                                         <td>440¥</td>
-                                        <td><a class="edit" href="patient.html">详情</a></td>
+                                        <td><a class="edit" href="home.html">详情</a></td>
                                     </tr>
                                     <tr class="gradeA">
                                         <td>000005</td>
@@ -503,7 +503,7 @@
                                         <td>15823793021</td>
                                         <td>17.04.14</td>
                                         <td>440¥</td>
-                                        <td><a class="edit" href="patient.html">详情</a></td>
+                                        <td><a class="edit" href="home.html">详情</a></td>
                                     </tr>
                                     <tr class="gradeA">
                                         <td>000005</td>
@@ -515,7 +515,7 @@
                                         <td>15823793021</td>
                                         <td>17.04.14</td>
                                         <td>440¥</td>
-                                        <td><a class="edit" href="patient.html">详情</a></td>
+                                        <td><a class="edit" href="home.html">详情</a></td>
                                     </tr>
                                     <tr class="gradeA">
                                         <td>000005</td>
@@ -527,7 +527,7 @@
                                         <td>15823793021</td>
                                         <td>17.04.14</td>
                                         <td>440¥</td>
-                                        <td><a class="edit" href="patient.html">详情</a></td>
+                                        <td><a class="edit" href="home.html">详情</a></td>
                                     </tr>
                                     <tr class="gradeA">
                                         <td>000005</td>
@@ -539,7 +539,7 @@
                                         <td>15823793021</td>
                                         <td>17.04.14</td>
                                         <td>440¥</td>
-                                        <td><a class="edit" href="patient.html">详情</a></td>
+                                        <td><a class="edit" href="home.html">详情</a></td>
                                     </tr>
 
 

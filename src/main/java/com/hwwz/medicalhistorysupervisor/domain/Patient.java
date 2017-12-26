@@ -1,6 +1,6 @@
 package com.hwwz.medicalhistorysupervisor.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.Entity;
@@ -10,6 +10,7 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.sql.Timestamp;
 import java.util.List;
 
 
@@ -33,6 +34,10 @@ public class Patient {
 	private String occupation;
 
 	private String phone;
+
+	private Double totalFee;
+
+	private Timestamp lastDate;
 
 	private List<CaseHistory> caseHistoryList;
 
@@ -92,7 +97,23 @@ public class Patient {
 		this.occupation = occupation;
 	}
 
-	@Size(max = 13, message="手机号的长度应该不超过13个字符")
+    public Double getTotalFee() {
+        return totalFee;
+    }
+
+    public void setTotalFee(Double totalFee) {
+        this.totalFee = totalFee;
+    }
+
+    public Timestamp getLastDate() {
+        return lastDate;
+    }
+
+    public void setLastDate(Timestamp lastDate) {
+        this.lastDate = lastDate;
+    }
+
+    @Size(max = 13, message="手机号的长度应该不超过13个字符")
 	public String getPhone() {
 		return phone;
 	}
@@ -106,13 +127,9 @@ public class Patient {
 		return caseHistoryList;
 	}
 
-	@JsonIgnore
+    @JsonBackReference
 	public void setCaseHistoryList(List<CaseHistory> caseHistoryList) {
 		this.caseHistoryList = caseHistoryList;
 	}
 
-	@Override
-	public String toString(){
-		return "[]";
-	}
 }
