@@ -25,8 +25,8 @@ public class MedicineRecordController {
 
 	@GetMapping(value = "/medicine")
 	public String list(Model model) {
-		model.addAttribute("medicineList",medicineRecordService.getAllMedicineRecord());
-		return "medicine/111";
+		model.addAttribute("medicineList", medicineRecordService.getAllMedicineRecord());
+		return "medicine/medicine";
 	}
 
 	@PostMapping(value = "/add")

@@ -31,7 +31,7 @@ public class PatientController {
 
 	@RequestMapping("/")
 	public String index() {
-		return "redirect:/patient/list";
+		return "redirect:/patient/listAll";
 	}
 
 	@RequestMapping(value = "/listAll")
@@ -55,7 +55,7 @@ public class PatientController {
 		} catch (Exception e) {
 			throw e;
 		}
-		return "redirect:/patient/list";
+		return "redirect:/patient/listAll";
 	}
 	@GetMapping(value="/add")
 	public String add()
@@ -114,7 +114,7 @@ public class PatientController {
 		} catch (Exception e) {
 			throw e;
 		}
-		return "redirect:/patient/list";
+		return "redirect:/patient/listAll";
 	}
 
 
@@ -125,6 +125,6 @@ public class PatientController {
 		} catch (Exception e) {
 			throw e;
 		}
-		return "redirect:/patient/list";
+		return "redirect:/patient/listAll";
 	}
 }

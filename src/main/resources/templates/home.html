@@ -27,31 +27,30 @@
 
         <!--logo and iconic logo start-->
         <div class="logo">
-            <a href="index.html"><img src="/images/logo.png" alt="" /></a>
+            <a href="/index"><img src="/images/logo.png" alt="" /></a>
         </div>
 
         <div class="logo-icon text-center">
-            <a href="index.html"><img src="/images/logo_icon.png" alt="" /></a>
+            <a href="/index"><img src="/images/logo_icon.png" alt="" /></a>
         </div>
         <!--logo and iconic logo end-->
 
 
         <div class="left-side-inner">
 
-
             <!--sidebar nav start-->
             <ul class="nav nav-pills nav-stacked custom-nav">
-                <li class="active"><a href="home"><i class="fa fa-home"></i> <span>首页</span></a></li>
+                <li class="active"><a href="/home"><i class="fa fa-home"></i> <span>首页</span></a></li>
                 <li class="menu-list"><a href=""><i class="fa fa-laptop"></i> <span>病人管理</span></a>
                     <ul class="sub-menu-list">
-                        <li><a href="patient/today"> 今日病人</a></li>
-                        <li><a href="patient/listAll"> 全部病人</a></li>
+                        <li><a href="/patient/today"> 今日病人</a></li>
+                        <li><a href="/patient/listAll"> 全部病人</a></li>
                     </ul>
                 </li>
-                <li><a href="patient/add"><i class="fa fa-bullhorn"></i> <span>新建病人</span></a></li>
-                <li><a href="disease/disease"><i class="fa fa-bar-chart-o"></i> <span>疾病管理</span></a></li>
-                <li><a href="medicine/medicine"><i class="fa fa-th-list"></i> <span>药品库存</span></a></li>
-                <li><a href="stock/stock"><i class="fa fa-book"></i> <span>收支记录</span></a></li>
+                <li><a href="/patient/add"><i class="fa fa-bullhorn"></i> <span>新建病人</span></a></li>
+                <li><a href="/disease/list"><i class="fa fa-bar-chart-o"></i> <span>疾病管理</span></a></li>
+                <li><a href="/stock/list"><i class="fa fa-th-list"></i> <span>药品库存</span></a></li>
+                <li><a href="/record/list"><i class="fa fa-book"></i> <span>收支记录</span></a></li>
             </ul>
             <!--sidebar nav end-->
 
@@ -169,9 +168,9 @@
                                 <tr  th:each="caseHistory : ${recentCaseHistoryList}">
                                     <th scope="row" th:text="${caseHistory.id}">1</th>
                                     <td th:text="${caseHistory.patient.name}">小红</td>
-                                    <td th:text="${caseHistory.getDiseaseNames()}">病毒性感冒, 腹泻</td>
+                                    <td th:text="${caseHistory.findDiseaseNames()}">病毒性感冒, 腹泻</td>
                                     <td th:text="${caseHistory.onset}">2017-12-14 10:32:39</td>
-                                    <td th:text="${caseHistory.getMedicines()}">感冒药, 腹泻药</td>
+                                    <td th:text="${caseHistory.findMedicineNames()}">感冒药, 腹泻药</td>
                                     <td th:text="${caseHistory.dateTime}">2017-12-16 10:32:39</td>
                                 </tr>
                                 </tbody>

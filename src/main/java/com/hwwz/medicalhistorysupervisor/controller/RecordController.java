@@ -17,30 +17,30 @@ import java.util.List;
  * @date: 2017/12/8/008 12:34
  */
 @Controller
-@RequestMapping(value = "/payment-record")
+@RequestMapping(value = "/record")
 @Authorization//该类方法都需登录
-public class PaymentRecordController {
+public class RecordController {
 	
 	@Autowired
 	private PaymentRecordService paymentRecordService;
 
 	@RequestMapping("/")
 	public String index() {
-		return "redirect: /payment-record/list";
+		return "redirect: /record/list";
 	}
 
 	@GetMapping(value = "/list")
 	public String list(Model model) {
 		List<PaymentRecord> paymentRecordList = paymentRecordService.getAllPaymentRecords();
 		model.addAttribute("paymentRecords", paymentRecordList);
-		return "payment-record/list";
+		return "/record/list";
 	}
 
 	@PostMapping(value = "/add")
 	public String add(@Valid PaymentRecord paymentRecord) {
 		paymentRecord.setDateTime(new Timestamp(System.currentTimeMillis()));
 		paymentRecordService.add(paymentRecord);
-		return "redirect:/payment-record/list";
+		return "redirect:/record/list";
 	}
 
 
@@ -48,18 +48,18 @@ public class PaymentRecordController {
 	public String toEdit(Model model, @RequestParam("id") Integer id) {
 		PaymentRecord paymentRecord = paymentRecordService.getById(id);
 		model.addAttribute("paymentRecord", paymentRecord);
-		return "payment-record/edit";
+		return "/record/edit";
 	}
 
 	@PutMapping(value = "/edit")
 	public String edit(@Valid PaymentRecord paymentRecord) {
 		paymentRecordService.update(paymentRecord);
-		return "redirect:/payment-record/list";
+		return "redirect:/record/list";
 	}
 
 	@DeleteMapping(value = "/delete", params = {"id"})
 	public String delete(@RequestParam("id") Integer id){
 		paymentRecordService.delete(id);
-		return "redirect:/payment-record/list";
+		return "redirect:/record/list";
 	}
 }

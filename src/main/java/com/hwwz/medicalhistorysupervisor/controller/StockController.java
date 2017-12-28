@@ -22,28 +22,28 @@ public class StockController {
     @Autowired
     private StockService stockService;
 
-    @GetMapping(value = "/stock")
+    @GetMapping(value = "/list")
     public String list(Model model) {
         model.addAttribute("stockList", stockService.getAllStocks());
-        return "stock/stock";
+        return "/stock/list";
     }
 
     @PostMapping(value = "/add")
     public String add(@Valid Stock stock) {
         stockService.add(stock);
-        return "redirect:stock";
+        return "redirect:/stock/list";
     }
 
     @PutMapping(value = "/edit")
     public String edit(@Valid Stock stock) {
         stockService.update(stock);
-        return "redirect:stock";
+        return "redirect:/stock/list";
     }
 
 
     @DeleteMapping(value = "/delete")
     public String delete(@RequestParam("id") Integer id) {
         stockService.delete(id);
-        return "redirect:stock";
+        return "redirect:/stock/list";
     }
 }

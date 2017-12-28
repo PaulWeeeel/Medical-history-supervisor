@@ -16,10 +16,10 @@ public class PatientTest {
     private static final Logger logger = LoggerFactory.getLogger(PatientServiceImpl.class);
 
     @Test
-    public void getLastTime() throws Exception {
+    public void findLastTime() throws Exception {
         Patient patient = new Patient();
         patient.setLastDate(new Timestamp(System.currentTimeMillis()));
-        logger.info(patient.getLastTime());
+        logger.info(patient.findLastTime());
     }
 
     @Test

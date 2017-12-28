@@ -18,7 +18,7 @@ public class Disease {
 
 	private Integer level;
 
-	private Integer risk_degree;
+	private Integer riskDegree;
 
 	private CaseHistory caseHistory;
 
@@ -45,11 +45,11 @@ public class Disease {
 	@Min(value = 1, message = "等级不能低于1")
 	@Max(value = 10, message = "等级不能高于10")
 	public Integer getRisk_degree() {
-		return risk_degree;
+		return riskDegree;
 	}
 
-	public void setRisk_degree(Integer risk_degree) {
-		this.risk_degree = risk_degree;
+	public void setRisk_degree(Integer riskDegree) {
+		this.riskDegree = riskDegree;
 	}
 
 	@ManyToOne

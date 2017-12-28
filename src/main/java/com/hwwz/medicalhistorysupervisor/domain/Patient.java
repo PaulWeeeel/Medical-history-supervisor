@@ -134,14 +134,14 @@ public class Patient {
 		this.caseHistoryList = caseHistoryList;
 	}
 
-	public String getLastTime() {
+	public String findLastTime() {
 	    Date date = new Date(lastDate.getTime());
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
         String time = simpleDateFormat.format(date);
         return time;
     }
 
-    public CaseHistory getLastCaseHistory() {
+    public CaseHistory findLastCaseHistory() {
         return caseHistoryList.get(caseHistoryList.size());
     }
 }
