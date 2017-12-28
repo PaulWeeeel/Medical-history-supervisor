@@ -9,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 /**
  * @author: Aliweea
@@ -23,17 +22,17 @@ public class CaseHistoryController {
 	@Autowired
 	private CaseHistoryService caseHistoryService;
 
-	@RequestMapping("/")
-	public String index() {
-		return "redirect:/case-history/list";
-	}
-
-	@GetMapping(value = "/list")
-	public String list(Model model) {
-		List<CaseHistory> caseHistoryList = caseHistoryService.getAllCaseHistory();
-		model.addAttribute("caseHistoryList", caseHistoryList);
-		return "case-history/list";
-	}
+//	@RequestMapping("/")
+//	public String index() {
+//		return "redirect:/case-history/list";
+//	}
+//
+//	@GetMapping(value = "/list")
+//	public String list(Model model) {
+//		List<CaseHistory> caseHistoryList = caseHistoryService.getAllCaseHistory();
+//		model.addAttribute("caseHistoryList", caseHistoryList);
+//		return "case-history/list";
+//	}
 
 	@GetMapping(value = "/toAdd", params = {"patientId"})
 	public String toAdd(Model model, @RequestParam("patientId") Integer patientId) {
@@ -48,22 +47,23 @@ public class CaseHistoryController {
 	}
 
 
-	@GetMapping(value = "/toEdit", params = {"id"})
-	public String toEdit(Model model, @RequestParam("id") Integer id) {
-		CaseHistory caseHistory = caseHistoryService.getById(id);
-		model.addAttribute("caseHistory", caseHistory);
-		return "case-history/edit";
-	}
+//	@GetMapping(value = "/toEdit", params = {"id"})
+//	public String toEdit(Model model, @RequestParam("id") Integer id) {
+//		CaseHistory caseHistory = caseHistoryService.getById(id);
+//		model.addAttribute("caseHistory", caseHistory);
+//		return "case-history/edit";
+//	}
+//
+//	@PutMapping(value = "/edit")
+//	public String edit(@Valid CaseHistory caseHistory) {
+//		caseHistoryService.update(caseHistory);
+//		return "redirect:/case-history/list";
+//	}
+//
+//	@DeleteMapping(value = "/delete", params = {"id"})
+//	public String delete(@RequestParam("id") Integer id){
+//		caseHistoryService.delete(id);
+//		return "redirect:/case-history/list";
+//	}
 
-	@PutMapping(value = "/edit")
-	public String edit(@Valid CaseHistory caseHistory) {
-		caseHistoryService.update(caseHistory);
-		return "redirect:/case-history/list";
-	}
-
-	@DeleteMapping(value = "/delete", params = {"id"})
-	public String delete(@RequestParam("id") Integer id){
-		caseHistoryService.delete(id);
-		return "redirect:/case-history/list";
-	}
 }

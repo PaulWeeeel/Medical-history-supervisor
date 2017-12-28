@@ -10,7 +10,9 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 
@@ -132,4 +134,14 @@ public class Patient {
 		this.caseHistoryList = caseHistoryList;
 	}
 
+	public String getLastTime() {
+	    Date date = new Date(lastDate.getTime());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
+        String time = simpleDateFormat.format(date);
+        return time;
+    }
+
+    public CaseHistory getLastCaseHistory() {
+        return caseHistoryList.get(caseHistoryList.size());
+    }
 }

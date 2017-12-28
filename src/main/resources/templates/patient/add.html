@@ -70,30 +70,31 @@
 
         <!--logo and iconic logo start-->
         <div class="logo">
-            <a href="../index.html"><img src="images/logo.png" alt=""/></a>
+            <a href="index"><img src="images/logo.png" alt=""/></a>
         </div>
 
         <div class="logo-icon text-center">
-            <a href="../index.html"><img src="images/logo_icon.png" alt=""/></a>
+            <a href="index"><img src="images/logo_icon.png" alt=""/></a>
         </div>
         <!--logo and iconic logo end-->
 
 
         <div class="left-side-inner">
 
+
             <!--sidebar nav start-->
             <ul class="nav nav-pills nav-stacked custom-nav">
-                <li><a href="../home.html"><i class="fa fa-home"></i> <span>首页</span></a></li>
+                <li class="active"><a href="home"><i class="fa fa-home"></i> <span>首页</span></a></li>
                 <li class="menu-list"><a href=""><i class="fa fa-laptop"></i> <span>病人管理</span></a>
                     <ul class="sub-menu-list">
-                        <li><a href="today-patient.html"> 今日病人</a></li>
-                        <li><a href="listAll.html"> 全部病人</a></li>
+                        <li><a href="patient/today"> 今日病人</a></li>
+                        <li><a href="patient/listAll"> 全部病人</a></li>
                     </ul>
                 </li>
-                <li class="active"><a href="add.html"><i class="fa fa-bullhorn"></i> <span>新建病人</span></a></li>
-                <li><a href="../disease/disease.html"><i class="fa fa-bar-chart-o"></i> <span>疾病管理</span></a></li>
-                <li><a href="../medicine/medicine.html"><i class="fa fa-th-list"></i> <span>药品库存</span></a></li>
-                <li><a href="../stock/stock.html"><i class="fa fa-book"></i> <span>收支记录</span></a></li>
+                <li><a href="patient/add"><i class="fa fa-bullhorn"></i> <span>新建病人</span></a></li>
+                <li><a href="disease/disease"><i class="fa fa-bar-chart-o"></i> <span>疾病管理</span></a></li>
+                <li><a href="medicine/medicine"><i class="fa fa-th-list"></i> <span>药品库存</span></a></li>
+                <li><a href="stock/stock"><i class="fa fa-book"></i> <span>收支记录</span></a></li>
             </ul>
             <!--sidebar nav end-->
 
@@ -112,7 +113,7 @@
             <!--toggle button end-->
 
             <!--search start-->
-            <form class="searchform" action="../home.html" method="post">
+            <form class="searchform" action="home" method="post">
                 <input type="text" class="form-control" name="keyword" placeholder="搜索" />
             </form>
             <!--search end-->
@@ -127,9 +128,9 @@
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
-                            <li><a href="../profile.html"><i class="fa fa-user"></i>  人物简介</a></li>
+                            <li><a href="profile"><i class="fa fa-user"></i>  人物简介</a></li>
                             <li><a href="#"><i class="fa fa-cog"></i>  个人设置</a></li>
-                            <li><a href="../login.html"><i class="fa fa-sign-out"></i> 注销</a></li>
+                            <li onclick="deleteToken()"><a href="login"><i class="fa fa-sign-out"></i> 注销</a></li>
                         </ul>
                     </li>
 

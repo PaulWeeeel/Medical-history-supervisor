@@ -38,7 +38,6 @@ public class PatientServiceImplTest {
 
 	@Test
 	public void getAllPatients() throws Exception {
-
 	}
 
 	@Test
@@ -55,6 +54,6 @@ public class PatientServiceImplTest {
 
 	@Test
 	public void deletePatient() throws Exception {
-	}
+    }
 
 }

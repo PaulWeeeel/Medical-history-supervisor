@@ -37,11 +37,14 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
         }
         String jwt = "";
         Cookie[] cookies=request.getCookies();
-        for(Cookie cookie:cookies)
+        if(cookies!=null)
         {
-            if(cookie.getName().equals("token"))
+            for(Cookie cookie:cookies)
             {
-                jwt=cookie.getValue();
+                if(cookie.getName().equals("token"))
+                {
+                    jwt=cookie.getValue();
+                }
             }
         }
         Map<String,Object> claims=jwtUtil.parserJavaWebToken(jwt);

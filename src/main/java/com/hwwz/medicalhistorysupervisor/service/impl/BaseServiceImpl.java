@@ -43,6 +43,11 @@ public class BaseServiceImpl implements BaseService {
     }
 
     @Override
+    public void getNumber(Model model) {
+
+    }
+
+    @Override
     public Boolean register(String username, String password1, String password2) {
         if (!password1.equals(password2)) {
             return false;

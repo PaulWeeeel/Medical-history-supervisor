@@ -75,14 +75,14 @@ public class PatientController {
 		}
 		return "patient/home";
 	}
-	@GetMapping(value = "/today-patient")
+	@GetMapping(value = "/today")
 	public String getTodayPatient(Model model) throws Exception {
 		try {
 			model.addAttribute("patientList", patientService.getTodayPatient());
 		} catch (Exception e) {
 			throw e;
 		}
-		return "patient/today-patient";
+		return "patient/today";
 	}
 
 //	@GetMapping(value = "/list", params = {"name"})

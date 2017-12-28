@@ -9,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 /**
  * @author: Aliweea
@@ -23,44 +22,11 @@ public class MedicineRecordController {
 	
 	@Autowired
 	private MedicineRecordService medicineRecordService;
-	
-	/*@GetMapping(value = "/list")
-	public String list(Model model) {
-		List<MedicineRecord> medicineRecordList = medicineRecordService.getAllMedicineRecord();
-		model.addAttribute("medicines", medicineRecordList);
-		return "medicine-record/list";
-	}
-
-	@PostMapping(value = "/add")
-	public String add(@Valid MedicineRecord medicineRecord) {
-		medicineRecordService.add(medicineRecord);
-		return "redirect:/medicine-record/list";
-	}
-
-	@GetMapping(value = "/toEdit")
-	public String toEdit(Model model, @RequestParam("id") Integer id) {
-		MedicineRecord medicineRecord = medicineRecordService.getById(id);
-		model.addAttribute("medicineRecord", medicineRecord);
-		return "medicine-record/edit";
-	}
-
-	@PutMapping(value = "/edit")
-	public String edit(@Valid MedicineRecord medicineRecord) {
-		medicineRecordService.update(medicineRecord);
-		return "redirect:/medicine-record/list";
-	}
-
-
-	@DeleteMapping(value = "/delete")
-	public String delete(@RequestParam("id") Integer id) {
-		medicineRecordService.delete(id);
-		return "redirect:/medicine-record/list";
-	}*/
 
 	@GetMapping(value = "/medicine")
 	public String list(Model model) {
 		model.addAttribute("medicineList",medicineRecordService.getAllMedicineRecord());
-		return "medicine/medicine";
+		return "medicine/111";
 	}
 
 	@PostMapping(value = "/add")

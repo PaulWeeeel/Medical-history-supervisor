@@ -2,7 +2,6 @@ package com.hwwz.medicalhistorysupervisor.controller;
 
 import com.hwwz.medicalhistorysupervisor.configuration.Authorization;
 import com.hwwz.medicalhistorysupervisor.service.BaseService;
-import com.hwwz.medicalhistorysupervisor.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,7 +32,7 @@ public class BaseController {
     @RequestMapping("/index")
     @Authorization//有此标记的方法检查登录状态
     public String index(Model model) {
-        baseService.getRecentInfo(model, RECORDSIZE);
+        baseService.getNumber(model);
         model.addAttribute("title", "hello");
         return "index";
     }
@@ -90,5 +89,15 @@ public class BaseController {
             //登录失败
             return "login";
         }
+    }
+
+    @GetMapping("/404")
+    public String error404(){
+        return "error/404";
+    }
+
+    @GetMapping("/500")
+    public String error500(){
+        return "error/500";
     }
 }

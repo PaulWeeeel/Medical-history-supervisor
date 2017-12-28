@@ -103,4 +103,31 @@ public class CaseHistory {
 	public void setMedicineRecordList(List<MedicineRecord> medicineRecordList) {
 		this.medicineRecordList = medicineRecordList;
 	}
+
+    public String getDiseaseNames() {
+	    StringBuffer stringBuffer = new StringBuffer();
+        for (Disease disease : diseaseList) {
+            stringBuffer.append(disease.getDisease() + ", ");
+        }
+        stringBuffer.delete(-2, -1);
+        return stringBuffer.toString();
+    }
+
+	public String getMedicineNames() {
+        StringBuffer stringBuffer = new StringBuffer();
+        for (MedicineRecord medicineRecord : medicineRecordList) {
+            stringBuffer.append(medicineRecord.getMedicine() + ", ");
+        }
+        stringBuffer.delete(-2, -1);
+        return stringBuffer.toString();
+    }
+
+    public String getMedicineInfos() {
+        StringBuffer stringBuffer = new StringBuffer();
+        for (MedicineRecord medicineRecord : medicineRecordList) {
+            stringBuffer.append(medicineRecord.getMedicine() + medicineRecord.getTotalDose() + "粒, ");
+        }
+        stringBuffer.delete(-2, -1);
+        return stringBuffer.toString();
+    }
 }
