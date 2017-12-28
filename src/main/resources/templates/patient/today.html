@@ -138,7 +138,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                        <tr  class="gradeA" th:each="patient : ${PatientList}">
+                                        <tr  class="gradeA" th:each="patient : ${patientList}">
                                             <th scope="row" th:text="${patient.id}">1</th>
                                             <td th:text="${patient.getLastTime()}">10:32:39</td>
                                             <td th:text="${patient.name}">小红</td>
