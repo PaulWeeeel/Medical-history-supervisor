@@ -65,7 +65,8 @@ public class BaseController {
         String username = WebUtils.findParameterValue(request, "username");
         String password1 = WebUtils.findParameterValue(request, "password1");
         String password2 = WebUtils.findParameterValue(request, "password2");
-        if (baseService.register(username, password1, password2)){
+        String phone=WebUtils.findParameterValue(request, "phone");
+        if (baseService.register(username, password1, password2,phone)){
             return "login";
         }else {
             return "register";

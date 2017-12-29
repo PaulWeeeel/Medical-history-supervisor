@@ -16,43 +16,53 @@ public class GlobalMed {
     private static String symptom_dir;
     private static String photo_path;
     private static String symptom_path;
+    private static boolean iscreated=false;
 
-    private GlobalMed()
+    private static void init()
     {
-        abs_path= ClassUtils.getDefaultClassLoader().getResource("").getPath();
-        photo_dir="/photos";
-        symptom_dir="/symptoms";
-        photo_path=abs_path+photo_dir;
-        symptom_path=abs_path+symptom_path;
-        File photo_dir=new File(photo_path);
-        File symp_dir=new File(symptom_path);
-        if(!photo_dir.exists())
+        if(!iscreated)
         {
-            photo_dir.mkdir();
-        }
-        if(!symp_dir.exists())
-        {
-            symp_dir.mkdir();
+            abs_path= ClassUtils.getDefaultClassLoader().getResource("").getPath();
+            photo_dir="photos/";
+            symptom_dir="symptoms/";
+            photo_path=abs_path+photo_dir;
+            symptom_path=abs_path+symptom_path;
+            File photo_dir=new File(photo_path);
+            File symp_dir=new File(symptom_path);
+            if(!photo_dir.exists())
+            {
+                photo_dir.mkdir();
+            }
+            if(!symp_dir.exists())
+            {
+                symp_dir.mkdir();
+            }
+            iscreated=true;
         }
     }
 
     public static String getAbs_path() {
+        init();
         return abs_path;
     }
 
     public static String getPhoto_dir() {
+        init();
         return photo_dir;
     }
 
     public static String getSymptom_dir() {
+        init();
         return symptom_dir;
     }
 
     public static String getPhoto_path() {
+        init();
         return photo_path;
     }
 
     public static String getSymptom_path() {
+        init();
         return symptom_path;
     }
 }

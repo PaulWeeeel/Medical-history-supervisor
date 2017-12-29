@@ -163,7 +163,7 @@
                 <div class="col-md-12">
                     <section class="panel">
                         <div class="panel-body">
-                            <form action="/patient/add" class="form-horizontal " method="POST">
+                            <form action="/patient/add" class="form-horizontal " enctype="multipart/form-data" method="POST">
 
                                 <div class="form-group">
                                     <label class="control-label col-md-3">姓名</label>
@@ -176,10 +176,10 @@
                                     <label class="control-label col-md-3">性别</label>
                                     <div class="col-md-4 col-xs-11">
                                         <div class="radio">
-                                            <label><input type="radio" name="gender" id="male" value="option1" />男</label>
+                                            <label><input type="radio" name="gender" id="male" value="1" />男</label>
                                         </div>
                                         <div class="radio">
-                                            <label><input type="radio" name="gender" id="female" value="option2"/>女</label>
+                                            <label><input type="radio" name="gender" id="female" value="0"/>女</label>
                                         </div>
                                     </div>
                                 </div>
@@ -226,13 +226,13 @@
                                                    <span class="btn btn-default btn-file">
                                                    <span class="fileupload-new"><i class="fa fa-paper-clip"></i> 选择图片</span>
                                                    <span class="fileupload-exists"><i class="fa fa-undo"></i> 更改</span>
-                                                   <!--<input type="file" class="default" name="photo" id="fileUpload" />-->
+                                                   <input type="file" class="default" name="photo" id="fileUpload" />
                                                    </span>
                                                 <a href="#" class="btn btn-danger fileupload-exists" data-dismiss="fileupload"><i class="fa fa-trash"></i> 取消</a>
                                             </div>
 
                                             <!--测试validate-->
-                                            <input type="text" name="photoURL"/>
+                                            <!--<input type="text" name="photoURL"/>-->
                                         </div>
                                         <br/>
                                     </div>

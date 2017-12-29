@@ -48,7 +48,7 @@ public class BaseServiceImpl implements BaseService {
     }
 
     @Override
-    public Boolean register(String username, String password1, String password2) {
+    public Boolean register(String username, String password1, String password2,String phone) {
         if (!password1.equals(password2)) {
             return false;
         }
@@ -59,6 +59,7 @@ public class BaseServiceImpl implements BaseService {
         User user = new User();
         user.setUsername(username);
         user.setPassword(password1);
+        user.setPhone(phone);
         userRepository.save(user);
         return true;
     }
