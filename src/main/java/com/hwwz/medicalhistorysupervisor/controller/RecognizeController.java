@@ -45,8 +45,8 @@ public class RecognizeController {
 
     @GetMapping("/voice")
     public Form recognizeVoice(String filepath){
-        voiceFileConvertService.convert(filepath, "temp_" + filepath, avcodec.AV_CODEC_ID_PCM_S16LE, 8000, 16,1);
-        File file = new File("temp_" + filepath);
+        voiceFileConvertService.convert(filepath, filepath.substring(0, filepath.indexOf('.')) + "_temp.wav", avcodec.AV_CODEC_ID_PCM_S16LE, 8000, 16,1);
+        File file = new File(filepath.substring(0, filepath.indexOf('.')) + "_temp.wav");
         String result = voiceRecognizeService.doRecognize(file);
 
         Form form = new Form();
@@ -58,9 +58,9 @@ public class RecognizeController {
     @PostMapping("/addFace")
     public String add(@Valid Patient patient, String filepath){
         File file = new File(filepath);
-        String token = faceRecognizeService.addNewFace(file);
+        String faceToken = faceRecognizeService.addNewFace(file);
 
-        patient.setFaceToken(token);
+        patient.setFaceToken(faceToken);
         patientRepository.save(patient);
         return "redirect:/patient/listAll";
     }
@@ -68,9 +68,9 @@ public class RecognizeController {
     @GetMapping("/face")
     public String recognizeFace(@Valid Patient patient, String filepath){
         File file = new File(filepath);
-        String token = faceRecognizeService.doRecognize(file);
+        String faceToken = faceRecognizeService.doRecognize(file);
 
-        List<Patient> patients = patientRepository.findPatientByFaceToken(token);
+        List<Patient> patients = patientRepository.findPatientByFaceToken(faceToken);
 
         if(patients.isEmpty())
             patient = null;
