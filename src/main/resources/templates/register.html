@@ -23,7 +23,7 @@
 
 <div class="container">
 
-    <form class="form-signin" action="index.html">
+    <form class="form-signin" action="register" method="POST">
         <div class="form-signin-heading text-center">
             <h1 class="sign-title">注册</h1>
             <img src="/images/login-logo.png" alt=""/>
@@ -32,10 +32,10 @@
 
         <div class="login-wrap">
             <p>输入个人信息</p>
-            <input type="text" autofocus="" placeholder="姓名" class="form-control"/>
-            <input type="text" autofocus="" placeholder="电话" class="form-control"/>
-            <input type="password" placeholder="密码" class="form-control"/>
-            <input type="password" placeholder="再次输入密码" class="form-control"/>
+            <input type="text" autofocus="" name="username" placeholder="姓名" class="form-control"/>
+            <input type="text" autofocus="" name="phone" placeholder="电话" class="form-control"/>
+            <input type="password" name="password1" placeholder="密码" class="form-control"/>
+            <input type="password" name="password2" placeholder="再次输入密码" class="form-control"/>
             <label class="checkbox">
                 <input type="checkbox" value="agree this condition"/> 同意服务条款和隐私政策
             </label>

@@ -5,8 +5,8 @@ spring:
     datasource:
         driver-class-name: com.mysql.jdbc.Driver
         url: jdbc:mysql://127.0.0.1:3306/medical_history??useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=true
-        username: Aliweea
-        password: Aa1534267890
+        username: paul
+        password: wy806380634
     jpa:
         hibernate:
             ddl-auto: update
@@ -16,6 +16,9 @@ spring:
       cache: false
       prefix: classpath:/templates/
       suffix: .html
+    http:
+      multipart:
+        max-file-size: 100Mb
 
 JwtSetting:
   max-age: 18000000 #5小时

@@ -60,6 +60,14 @@
     <script src="/js/html5shiv.js"></script>
     <script src="/js/respond.min.js"></script>
     <![endif]-->
+
+    <!--<script type="text/javascript">-->
+        <!--function clearFiles()-->
+        <!--{-->
+            <!--var obj=document.getElementById('fileUpload');-->
+            <!--obj.outerHTML=obj.outerHTML;-->
+        <!--}-->
+    <!--</script>-->
 </head>
 
 <body class="sticky-header">
@@ -155,7 +163,7 @@
                 <div class="col-md-12">
                     <section class="panel">
                         <div class="panel-body">
-                            <form action="/patient/add" class="form-horizontal ">
+                            <form action="/patient/add" class="form-horizontal " method="POST">
 
                                 <div class="form-group">
                                     <label class="control-label col-md-3">姓名</label>
@@ -200,7 +208,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-md-3">手机号</label>
                                     <div class="col-md-4 col-xs-11">
-                                        <input type="text" placeholder="" class="form-control"/>
+                                        <input type="text" name="phone"  class="form-control"/>
                                         <span class="help-inline">134-6895-4389</span>
                                     </div>
                                 </div>
@@ -210,7 +218,7 @@
                                     <label class="control-label col-md-3">上传图片</label>
                                     <div class="col-md-9">
                                         <div class="fileupload fileupload-new" data-provides="fileupload">
-                                            <div class="fileupload-new thumbnail" style="width: 200px; height: 150px;">
+                                            <div class="fileupload-new rounded" style="width: 200px; height: 150px;">
                                                 <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt="" />
                                             </div>
                                             <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
@@ -218,10 +226,13 @@
                                                    <span class="btn btn-default btn-file">
                                                    <span class="fileupload-new"><i class="fa fa-paper-clip"></i> 选择图片</span>
                                                    <span class="fileupload-exists"><i class="fa fa-undo"></i> 更改</span>
-                                                   <input type="file" class="default" />
+                                                   <!--<input type="file" class="default" name="photo" id="fileUpload" />-->
                                                    </span>
-                                                <a href="#" class="btn btn-danger fileupload-exists" data-dismiss="fileupload"><i class="fa fa-trash"></i> 上传</a>
+                                                <a href="#" class="btn btn-danger fileupload-exists" data-dismiss="fileupload"><i class="fa fa-trash"></i> 取消</a>
                                             </div>
+
+                                            <!--测试validate-->
+                                            <input type="text" name="photoURL"/>
                                         </div>
                                         <br/>
                                     </div>

@@ -1,6 +1,7 @@
 package com.hwwz.medicalhistorysupervisor.controller;
 
 import com.hwwz.medicalhistorysupervisor.configuration.Authorization;
+import com.hwwz.medicalhistorysupervisor.configuration.GlobalMed;
 import com.hwwz.medicalhistorysupervisor.domain.CaseHistory;
 import com.hwwz.medicalhistorysupervisor.domain.Patient;
 import com.hwwz.medicalhistorysupervisor.service.CaseHistoryService;
@@ -10,8 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.File;
 import java.util.List;
 
 /**
@@ -28,6 +31,8 @@ public class PatientController {
 
 	@Autowired
 	private CaseHistoryService caseHistoryService;
+
+	private String photo_path;
 
 	@RequestMapping("/")
 	public String index() {
@@ -46,11 +51,35 @@ public class PatientController {
 //	}
 
 	@PostMapping(value = "/add")
-	public String add(@Valid Patient patient, BindingResult bindingResult) throws Exception {
+	public String add(@Valid Patient patient, MultipartFile file, BindingResult bindingResult) throws Exception {
 		if (bindingResult.hasErrors()) {
 			throw new Exception(bindingResult.getFieldError().getDefaultMessage());
 		}
 		try {
+
+			if (file.isEmpty()) {
+				return "文件为空";
+			}
+			// 获取文件名
+			String fileName = patient.getName()+patient.getPhone()+System.currentTimeMillis();
+			// 获取文件的后缀名
+			String suffixName = fileName.substring(fileName.lastIndexOf("."));
+			// 文件上传后的路径
+			String filePath = GlobalMed.getPhoto_path();
+			// 解决中文问题，liunx下中文路径，图片显示问题
+			// fileName = UUID.randomUUID() + suffixName;
+			File dest = new File(filePath + fileName);
+			// 检测是否存在目录
+			if (!dest.getParentFile().exists()) {
+				dest.getParentFile().mkdirs();
+			}
+			try {
+				file.transferTo(dest);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return "上传失败";
+			}
+			patient.setPhotoURL(fileName);
 			patientService.addPatient(patient);
 		} catch (Exception e) {
 			throw e;

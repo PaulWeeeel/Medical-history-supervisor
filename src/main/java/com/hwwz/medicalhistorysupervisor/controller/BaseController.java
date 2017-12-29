@@ -61,12 +61,12 @@ public class BaseController {
 //    }
 
     @PostMapping("/register")
-    public String register(HttpServletRequest request, HttpServletResponse response, HttpSession session){
+    public String register(HttpServletRequest request, HttpServletResponse response){
         String username = WebUtils.findParameterValue(request, "username");
         String password1 = WebUtils.findParameterValue(request, "password1");
         String password2 = WebUtils.findParameterValue(request, "password2");
         if (baseService.register(username, password1, password2)){
-            return "index";
+            return "login";
         }else {
             return "register";
         }

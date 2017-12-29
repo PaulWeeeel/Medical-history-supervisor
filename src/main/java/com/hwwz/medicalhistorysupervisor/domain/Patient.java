@@ -43,6 +43,8 @@ public class Patient {
 
 	private List<CaseHistory> caseHistoryList;
 
+	private String photoURL;
+
 	@Id
 	@GeneratedValue
 	public Integer getId() {
@@ -144,4 +146,12 @@ public class Patient {
     public CaseHistory findLastCaseHistory() {
         return caseHistoryList.get(caseHistoryList.size());
     }
+
+	public String getPhotoURL() {
+		return photoURL;
+	}
+
+	public void setPhotoURL(String photoURL) {
+		this.photoURL = photoURL;
+	}
 }
