@@ -96,8 +96,8 @@ public class PatientController {
 		return "patient/add";
 	}
 
-	@GetMapping(value = "/home/{id}")
-	public String getPatientById(Model model, @PathVariable("id") Integer id) throws Exception {
+	@GetMapping(value = "/home")
+	public String getPatientById(Model model, @RequestParam("id") Integer id) throws Exception {
 		try {
 			Patient patient = patientService.getPatientById(id);
 			List<CaseHistory> caseHistoryList = patient.getCaseHistoryList();

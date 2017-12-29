@@ -110,8 +110,8 @@
                         <header class="panel-heading">
                             全部病人
                             <span class="tools pull-right">
-                <a href="javascript:;" class="fa fa-chevron-down"></a>
-                <a href="javascript:;" class="fa fa-times"></a>
+                <a href="javascript:" class="fa fa-chevron-down"></a>
+                <a href="javascript:" class="fa fa-times"></a>
              </span>
                         </header>
                         <div class="panel-body">
@@ -142,7 +142,7 @@
                                             <td th:text="${patient.address}">上海市华附高中</td>
                                             <td th:text="${patient.lastDate}">2017-12-16 10:32:39</td>
                                             <td th:text="${patient.totalFee}">1024</td>
-                                            <td><a class="edit" href="@{patient/home(id=${patient.id})}">详情</a></td>
+                                            <td><a class="edit" href="#" th:href="@{/patient/home(id=${patient.id})}">详情</a></td>
                                         </tr>
                                     </tbody>
                                 </table>
