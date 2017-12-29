@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
  * @date: 2017/12/4/004 0:11
  */
 @Entity
-public class User {
+public class User{
 
 	 private Integer id;
 

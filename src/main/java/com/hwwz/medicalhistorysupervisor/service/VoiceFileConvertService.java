@@ -11,4 +11,6 @@ import org.springframework.stereotype.Component;
 public interface VoiceFileConvertService {
     //Origin voice file is base on 44.1hHz which need to be converted to 8kHz
     //See the usage in the test file
+    public void convert(String inputFile, String outputFile, int audioCodec, int sampleRate, int audioBitrate,
+                        int audioChannels);
 }
