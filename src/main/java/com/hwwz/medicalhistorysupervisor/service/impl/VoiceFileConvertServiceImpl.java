@@ -26,7 +26,8 @@ public class VoiceFileConvertServiceImpl implements VoiceFileConvertService {
      * @param sampleRate
      * @param audioBitrate
      */
-    public static void convert(String inputFile, String outputFile, int audioCodec, int sampleRate, int audioBitrate,
+    @Override
+    public void convert(String inputFile, String outputFile, int audioCodec, int sampleRate, int audioBitrate,
                                int audioChannels) {
         Frame audioSamples = null;
         // recorder
@@ -65,7 +66,7 @@ public class VoiceFileConvertServiceImpl implements VoiceFileConvertService {
 
     }
 
-    public static boolean start(FrameGrabber grabber) {
+    public boolean start(FrameGrabber grabber) {
         try {
             grabber.start();
             return true;
@@ -87,7 +88,7 @@ public class VoiceFileConvertServiceImpl implements VoiceFileConvertService {
         return false;
     }
 
-    public static boolean start(FrameRecorder recorder) {
+    public boolean start(FrameRecorder recorder) {
         try {
             recorder.start();
             return true;
@@ -109,7 +110,7 @@ public class VoiceFileConvertServiceImpl implements VoiceFileConvertService {
         return false;
     }
 
-    public static boolean stop(FrameGrabber grabber) {
+    public boolean stop(FrameGrabber grabber) {
         try {
             grabber.flush();
             grabber.stop();
@@ -125,7 +126,7 @@ public class VoiceFileConvertServiceImpl implements VoiceFileConvertService {
         }
     }
 
-    public static boolean stop(FrameRecorder recorder) {
+    public boolean stop(FrameRecorder recorder) {
         try {
             recorder.stop();
             recorder.release();

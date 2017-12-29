@@ -3,10 +3,7 @@ package com.hwwz.medicalhistorysupervisor.domain;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.validator.constraints.NotBlank;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -44,6 +41,8 @@ public class Patient {
 	private List<CaseHistory> caseHistoryList;
 
 	private String photoURL;
+
+	private String faceToken;
 
 	@Id
 	@GeneratedValue
@@ -154,4 +153,8 @@ public class Patient {
 	public void setPhotoURL(String photoURL) {
 		this.photoURL = photoURL;
 	}
+
+	public String getFaceToken() { return faceToken; }
+
+	public void setFaceToken(String faceToken) { this.faceToken = faceToken; }
 }
