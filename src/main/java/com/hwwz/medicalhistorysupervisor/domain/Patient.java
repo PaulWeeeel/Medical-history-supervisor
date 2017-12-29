@@ -45,6 +45,8 @@ public class Patient {
 
 	private String photoURL;
 
+	private String faceToken;
+
 	@Id
 	@GeneratedValue
 	public Integer getId() {
@@ -154,4 +156,8 @@ public class Patient {
 	public void setPhotoURL(String photoURL) {
 		this.photoURL = photoURL;
 	}
+
+	public String getFaceToken() { return faceToken; }
+
+	public void setFaceToken(String faceToken) { this.faceToken = faceToken; }
 }

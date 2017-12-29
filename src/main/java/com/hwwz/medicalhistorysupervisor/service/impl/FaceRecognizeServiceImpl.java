@@ -52,14 +52,24 @@ public class FaceRecognizeServiceImpl implements FaceRecognizeService {
         String result = searchFace(file);
 
         //new user input
-        if(result == null) {
-            String token = getFace(file);
-            addFace(token);
-            return token;
-        }
-        else{
-            return result;
-        }
+        //if(result == null) {
+        //    String token = getFace(file);
+        //    addFace(token);
+        //    return token;
+        //}
+        //else{
+        //return result;
+        //}
+
+        return result;
+    }
+
+    @Override
+    public String addNewFace(File file){
+        String token = getFace(file);
+        addFace(token);
+
+        return token;
     }
 
     @Override

@@ -24,4 +24,10 @@ public interface FaceRecognizeService {
      * @return true if success, otherwise false
      */
     public boolean resetFaceSet(ArrayList<String> faceTokens);
+    /**
+     * add a new face to the existed faceset
+     * @param file
+     * @return true if success, otherwise false
+     */
+    public String addNewFace(File file);
 }
