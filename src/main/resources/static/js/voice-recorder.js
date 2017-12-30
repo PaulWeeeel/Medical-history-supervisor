@@ -165,7 +165,7 @@
                     }),
                     dataType: "json",
                     contentType:"application/json;charset=utf-8",
-                    timeout: 10000,
+                    timeout: 60000,
                     success: function (response) {
                         if(response.status == "200") {
                             callback(response.result);
