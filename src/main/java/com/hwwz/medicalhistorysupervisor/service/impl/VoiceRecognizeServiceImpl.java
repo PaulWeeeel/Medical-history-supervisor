@@ -62,6 +62,7 @@ public class VoiceRecognizeServiceImpl implements VoiceRecognizeService{
             System.out.println("Voice Recognize Failed!");
             return null;
         }
+        mResult.delete(0, mResult.length());
         return result;
     }
 
@@ -113,7 +114,7 @@ public class VoiceRecognizeServiceImpl implements VoiceRecognizeService{
             recognizer.setParameter(SpeechConstant.AUDIO_SOURCE, "-1");
             recognizer.setParameter(SpeechConstant.ACCENT, "mandarin");
             recognizer.setParameter(SpeechConstant.RESULT_TYPE, "plain" );
-            recognizer.setParameter(SpeechConstant.SAMPLE_RATE, "8000" );
+            recognizer.setParameter(SpeechConstant.SAMPLE_RATE, "16000" );
 
             recognizer.startListening(recListener);
             ArrayList<byte[]> buffers = splitBuffer(voiceBuffer,
@@ -140,6 +141,8 @@ public class VoiceRecognizeServiceImpl implements VoiceRecognizeService{
                 maxWaitTime -= perWaitTime;
             }
         }
+        System.out.println(mResult);
+        System.out.println(mResult.toString());
         return mResult.toString();
     }
 
@@ -200,7 +203,6 @@ public class VoiceRecognizeServiceImpl implements VoiceRecognizeService{
 
             if( islast ){
                 System.out.println("Voice result:" + mResult.toString());
-                mResult.delete(0, mResult.length());
             }
         }
 

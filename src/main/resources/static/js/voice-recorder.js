@@ -8,7 +8,7 @@
         config = config || {};
 
         config.sampleBits = config.sampleBits || 16;      //采样数位 16
-        config.sampleRate = config.sampleRate || 44100;   //采样率 44100
+        config.sampleRate = config.sampleRate || 16000;   //采样率 44100
 
 
         //创建一个音频环境对象
@@ -144,28 +144,45 @@
         this.play = function (audio) {
             audio.src = window.URL.createObjectURL(this.getBlob());
         };
+        
+        this.blobToUrl = function (blob, callback) {
+            var a = new FileReader();
+            a.onload = function(e) {
+                callback(e.target.result);
+            };
+            a.readAsDataURL(blob);
+        };
 
         //上传wav
         this.upload = function (url, callback) {
-            var fd = new FormData();
-            fd.append('audioData', this.getBlob());
-            var xhr = new XMLHttpRequest();
-            if (callback) {
-                xhr.upload.addEventListener('progress', function (e) {
-                    callback('uploading', e);
-                }, false);
-                xhr.addEventListener('load', function (e) {
-                    callback('ok', e);
-                }, false);
-                xhr.addEventListener('error', function (e) {
-                    callback('error', e);
-                }, false);
-                xhr.addEventListener('abort', function (e) {
-                    callback('cancel', e);
-                }, false);
-            }
-            xhr.open('POST', url);
-            xhr.send(fd);
+            this.blobToUrl(this.getBlob(), function (audioData) {
+
+                $.ajax({
+                    type: "POST",
+                    url: url + "/recognize/voice",
+                    data: JSON.stringify({
+                        'audioData': audioData
+                    }),
+                    dataType: "json",
+                    contentType:"application/json;charset=utf-8",
+                    timeout: 10000,
+                    success: function (response) {
+                        if(response.status == "200") {
+                            callback(response.result);
+                        }
+                        else{
+                            callback("Error!");
+                        }
+                    },
+                    error: function () {
+                        alert("与服务器连接错误！");
+                    },
+                    complete: function () {
+
+                    }
+                });
+
+            })
         };
 
         //音频采集

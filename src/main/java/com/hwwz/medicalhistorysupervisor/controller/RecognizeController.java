@@ -3,18 +3,20 @@ package com.hwwz.medicalhistorysupervisor.controller;
 import com.hwwz.medicalhistorysupervisor.configuration.Authorization;
 import com.hwwz.medicalhistorysupervisor.domain.Patient;
 import com.hwwz.medicalhistorysupervisor.repository.PatientRepository;
+import com.hwwz.medicalhistorysupervisor.service.DataUrlConvertService;
 import com.hwwz.medicalhistorysupervisor.service.FaceRecognizeService;
 import com.hwwz.medicalhistorysupervisor.service.VoiceFileConvertService;
 import com.hwwz.medicalhistorysupervisor.service.VoiceRecognizeService;
+import com.hwwz.medicalhistorysupervisor.utils.ResJsonTemplate;
 import org.bytedeco.javacpp.avcodec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import java.io.File;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -39,45 +41,66 @@ public class RecognizeController {
     @Autowired
     private VoiceFileConvertService voiceFileConvertService;
 
-    public class Form{
-        String result;
-    }
+    @Autowired
+    private DataUrlConvertService dataUrlConvertService;
 
-    @GetMapping("/voice")
-    public Form recognizeVoice(String filepath){
-        voiceFileConvertService.convert(filepath, filepath.substring(0, filepath.indexOf('.')) + "_temp.wav", avcodec.AV_CODEC_ID_PCM_S16LE, 8000, 16,1);
-        File file = new File(filepath.substring(0, filepath.indexOf('.')) + "_temp.wav");
+    @ResponseBody
+    @RequestMapping(value = "/voice", method = RequestMethod.POST)
+    public ResJsonTemplate recognizeVoice(HttpServletRequest request, HttpServletResponse response, @RequestBody String audioData){
+
+        String fileName = new String();
+
+        try{
+            fileName = dataUrlConvertService.saveDataUrlToFile(audioData);
+        }
+        catch (Exception e){
+            return new ResJsonTemplate("500", new Date(), "File error");
+        }
+
+        //voiceFileConvertService.convert(fileName, fileName.substring(0, fileName.indexOf('.')) + "_temp.wav", avcodec.AV_CODEC_ID_PCM_S16LE, 8000, 16,1);
+        //File file = new File(fileName.substring(0, fileName.indexOf('.')) + "_temp.wav");
+        File file = new File(fileName);
         String result = voiceRecognizeService.doRecognize(file);
 
-        Form form = new Form();
-        form.result = result;
-
-        return form;
+        return new ResJsonTemplate("200", new Date(), result);
     }
 
-    @PostMapping("/addFace")
-    public String add(@Valid Patient patient, String filepath){
+    @ResponseBody
+    @RequestMapping(value = "/addFace", method = RequestMethod.POST)
+    public ResJsonTemplate add(HttpServletRequest request, HttpServletResponse response, @RequestBody String filepath){
+
         File file = new File(filepath);
         String faceToken = faceRecognizeService.addNewFace(file);
 
-        patient.setFaceToken(faceToken);
-        patientRepository.save(patient);
-        return "redirect:/patient/listAll";
+        return new ResJsonTemplate("200", new Date(), faceToken);
     }
 
-    @GetMapping("/face")
-    public String recognizeFace(@Valid Patient patient, String filepath){
-        File file = new File(filepath);
-        String faceToken = faceRecognizeService.doRecognize(file);
+    @ResponseBody
+    @RequestMapping(value = "/face", method = RequestMethod.POST)
+    public ResJsonTemplate recognize(HttpServletRequest request, HttpServletResponse response, @RequestBody String image){
+
+        String fileName = new String();
+
+        try{
+            fileName = dataUrlConvertService.saveDataUrlToFile(image);
+        }
+        catch (Exception e){
+            return new ResJsonTemplate("500", new Date(), "File error");
+        }
+
+        String faceToken = faceRecognizeService.doRecognize(new File(fileName));
+
+        System.out.println(faceToken);
 
         List<Patient> patients = patientRepository.findPatientByFaceToken(faceToken);
 
-        if(patients.isEmpty())
-            patient = null;
-        else
-            patient = patients.get(0);
+        if(patients.isEmpty() || faceToken == null) {
 
-        return "redirect:/patient/listAll";
+            return new ResJsonTemplate("404", new Date(), "Not found");
+        }
+        else {
+            return new ResJsonTemplate("200", new Date(), patients.get(0));
+        }
     }
 }
 

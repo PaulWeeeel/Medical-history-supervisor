@@ -35,6 +35,7 @@
                 document.cookie="token="+cval+";expires="+exp.toTimeString();
         }
     </script>
+    <script src="/js/voice-recorder.js"></script>
 </head>
 
 <body class="sticky-header" onload="setToken()">
@@ -196,8 +197,40 @@
         <!--2014 &copy; AdminEx by ThemeBucket-->
         <!--</footer>-->
         <!--footer section end-->
+        <div style="display: none">
+            <video src="" id="video"></video>
+            <canvas id="canvas" width="320" height="180"></canvas>
+        </div>
 
+        <div class="wrapper">
+            <div class="row">
+                <div class="col-sm-12">
 
+                    <div class="col-lg-3 col-sm-3">
+                        <div class="pricing-table most-popular">
+                            <div class="pricing-head">
+                            <h1> 监控中 </h1>
+
+                            </div>
+                            <ul id="success" class="list-unstyled">
+                                <li>病人ID：<span id="patient-id">暂无</span></li>
+                                <li>病人姓名：<span id="patient-name">暂无</span></li>
+                                <li>最后检测时间：<span id="last-connect">暂无</span></li>
+                            </ul>
+
+                            <button id="patient-detail" class="btn btn-primary" type="submit" style="margin:0 auto" disabled="disabled" onclick="queryDetail()">
+                                查看详情</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <span style="white-space:pre">        </span><audio controls="autoplay"></audio>
+        <input class="btn btn-primary" type="button" value="Start" onclick="startRecording()"/>
+        <input class="btn btn-primary" type="submit" value="Upload" onclick="obtainRecord()"/>
+        <input class="btn btn-primary" type="button" value="Stop" onclick="stopRecord()"/>
+        <input class="btn btn-primary" type="button" value="Replay" onclick="playRecord()"/>
     </div>
     <!-- main content end-->
 </section>
@@ -210,9 +243,106 @@
 <script src="/js/modernizr.min.js"></script>
 <script src="/js/jquery.nicescroll.js"></script>
 
-
 <!--common scripts for all pages-->
 <script src="/js/scripts.js"></script>
+
+<script type="text/javascript" th:inline="javascript">
+    /* video */
+    // Prefer camera resolution nearest to 1280x720.
+    var constraints = { audio: false, video: { width: 320, height: 180 } };
+
+    navigator.mediaDevices.getUserMedia(constraints)
+        .then(function(mediaStream) {
+            var video = document.querySelector('video');
+            video.srcObject = mediaStream;
+            video.onloadedmetadata = function(e) {
+                video.play();
+            };
+        })
+        .catch(function(err) { console.log(err.name + ": " + err.message); }); // always check for errors at the end.
+
+    var timer = setInterval ("recognize()", 3000);
+    var patient_id;
+    function recognize() {
+        var canvans = document.getElementById("canvas"),//get canvas interface
+            context = canvas.getContext("2d");
+        context.drawImage(video, 0, 0, 320, 180);//draw the picture here
+        var imgData = canvans.toDataURL();//get in Base64format
+
+        var basePath = [[${#httpServletRequest.getScheme() + "://" + #httpServletRequest.getServerName() + ":" + #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath()}]];
+
+        //upload imgData here
+        $.ajax({
+            type: "POST",
+            url: basePath + "/recognize/face",
+            data: JSON.stringify({
+                'image': imgData
+            }),
+            dataType: "json",
+            contentType:"application/json;charset=utf-8",
+            timeout: 3000,
+            success: function (response) {
+
+                $('#last-connect').html(response.time);
+
+                if(response.status == "200") {
+                    $('#patient-id').html(response.result.id);
+                    $('#patient-name').html(response.result.name);
+
+                    document.getElementById("patient-detail").removeAttribute("disabled");
+                    patient_id = response.result.id.toString();
+                }
+                else{
+
+                }
+
+            },
+            error: function () {
+                clearInterval(timer);
+                alert("与服务器连接错误，请刷新页面！");
+            },
+            complete: function () {
+
+            }
+        });
+    };
+
+    function queryDetail() {
+        window.location="/patient/home/" + patient_id;
+    }
+</script>
+
+<script type="text/javascript" th:inline="javascript">
+
+    /* Audio */
+    var recorder;
+    var audio = document.querySelector('audio');
+
+    function startRecording() {
+        HZRecorder.get(function (rec) {
+            recorder = rec;
+            recorder.start();
+        });
+    }
+
+    function obtainRecord(){
+        var record = recorder.getBlob();
+        var basePath = [[${#httpServletRequest.getScheme() + "://" + #httpServletRequest.getServerName() + ":" + #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath()}]];
+
+        recorder.upload(basePath,  function (result) {
+            console.log(result);
+        });
+        debugger;
+    };
+
+    function stopRecord(){
+        recorder.stop();
+    };
+
+    function playRecord(){
+        recorder.play(audio);
+    };
+</script>
 
 </body>
 </html>

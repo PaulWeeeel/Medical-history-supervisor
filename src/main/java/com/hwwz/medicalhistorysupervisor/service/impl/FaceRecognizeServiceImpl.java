@@ -225,6 +225,8 @@ public class FaceRecognizeServiceImpl implements FaceRecognizeService {
         }
         else if(!retry){
             //do analysis
+            if(!result.contains("confidence"))
+                return null;
             first = result.substring(result.indexOf("results") + 11);
             first = first.substring(0, first.indexOf("}") + 1);
             threshold = result.substring(result.indexOf("1e-5") + 6);
@@ -232,6 +234,7 @@ public class FaceRecognizeServiceImpl implements FaceRecognizeService {
 
             first_confidence = first.substring(first.indexOf("confidence") + 13, first.indexOf(","));
             first_token = first.substring(first.indexOf("face_token") + 14, first.indexOf("}") - 1);
+
             System.out.println("\nfirst token: " + first_token);
             System.out.println("\nfisrt confidence: " + first_confidence);
             System.out.println("\nthreshold" + threshold);
