@@ -15,7 +15,7 @@ public interface FaceRecognizeService {
     /**
      * get the user of a img file of the face
      * @param file
-     * @return string of the face token of the user (if new, new a token)
+     * @return string of the face token of the user
      */
     public String doRecognize(File file);
     /**
