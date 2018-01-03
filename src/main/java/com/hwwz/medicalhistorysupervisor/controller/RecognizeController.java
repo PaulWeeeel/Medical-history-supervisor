@@ -13,8 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.util.Date;
 import java.util.List;
@@ -44,9 +42,14 @@ public class RecognizeController {
     @Autowired
     private DataUrlConvertService dataUrlConvertService;
 
+    /**
+     * get the user of a img file of the face
+     * @param audioData
+     * @return Json contains string of the face token of the user with status 200
+     */
     @ResponseBody
     @RequestMapping(value = "/voice", method = RequestMethod.POST)
-    public ResJsonTemplate recognizeVoice(HttpServletRequest request, HttpServletResponse response, @RequestBody String audioData){
+    public ResJsonTemplate recognizeVoice(@RequestBody String audioData){
 
         String fileName = new String();
 
@@ -65,19 +68,50 @@ public class RecognizeController {
         return new ResJsonTemplate("200", new Date(), result);
     }
 
+    /**
+     * upload a new user word to accurate the voice recognize
+     * @param newWord
+     * @return result message success with status code 200 or failed with 400
+     */
     @ResponseBody
-    @RequestMapping(value = "/addFace", method = RequestMethod.POST)
-    public ResJsonTemplate add(HttpServletRequest request, HttpServletResponse response, @RequestBody String filepath){
+    @RequestMapping(value = "/voice/add", method = RequestMethod.POST)
+    public ResJsonTemplate addUserWord(@RequestBody String newWord){
+
+        if(voiceRecognizeService.doUpload(newWord)) {
+            return new ResJsonTemplate("200", new Date(), "Success");
+        }
+        else{
+            return new ResJsonTemplate("400", new Date(), "Failed");
+        }
+    }
+
+    /**
+     * get a new token of the user of a img file of the face
+     * @param filepath
+     * @return Json contains a string of the face token of the user
+     */
+    @ResponseBody
+    @RequestMapping(value = "/face/add", method = RequestMethod.POST)
+    public ResJsonTemplate addFace(@RequestBody String filepath){
 
         File file = new File(filepath);
         String faceToken = faceRecognizeService.addNewFace(file);
-
-        return new ResJsonTemplate("200", new Date(), faceToken);
+        if(faceToken.length() != 0) {
+            return new ResJsonTemplate("200", new Date(), faceToken);
+        }
+        else{
+            return new ResJsonTemplate("400", new Date(), null);
+        }
     }
 
+    /**
+     * get the user of a img file of the face
+     * @param image
+     * @return string of the face token of the user (if new, new a token)
+     */
     @ResponseBody
     @RequestMapping(value = "/face", method = RequestMethod.POST)
-    public ResJsonTemplate recognize(HttpServletRequest request, HttpServletResponse response, @RequestBody String image){
+    public ResJsonTemplate recognize(@RequestBody String image){
 
         String fileName = new String();
 
