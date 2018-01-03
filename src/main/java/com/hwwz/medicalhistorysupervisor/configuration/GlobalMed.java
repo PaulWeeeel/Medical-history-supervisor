@@ -14,8 +14,10 @@ public class GlobalMed {
     private static String abs_path;
     private static String photo_dir;
     private static String symptom_dir;
+    private static String disease_dir;
     private static String photo_path;
     private static String symptom_path;
+    private static String disease_path;
     private static boolean iscreated=false;
 
     private static void init()
@@ -25,10 +27,13 @@ public class GlobalMed {
             abs_path= ClassUtils.getDefaultClassLoader().getResource("").getPath();
             photo_dir="photos/";
             symptom_dir="symptoms/";
+            disease_dir="diseases/";
             photo_path=abs_path+photo_dir;
             symptom_path=abs_path+symptom_path;
+            disease_path=abs_path+disease_dir;
             File photo_dir=new File(photo_path);
             File symp_dir=new File(symptom_path);
+            File dise_dir=new File(disease_path);
             if(!photo_dir.exists())
             {
                 photo_dir.mkdir();
@@ -36,6 +41,10 @@ public class GlobalMed {
             if(!symp_dir.exists())
             {
                 symp_dir.mkdir();
+            }
+            if(!symp_dir.exists())
+            {
+                dise_dir.mkdir();
             }
             iscreated=true;
         }
@@ -64,5 +73,15 @@ public class GlobalMed {
     public static String getSymptom_path() {
         init();
         return symptom_path;
+    }
+
+    public static String getDisease_dir() {
+        init();
+        return disease_dir;
+    }
+
+    public static String getDisease_path(){
+        init();
+        return disease_path;
     }
 }

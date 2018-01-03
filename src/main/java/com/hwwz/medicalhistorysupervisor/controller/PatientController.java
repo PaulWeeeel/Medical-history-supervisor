@@ -6,6 +6,7 @@ import com.hwwz.medicalhistorysupervisor.domain.CaseHistory;
 import com.hwwz.medicalhistorysupervisor.domain.Patient;
 import com.hwwz.medicalhistorysupervisor.service.CaseHistoryService;
 import com.hwwz.medicalhistorysupervisor.service.PatientService;
+import com.hwwz.medicalhistorysupervisor.utils.fileReception;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -58,28 +59,9 @@ public class PatientController {
 			throw new Exception(bindingResult.getFieldError().getDefaultMessage());
 		}
 		try {
-
-			if (file!=null&&!file.isEmpty()) {
-				// 获取文件名
-				String fileName = file.getOriginalFilename();
-				// 获取文件的后缀名
-				String suffixName = fileName.substring(fileName.lastIndexOf("."));
-				// 文件上传后的路径
-				//new file name:
-				fileName= UUID.randomUUID()+suffixName;
-				String filePath = GlobalMed.getPhoto_path();
-				// fileName = UUID.randomUUID() + suffixName;
-				File dest = new File(filePath + fileName);
-				// 检测是否存在目录
-				if (!dest.getParentFile().exists()) {
-					dest.getParentFile().mkdirs();
-				}
-				try {
-					file.transferTo(dest);
-				} catch (Exception e) {
-					e.printStackTrace();
-					return "上传失败";
-				}
+			String fileName= fileReception.receiveSingle(file,GlobalMed.getPhoto_path());
+			if(!fileName.equals(""))
+			{
 				patient.setPhotoURL(fileName);
 				patientService.addPatient(patient);
 			}
@@ -96,8 +78,8 @@ public class PatientController {
 		return "patient/add";
 	}
 
-	@GetMapping(value = "/home")
-	public String getPatientById(Model model, @RequestParam("id") Integer id) throws Exception {
+	@GetMapping(value = "/home/{id}")
+	public String getPatientById(Model model, @PathVariable("id") Integer id) throws Exception {
 		try {
 			Patient patient = patientService.getPatientById(id);
 			List<CaseHistory> caseHistoryList = patient.getCaseHistoryList();

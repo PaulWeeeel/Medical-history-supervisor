@@ -18,4 +18,9 @@ public class DiseaseServiceImpl implements DiseaseService {
     public List<Disease> getAllDiseases() {
         return diseaseRepository.findAll();
     }
+
+    @Override
+    public void addDisease(Disease disease){
+        diseaseRepository.save(disease);
+    }
 }

@@ -21,6 +21,8 @@ public class CaseHistory {
 
 	private Timestamp dateTime;
 
+	private String description;
+
 	private Patient patient;
 
 	private List<Disease> diseaseList;
@@ -63,7 +65,15 @@ public class CaseHistory {
 		this.dateTime = dateTime;
 	}
 
-	@ManyToOne
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    @ManyToOne
 	public Patient getPatient() {
 		return patient;
 	}

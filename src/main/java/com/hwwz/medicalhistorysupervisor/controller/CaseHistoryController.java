@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 
@@ -41,7 +42,7 @@ public class CaseHistoryController {
 	}
 
 	@PostMapping(value = "/add")
-	public String add(@Valid CaseHistory caseHistory, @RequestParam("patientId") Integer patientId) {
+	public String add(@Valid CaseHistory caseHistory, @RequestParam("files") MultipartFile[]files, @RequestParam("patientId") Integer patientId) {
 		caseHistoryService.add(caseHistory, patientId);
 		return "redirect:/case-history/list";
 	}

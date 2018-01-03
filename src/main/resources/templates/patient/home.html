@@ -129,7 +129,7 @@
                                         </li>
                                         <li>
                                             <div class="title">性别</div>
-                                            <div class="desk" th:text="${patient.gender}">男</div>
+                                            <div class="desk" th:text="${patient.gender}==true?'男' : '女'">男</div>
                                         </li>
                                         <li>
                                             <div class="title">年龄</div>
@@ -151,6 +151,11 @@
                                             <div class="title">总金额</div>
                                             <div class="desk" th:text="${patient.totalFee}">330¥</div>
                                         </li>
+                                        <li>
+                                            <a class="btn btn-primary" th:href="@{/case-history/toAdd(patientId=${patient.id})}">
+                                                添加病历
+                                            </a>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -162,14 +167,14 @@
                     <section class="panel">
                         <header class="panel-heading custom-tab ">
                             <ul class="nav nav-tabs">
-                                <li th:class="stat.first?'active':''"  th:each="caseHistory,stat : ${patient.caseHistoryList}"></li>
-                                    <a href="#home" data-toggle="tab" th:href="|#case${caseHistory.id}|" th:text="${caseHistory.dateTime}">17.12.12</a>
+                                <li th:class="stat.first?'active':''"  th:each="caseHistory,stat : ${caseHistoryList}" ></li>
+                                    <a href="#home" data-toggle="tab" th:href="|#case${caseHistory.id}|" th:text="${caseHistory.dateTime}" th:unless="${caseHistroy}==null">17.12.12</a>
                                 </li>
                             </ul>
                         </header>
                         <div class="panel-body">
-                            <div class="tab-content" th:each="caseHistory,stat : ${patient.caseHistoryList}">
-                                <div th:class="stat.first?'tab-pane active':'tab-pane'" th:id="|#case${caseHistory.id}|">
+                            <div class="tab-content" th:each="caseHistory,stat : ${caseHistoryList}" >
+                                <div th:class="stat.first?'tab-pane active':'tab-pane'" th:id="|#case${caseHistory.id}|" th:unless="${caseHistroy}==null">
                                     <ul class="p-info">
                                         <li>
                                             <div class="title">病名</div>
@@ -191,7 +196,7 @@
                                         </li>
                                         <li>
                                             <div class="title">症状图</div>
-                                            <img th:each="url : ${caseHistory.getImageUrlList()}"
+                                            <img th:each="url : ${caseHistory.getImageUrlList()}" th:if="${not #lists.isEmpty(caseHistory.getImageUrlList())}"
                                                  th:src="@{url}"
                                                  src="/images/disease/ganmao.jpg" style="width: 240px;height: 160px" alt=" /"/>
                                         </li>
