@@ -163,18 +163,17 @@
                     </div>
                 </div>
                 <div class="col-md-8">
-
                     <section class="panel">
-                        <header class="panel-heading custom-tab ">
+                        <div class="panel-heading custom-tab">
                             <ul class="nav nav-tabs">
-                                <li th:class="stat.first?'active':''"  th:each="caseHistory,stat : ${caseHistoryList}" ></li>
-                                    <a href="#home" data-toggle="tab" th:href="|#case${caseHistory.id}|" th:text="${caseHistory.dateTime}" th:unless="${caseHistroy}==null">17.12.12</a>
+                                <li th:class="${stat.first}?'active':''"  th:each="caseHistory,stat : ${caseHistoryList}" >
+                                    <a data-toggle="tab" th:href="|#case${caseHistory.id}|" th:text="${caseHistory.findFormatDateTime()}">17.12.12</a>
                                 </li>
                             </ul>
-                        </header>
+                        </div>
                         <div class="panel-body">
-                            <div class="tab-content" th:each="caseHistory,stat : ${caseHistoryList}" >
-                                <div th:class="stat.first?'tab-pane active':'tab-pane'" th:id="|#case${caseHistory.id}|" th:unless="${caseHistroy}==null">
+                            <div class="tab-content">
+                                <div th:class="${stat.first}?'tab-pane active':'tab-pane'"  th:id="|case${caseHistory.id}|" th:each="caseHistory,stat : ${caseHistoryList}">
                                     <ul class="p-info">
                                         <li>
                                             <div class="title">病名</div>
@@ -182,13 +181,11 @@
                                         </li>
                                         <li>
                                             <div class="title">发病时间</div>
-                                            <div class="desk" th:text="${caseHistory.dateTime}">17.12.09</div>
+                                            <div class="desk" th:text="${caseHistory.onset}">17.12.09</div>
                                         </li>
                                         <li>
                                             <div class="title">药方</div>
-                                            <div class="desk">
-                                                <div class="desk" th:text="${caseHistory.findMedicineInfos()}">青霉素2盒, 板蓝根4盒</div>
-                                            </div>
+                                            <div class="desk" th:text="${caseHistory.findMedicineInfos()}">青霉素2盒, 板蓝根4盒</div>
                                         </li>
                                         <li>
                                             <div class="title">金额</div>
@@ -196,7 +193,7 @@
                                         </li>
                                         <li>
                                             <div class="title">症状图</div>
-                                            <img th:each="url : ${caseHistory.getImageUrlList()}" th:if="${not #lists.isEmpty(caseHistory.getImageUrlList())}"
+                                            <img th:each="url : ${caseHistory.getImageUrlList()}"
                                                  th:src="@{url}"
                                                  src="/images/disease/ganmao.jpg" style="width: 240px;height: 160px" alt=" /"/>
                                         </li>
@@ -227,10 +224,9 @@
 <script src="/js/jquery-1.10.2.min.js"></script>
 <script src="/js/jquery-ui-1.9.2.custom.min.js"></script>
 <script src="/js/jquery-migrate-1.2.1.min.js"></script>
-<script src="/js/bootstrap.min.js"></script>
+<script src="/js/bootstrap.js"></script>
 <script src="/js/modernizr.min.js"></script>
 <script src="/js/jquery.nicescroll.js"></script>
-
 
 <!--common scripts for all pages-->
 <script src="/js/scripts.js"></script>

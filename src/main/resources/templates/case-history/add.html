@@ -13,11 +13,14 @@
     <link rel="stylesheet" type="text/css" href="/js/ios-switch/switchery.css" />
 
     <!--pickers css-->
-    <link rel="stylesheet" type="text/css" href="/js/bootstrap-datepicker/css/datepicker-custom.css" />
-    <link rel="stylesheet" type="text/css" href="/js/bootstrap-timepicker/css/timepicker.css" />
-    <link rel="stylesheet" type="text/css" href="/js/bootstrap-colorpicker/css/colorpicker.css" />
-    <link rel="stylesheet" type="text/css" href="/js/bootstrap-daterangepicker/daterangepicker-bs3.css" />
-    <link rel="stylesheet" type="text/css" href="/js/bootstrap-datetimepicker/css/datetimepicker-custom.css" />
+    <!--<link rel="stylesheet" type="text/css" href="/js/bootstrap-datepicker/css/datepicker-custom.css" />-->
+    <!--<link rel="stylesheet" type="text/css" href="/js/bootstrap-timepicker/css/timepicker.css" />-->
+    <!--<link rel="stylesheet" type="text/css" href="/js/bootstrap-colorpicker/css/colorpicker.css" />-->
+    <!--<link rel="stylesheet" type="text/css" href="/js/bootstrap-daterangepicker/daterangepicker-bs3.css" />-->
+    <!--<link rel="stylesheet" type="text/css" href="/js/bootstrap-datetimepicker/css/datetimepicker-custom.css" />-->
+
+    <link rel="stylesheet" type="text/css" media="screen" href="/css/bootstrap.min.css" >
+    <link rel="stylesheet" type="text/css" media="screen" href="/css/bootstrap-datetimepicker.min.css">
 
     <!--icheck-->
     <link href="/js/iCheck/skins/minimal/minimal.css" rel="stylesheet" />
@@ -177,10 +180,16 @@
 
                                 <div class="form-group">
                                     <label class="control-label col-md-3">发病时间</label>
-                                    <div class="col-md-4 col-xs-11">
-                                        <input class="form-control form-control-inline input-medium default-date-picker" date-date-format="@" name="onset" size="16" type="text"  />
-                                        <span class="help-block">选择日期</span>
+                                    <!--<div class="col-md-4 col-xs-11">-->
+                                        <!--<input class="form-control form-control-inline input-medium default-date-picker" date-date-format="yyyy-mm-dd" name="onset" size="16" type="text"  />-->
+                                        <!--<span class="help-block">选择日期</span>-->
+                                    <!--</div>-->
+                                    <div class="input-group date form_datetime col-md-5" data-date="2017-11-11T05:25:07Z" data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
+                                        <input class="form-control" size="16" type="text" value="" readonly>
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
                                     </div>
+                                    <input type="hidden" id="dtp_input1" name="onset" value="" /><br/>
                                 </div>
 
                                 <div class="form-group">
@@ -201,7 +210,7 @@
                                             <div>
                                                    <span class="btn btn-default btn-file">
                                                    <span class="fileupload-new"><i class="fa fa-paper-clip"></i> 选择图片</span>
-                                                   <input type="file" class="default" multiple="multiple" />
+                                                   <input type="file" class="default" name="flies" multiple="multiple" />
                                                    </span>
                                                 <a href="#" class="btn btn-danger fileupload-exists" data-dismiss="fileupload"><i class="fa fa-trash"></i> 取消</a>
                                             </div>
@@ -330,12 +339,27 @@
 <script src="/js/tagsinput-init.js"></script>
 
 <!--pickers plugins-->
-<script type="text/javascript" src="/js/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-<script type="text/javascript" src="/js/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
-<script type="text/javascript" src="/js/bootstrap-daterangepicker/moment.min.js"></script>
-<script type="text/javascript" src="/js/bootstrap-daterangepicker/daterangepicker.js"></script>
-<script type="text/javascript" src="/js/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
-<script type="text/javascript" src="/js/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
+<!--<script type="text/javascript" src="/js/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>-->
+<!--<script type="text/javascript" src="/js/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>-->
+<!--<script type="text/javascript" src="/js/bootstrap-daterangepicker/moment.min.js"></script>-->
+<!--<script type="text/javascript" src="/js/bootstrap-daterangepicker/daterangepicker.js"></script>-->
+<!--<script type="text/javascript" src="/js/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>-->
+<!--<script type="text/javascript" src="/js/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>-->
+<script type="text/javascript" src="/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/js/locales/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
+<script type="text/javascript">
+    $('.form_datetime').datetimepicker({
+        //language:  'fr',
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        forceParse: 0,
+        showMeridian: 1
+    });
+</script>
+
 
 <!--pickers initialization-->
 <script src="/js/pickers-init.js"></script>

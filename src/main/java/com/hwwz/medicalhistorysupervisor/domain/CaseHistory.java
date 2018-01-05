@@ -3,7 +3,6 @@ package com.hwwz.medicalhistorysupervisor.domain;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -15,11 +14,11 @@ public class CaseHistory {
 
 	private Integer id;
 
-	private Timestamp onset;
+	private String onset;
 
     private Double fee;
 
-	private Timestamp dateTime;
+	private String dateTime;
 
 	private String description;
 
@@ -41,17 +40,21 @@ public class CaseHistory {
 		this.id = id;
 	}
 
-	public Timestamp getOnset() {
+	public String getOnset() {
 		return onset;
 	}
 
-	public void setOnset(Timestamp onset) {
+	public void setOnset(String onset) {
 		this.onset = onset;
 	}
 
-    public Timestamp getDateTime() {
+    public String getDateTime() {
 		return dateTime;
 	}
+
+    public void setDateTime(String dateTime) {
+        this.dateTime = dateTime;
+    }
 
     public Double getFee() {
         return fee;
@@ -60,10 +63,6 @@ public class CaseHistory {
     public void setFee(Double fee) {
         this.fee = fee;
     }
-
-    public void setDateTime(Timestamp dateTime) {
-		this.dateTime = dateTime;
-	}
 
     public String getDescription() {
         return description;
@@ -113,6 +112,10 @@ public class CaseHistory {
 	public void setMedicineRecordList(List<MedicineRecord> medicineRecordList) {
 		this.medicineRecordList = medicineRecordList;
 	}
+
+	public String findFormatDateTime() {
+	    return dateTime.substring(2, 10);
+    }
 
     public String findDiseaseNames() {
 	    StringBuffer stringBuffer = new StringBuffer();

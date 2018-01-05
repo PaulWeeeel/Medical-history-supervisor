@@ -13,7 +13,6 @@ import org.springframework.web.util.WebUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  * @author: Aliweea
@@ -80,7 +79,7 @@ public class BaseController {
 
     @PostMapping("/login")
     public String login(@RequestParam("username") String username,
-                        @RequestParam("password") String password,Model model){
+                        @RequestParam("password") String password, Model model){
         String token;
         if (!(token=baseService.login(username,password)).equals("")){
             //登录成功，返回服务器生成的token
