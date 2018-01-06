@@ -50,19 +50,14 @@ public class DiseaseController {
     }
 
 
-//    @PostMapping(value = "/addPhotoSet")
-//    public String add(HttpServletRequest request) throws Exception {
-//        List<MultipartFile> files = ((MultipartHttpServletRequest) request)
-//                .getFiles("file");
-//
-//        return "upload successful";
-//    }
+
 
     @PostMapping(value = "/addPhotoSet")
     public String addTrainingSet(@RequestParam("file") MultipartFile[] files) throws Exception {
         List<String> nameList=new ArrayList<>();
         nameList=fileReception.receiveMultiple(files,GlobalMed.getDisease_path());
         //对文件名进行一些操作：
+
         return "disease/list";
     }
 

@@ -29,7 +29,7 @@ public class GlobalMed {
             symptom_dir="symptoms/";
             disease_dir="diseases/";
             photo_path=abs_path+photo_dir;
-            symptom_path=abs_path+symptom_path;
+            symptom_path=abs_path+symptom_dir;
             disease_path=abs_path+disease_dir;
             File photo_dir=new File(photo_path);
             File symp_dir=new File(symptom_path);
@@ -42,7 +42,7 @@ public class GlobalMed {
             {
                 symp_dir.mkdir();
             }
-            if(!symp_dir.exists())
+            if(!dise_dir.exists())
             {
                 dise_dir.mkdir();
             }

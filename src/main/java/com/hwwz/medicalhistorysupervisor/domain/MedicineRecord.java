@@ -92,4 +92,5 @@ public class MedicineRecord {
     public void setStock(Stock stock) {
         this.stock = stock;
     }
+
 }

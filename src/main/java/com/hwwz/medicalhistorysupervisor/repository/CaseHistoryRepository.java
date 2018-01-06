@@ -21,4 +21,7 @@ public interface CaseHistoryRepository extends JpaRepository<CaseHistory, Intege
 //
 //	@Query(value = "select * from case-history ch left outer join patient p where p.id = ?1", nativeQuery = true)
 //	List<CaseHistory> findByPatientId(Integer patientId);
+
+	@Query(value = "select * from case_history where patient_id=? order by id desc limit 1", nativeQuery = true)
+	CaseHistory getLastestCaseHistoryByPatientId(Integer patientId);
 }

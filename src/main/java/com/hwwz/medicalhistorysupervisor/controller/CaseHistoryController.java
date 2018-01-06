@@ -3,7 +3,9 @@ package com.hwwz.medicalhistorysupervisor.controller;
 import com.hwwz.medicalhistorysupervisor.configuration.Authorization;
 import com.hwwz.medicalhistorysupervisor.configuration.GlobalMed;
 import com.hwwz.medicalhistorysupervisor.domain.CaseHistory;
+import com.hwwz.medicalhistorysupervisor.domain.SymptomFigure;
 import com.hwwz.medicalhistorysupervisor.service.CaseHistoryService;
+import com.hwwz.medicalhistorysupervisor.service.SymptomFigureService;
 import com.hwwz.medicalhistorysupervisor.utils.fileReception;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,6 +33,9 @@ public class CaseHistoryController {
 	@Autowired
 	private CaseHistoryService caseHistoryService;
 
+	@Autowired
+	private SymptomFigureService symptomFigureService;
+
 	@GetMapping(value = "/toAdd", params = {"patientId"})
 	public String toAdd(Model model, @RequestParam("patientId") Integer patientId) {
 		model.addAttribute("patientId", patientId);
@@ -41,14 +46,24 @@ public class CaseHistoryController {
 	public String add(HttpServletRequest request, HttpServletResponse response, @RequestParam("files") MultipartFile[] files) {
         Integer patientId = Integer.valueOf(request.getParameter("patientId"));
         String onset = request.getParameter("onset");
-        String description = request.getParameter("description");
         CaseHistory caseHistory = new CaseHistory();
         caseHistory.setOnset(onset);
         //处理disease
 
         //处理症状图
 		List<String> nameList=new ArrayList<>();
+		//获得图片url名单
 		nameList= fileReception.receiveMultiple(files, GlobalMed.getSymptom_path());
+		List<SymptomFigure> objList=new ArrayList<>();
+		for(String fileName:nameList)
+		{
+			SymptomFigure symptomFigure=new SymptomFigure();
+			symptomFigure.setImageUrl(GlobalMed.getSymptom_dir()+fileName);
+			symptomFigure.setCaseHistory(caseHistory);
+			symptomFigureService.add(symptomFigure);
+			objList.add(symptomFigure);
+		}
+		caseHistory.setImageUrlList(objList);
 		//处理medicine
         //也许可以在插入
         caseHistoryService.add(caseHistory, patientId);

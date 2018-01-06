@@ -1,7 +1,9 @@
 package com.hwwz.medicalhistorysupervisor.controller;
 
 import com.hwwz.medicalhistorysupervisor.configuration.Authorization;
+import com.hwwz.medicalhistorysupervisor.domain.CaseHistory;
 import com.hwwz.medicalhistorysupervisor.domain.MedicineRecord;
+import com.hwwz.medicalhistorysupervisor.repository.CaseHistoryRepository;
 import com.hwwz.medicalhistorysupervisor.service.MedicineRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,28 +25,33 @@ public class MedicineRecordController {
 	@Autowired
 	private MedicineRecordService medicineRecordService;
 
+	@Autowired
+	private CaseHistoryRepository caseHistoryRepository;
+
 	@GetMapping(value = "/medicine")
 	public String list(Model model) {
 		model.addAttribute("medicineList", medicineRecordService.getAllMedicineRecord());
-		return "medicine/medicine";
+		return "patient/today";
 	}
 
 	@PostMapping(value = "/add")
-	public String add(@Valid MedicineRecord medicineRecord) {
+	public String add(@Valid MedicineRecord medicineRecord,@RequestParam("patientId")Integer patientId) {
+		CaseHistory caseHistory=caseHistoryRepository.getLastestCaseHistoryByPatientId(patientId);
+		medicineRecord.setCaseHistory(caseHistory);
 		medicineRecordService.add(medicineRecord);
-		return "medicine/medicine";
+		return "patient/today";
 	}
 
 	@PutMapping(value = "/edit")
 	public String edit(@Valid MedicineRecord medicineRecord) {
 		medicineRecordService.update(medicineRecord);
-		return "medicine/medicine";
+		return "patient/today";
 	}
 
 
 	@DeleteMapping(value = "/delete")
 	public String delete(@RequestParam("id") Integer id) {
 		medicineRecordService.delete(id);
-		return "medicine/medicine";
+		return "patient/today";
 	}
 }

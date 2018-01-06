@@ -20,29 +20,29 @@
     <script src="/js/html5shiv.js"></script>
     <script src="/js/respond.min.js"></script>
     <![endif]-->
-    <script type="text/javascript">
-        function sendSave(row)
-        {
-            var var1=row.find('td').eq(0).text();
-            alert(var1);
-            var var2=row.find("td").eq(1).text();
-            var var3=row.find("td").eq(2).text();
-            var var4=row.find("td").eq(3).text();
-            alert(var1+var2+var3+var4);
-            var timest=Date.parse(new Date())/1000;
-            alert(timest);
-            var url=$("#tablePage").val()+"/add"
-            $.post(url,
-                {
-                    type:$("#type").text(),
-                    number:$("#number").text(),
-                    dateTime:timest
-                }
+    <!--<script type="text/javascript">-->
+        <!--function sendSave(row)-->
+        <!--{-->
+            <!--var var1=row.find('td').eq(0).text();-->
+            <!--alert(var1);-->
+            <!--var var2=row.find("td").eq(1).text();-->
+            <!--var var3=row.find("td").eq(2).text();-->
+            <!--var var4=row.find("td").eq(3).text();-->
+            <!--alert(var1+var2+var3+var4);-->
+            <!--var timest=Date.parse(new Date())/1000;-->
+            <!--alert(timest);-->
+            <!--var url=$("#tablePage").val()+"/add"-->
+            <!--$.post(url,-->
+                <!--{-->
+                    <!--type:$("#type").text(),-->
+                    <!--number:$("#number").text(),-->
+                    <!--dateTime:timest-->
+                <!--}-->
 
-            )
+            <!--)-->
 
-        }
-    </script>
+        <!--}-->
+    <!--</script>-->
 </head>
 
 <body class="sticky-header">
