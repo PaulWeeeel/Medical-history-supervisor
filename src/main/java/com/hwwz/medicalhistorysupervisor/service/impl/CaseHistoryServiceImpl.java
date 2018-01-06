@@ -8,7 +8,8 @@ import com.hwwz.medicalhistorysupervisor.service.CaseHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -41,7 +42,9 @@ public class CaseHistoryServiceImpl implements CaseHistoryService {
 
 	@Override
 	public void add(CaseHistory caseHistory, Integer patientId) {
-		caseHistory.setDateTime(new Timestamp(System.currentTimeMillis()));
+        Date d = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        caseHistory.setDateTime(sdf.format(d));
 		Patient patient = patientRepository.getOne(patientId);
 		caseHistory.setPatient(patient);
 		caseHistoryRepository.save(caseHistory);

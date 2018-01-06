@@ -14,11 +14,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.io.File;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * @author: Aliweea
@@ -47,11 +44,6 @@ public class PatientController {
 		model.addAttribute("patientList", patientService.getAllPatients());
 		return "patient/listAll";
 	}
-
-//	@GetMapping(value = "/toAdd")
-//	public String toAdd() {
-//		return "patient/add";
-//	}
 
 	@PostMapping(value = "/add")
 	public String add(@RequestParam("photo")MultipartFile file,@Valid Patient patient, BindingResult bindingResult) throws Exception {
@@ -99,25 +91,6 @@ public class PatientController {
 		}
 		return "patient/today";
 	}
-
-//	@GetMapping(value = "/list", params = {"name"})
-//	public String getPatientsByName(Model model, @RequestParam("name") String name) throws Exception {
-//		List<Patient> patients;
-//		try {
-//			patients = patientService.getPatientsByName(name);
-//			model.addAttribute("patients", patients);
-//		} catch (Exception e) {
-//			throw e;
-//		}
-//		return "patient/list";
-//	}
-
-//	@GetMapping(value = "/toEdit")
-//	public String toEdit(Model model, @RequestParam("id") Integer id) {
-//		Patient patient = patientService.getPatientById(id);
-//		model.addAttribute("patient", patient);
-//		return "patient/edit";
-//	}
 
 	@PutMapping(value = "/edit")
 	public String edit(@Valid Patient patient, BindingResult bindingResult) throws Exception {

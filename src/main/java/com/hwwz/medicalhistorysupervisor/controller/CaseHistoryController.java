@@ -6,10 +6,14 @@ import com.hwwz.medicalhistorysupervisor.service.CaseHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author: Aliweea
@@ -17,23 +21,11 @@ import javax.validation.Valid;
  */
 @Controller
 @RequestMapping(value = "/case-history")
-@Authorization//该类方法都需登录
+@Authorization  //该类方法都需登录
 public class CaseHistoryController {
 
 	@Autowired
 	private CaseHistoryService caseHistoryService;
-
-//	@RequestMapping("/")
-//	public String index() {
-//		return "redirect:/case-history/list";
-//	}
-//
-//	@GetMapping(value = "/list")
-//	public String list(Model model) {
-//		List<CaseHistory> caseHistoryList = caseHistoryService.getAllCaseHistory();
-//		model.addAttribute("caseHistoryList", caseHistoryList);
-//		return "case-history/list";
-//	}
 
 	@GetMapping(value = "/toAdd", params = {"patientId"})
 	public String toAdd(Model model, @RequestParam("patientId") Integer patientId) {
@@ -42,11 +34,22 @@ public class CaseHistoryController {
 	}
 
 	@PostMapping(value = "/add")
-	public String add(@Valid CaseHistory caseHistory, @RequestParam("files") MultipartFile[]files, @RequestParam("patientId") Integer patientId) {
-		caseHistoryService.add(caseHistory, patientId);
-		return "redirect:/case-history/list";
-	}
+	public String add(HttpServletRequest request, HttpServletResponse response, @RequestParam("files") MultipartFile[] files) {
+        Integer patientId = Integer.valueOf(request.getParameter("patientId"));
+        String onset = request.getParameter("onset");
+        String description = request.getParameter("description");
+        CaseHistory caseHistory = new CaseHistory();
+        caseHistory.setOnset(onset);
+        caseHistory.setDescription(description);
+        //处理disease
 
+        //处理症状图
+
+        //处理medicine
+        //也许可以在插入
+        caseHistoryService.add(caseHistory, patientId);
+		return "redirect:/patient/home/" + patientId;
+	}
 
 //	@GetMapping(value = "/toEdit", params = {"id"})
 //	public String toEdit(Model model, @RequestParam("id") Integer id) {

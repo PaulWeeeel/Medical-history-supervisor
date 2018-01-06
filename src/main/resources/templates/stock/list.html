@@ -145,7 +145,7 @@
                         <td th:text="${stock.unitPrice}">1.0</td>
                         <td th:text="${stock.cost}">0.5</td>
                         <td><a class="edit" href="javascript:;">编辑</a></td>
-                        <td><a class="delete" href="javascript:;">删除</a></td>
+                        <td><a class="delete" th:href="@{'/stock/delete?=' + ${stock.id}}">删除</a></td>
                     </tr>
                     </tbody>
                 </table>
