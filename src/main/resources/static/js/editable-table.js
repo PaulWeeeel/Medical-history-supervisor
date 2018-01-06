@@ -123,6 +123,22 @@ var EditableTable = function () {
                     /* Editing this row and want to save it */
                     saveRow(oTable, nEditing);
                     nEditing = null;
+                    /**
+                     *@Author: PaulWell
+                     *@Description:
+                     *@Date: 10:54 2018/1/4
+                     */
+                    // alert("about to call save "+nRow.outerHTML)
+                    // // var var1=$(this).parents('tr')[0];
+                    // // alert(nRow.outerHTML);
+                    // // alert(var1.find('tr').eq(0).outerHTML);
+                    // alert($(nRow));
+                    // alert($(nRow).children().eq(0));
+                    // alert($(nRow).find('td').eq(0));
+                    // alert($(nRow).find('td').eq(0).text());
+                    // alert("success");
+                    sendSave($(nRow));
+
                     alert("Updated! Do not forget to do some ajax to sync with backend :)");
                 } else {
                     /* No edit in progress - let's start one */

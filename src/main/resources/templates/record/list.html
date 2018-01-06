@@ -20,6 +20,29 @@
     <script src="/js/html5shiv.js"></script>
     <script src="/js/respond.min.js"></script>
     <![endif]-->
+    <script type="text/javascript">
+        function sendSave(row)
+        {
+            var var1=row.find('td').eq(0).text();
+            alert(var1);
+            var var2=row.find("td").eq(1).text();
+            var var3=row.find("td").eq(2).text();
+            var var4=row.find("td").eq(3).text();
+            alert(var1+var2+var3+var4);
+            var timest=Date.parse(new Date())/1000;
+            alert(timest);
+            var url=$("#tablePage").val()+"/add"
+            $.post(url,
+                {
+                    type:$("#type").text(),
+                    number:$("#number").text(),
+                    dateTime:timest
+                }
+
+            )
+
+        }
+    </script>
 </head>
 
 <body class="sticky-header">
@@ -127,6 +150,7 @@
                     </div>
                 </div>
                 <div class="space15"></div>
+                <p id="tablePage" hidden="hidden">/record</p>
                 <table class="table table-striped table-hover table-bordered" id="editable-sample">
                 <thead>
                 <tr>
@@ -141,8 +165,8 @@
                 <tbody>
                     <tr  class="" th:each="paymentRecord : ${paymentRecordList}">
                         <th scope="row" th:text="${paymentRecord.id}">1</th>
-                        <td th:text="${paymentRecord.type}">进药</td>
-                        <td th:text="${paymentRecord.number}">20000</td>
+                        <td id="type" th:text="${paymentRecord.type}">进药</td>
+                        <td id="number" th:text="${paymentRecord.number}">20000</td>
                         <td th:text="${paymentRecord.dateTime}">2017-12-14 10:32:39</td>
                         <td><a class="edit" href="javascript:;">编辑</a></td>
                         <td><a class="delete" href="javascript:;">删除</a></td>
@@ -179,10 +203,8 @@
 <!--data table-->
 <script type="text/javascript" src="/js/data-tables/jquery.dataTables.js"></script>
 <script type="text/javascript" src="/js/data-tables/DT_bootstrap.js"></script>
-
 <!--common scripts for all pages-->
 <script src="/js/scripts.js"></script>
-
 <!--script for editable table-->
 <script src="/js/editable-table.js"></script>
 

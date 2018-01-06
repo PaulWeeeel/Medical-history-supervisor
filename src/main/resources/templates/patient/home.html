@@ -167,7 +167,7 @@
                     <section class="panel">
                         <header class="panel-heading custom-tab ">
                             <ul class="nav nav-tabs">
-                                <li th:class="stat.first?'active':''"  th:each="caseHistory,stat : ${caseHistoryList}" ></li>
+                                <li th:class="stat.first ? 'active':'deactivate'"  th:each="caseHistory,stat : ${caseHistoryList}" >
                                     <a href="#home" data-toggle="tab" th:href="|#case${caseHistory.id}|" th:text="${caseHistory.dateTime}" th:unless="${caseHistroy}==null">17.12.12</a>
                                 </li>
                             </ul>
