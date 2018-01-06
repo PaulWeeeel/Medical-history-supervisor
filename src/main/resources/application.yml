@@ -5,8 +5,8 @@ spring:
     datasource:
         driver-class-name: com.mysql.jdbc.Driver
         url: jdbc:mysql://127.0.0.1:3306/medical_history??useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=true&zeroDateTimeBehavior=round
-        username: root
-        password: 123456
+        username: paul
+        password: wy806380634
     jpa:
         hibernate:
             ddl-auto: update

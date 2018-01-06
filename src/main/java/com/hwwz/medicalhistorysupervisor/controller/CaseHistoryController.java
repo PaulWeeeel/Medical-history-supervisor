@@ -1,8 +1,10 @@
 package com.hwwz.medicalhistorysupervisor.controller;
 
 import com.hwwz.medicalhistorysupervisor.configuration.Authorization;
+import com.hwwz.medicalhistorysupervisor.configuration.GlobalMed;
 import com.hwwz.medicalhistorysupervisor.domain.CaseHistory;
 import com.hwwz.medicalhistorysupervisor.service.CaseHistoryService;
+import com.hwwz.medicalhistorysupervisor.utils.fileReception;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +16,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author: Aliweea
@@ -40,12 +44,12 @@ public class CaseHistoryController {
         String description = request.getParameter("description");
         CaseHistory caseHistory = new CaseHistory();
         caseHistory.setOnset(onset);
-        caseHistory.setDescription(description);
         //处理disease
 
         //处理症状图
-
-        //处理medicine
+		List<String> nameList=new ArrayList<>();
+		nameList= fileReception.receiveMultiple(files, GlobalMed.getSymptom_path());
+		//处理medicine
         //也许可以在插入
         caseHistoryService.add(caseHistory, patientId);
 		return "redirect:/patient/home/" + patientId;

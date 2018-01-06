@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
@@ -143,8 +143,8 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class=""  th:each="disease : ${diseaseList}">
-                        <th scope="row" th:text="${disease.id}">1</th>
+                    <tr class=""  th:each="disease,stat : ${diseaseList}">
+                        <th scope="row" th:text="${stat.index}+1">1</th>
                         <td th:text="${disease.disease}">感冒</td>
                         <td th:text="${disease.level}">3</td>
                         <td th:text="${disease.riskDegree}">3</td>

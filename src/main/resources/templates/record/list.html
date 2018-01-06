@@ -163,11 +163,11 @@
                 </tr>
                 </thead>
                 <tbody>
-                    <tr  class="" th:each="paymentRecord : ${paymentRecordList}">
-                        <th scope="row" th:text="${paymentRecord.id}">1</th>
-                        <td id="type" th:text="${paymentRecord.type}">进药</td>
-                        <td id="number" th:text="${paymentRecord.number}">20000</td>
-                        <td th:text="${paymentRecord.dateTime}">2017-12-14 10:32:39</td>
+                    <tr  class="" th:each="Payment : ${PaymentList}">
+                        <td scope="row" th:text="${Payment.id}">1</td>
+                        <td th:text="${Payment.type}">进药</td>
+                        <td th:text="${Payment.number}">20000</td>
+                        <td th:text="${Payment.dateTime}">2017-12-14 10:32:39</td>
                         <td><a class="edit" href="javascript:;">编辑</a></td>
                         <td><a class="delete" href="javascript:;">删除</a></td>
                     </tr>
@@ -206,12 +206,13 @@
 <!--common scripts for all pages-->
 <script src="/js/scripts.js"></script>
 <!--script for editable table-->
-<script src="/js/editable-table.js"></script>
+<!--<script src="/js/editable-table.js"></script>-->
+<script src="/js/new-editable-tables.js"></script>
 
 <!-- END JAVASCRIPTS -->
 <script>
     jQuery(document).ready(function() {
-        EditableTable.init();
+        EditableTable.init("/record");
     });
 </script>
 

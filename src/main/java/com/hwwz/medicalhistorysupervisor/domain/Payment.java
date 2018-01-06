@@ -7,14 +7,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.sql.Timestamp;
 
 /**
  * @author: Aliweea
  * @date: 2017/12/4/004 0:06
  */
 @Entity
-public class PaymentRecord {
+public class Payment {
 
 	private Integer id;
 	
@@ -22,7 +21,7 @@ public class PaymentRecord {
 
 	private Double number;
 
-	private Timestamp dateTime;
+	private String dateTime;
 
 	@Id
 	@GeneratedValue
@@ -53,11 +52,11 @@ public class PaymentRecord {
 		this.number = number;
 	}
 
-	public Timestamp getDateTime() {
+	public String getDateTime() {
 		return dateTime;
 	}
 
-	public void setDateTime(Timestamp dateTime) {
+	public void setDateTime(String dateTime) {
 		this.dateTime = dateTime;
 	}
 }

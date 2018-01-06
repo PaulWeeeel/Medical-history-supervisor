@@ -130,6 +130,7 @@
                 <table class="table table-striped table-hover table-bordered" id="editable-sample">
                     <thead>
                     <tr>
+                        <th>ID</th>
                         <th>药品名称</th>
                         <th>库存</th>
                         <th>单价</th>
@@ -140,12 +141,13 @@
                     </thead>
                     <tbody>
                     <tr  class="" th:each="stock : ${stockList}">
+                        <td scope="row" th:text="${stock.id}">1</td>
                         <td th:text="${stock.medicine}">银杏叶片</td>
                         <td th:text="${stock.stock}">20000</td>
                         <td th:text="${stock.unitPrice}">1.0</td>
                         <td th:text="${stock.cost}">0.5</td>
                         <td><a class="edit" href="javascript:;">编辑</a></td>
-                        <td><a class="delete" th:href="@{'/stock/delete?=' + ${stock.id}}">删除</a></td>
+                        <td><a class="delete" href="javascript:;">删除</a></td>
                     </tr>
                     </tbody>
                 </table>
@@ -184,12 +186,13 @@
 <script src="/js/scripts.js"></script>
 
 <!--script for editable table-->
-<script src="/js/editable-table.js"></script>
+<!--<script src="/js/editable-table.js"></script>-->
+<script src="/js/new-editable-tables.js"></script>
 
 <!-- END JAVASCRIPTS -->
 <script>
     jQuery(document).ready(function() {
-        EditableTable.init();
+        EditableTable.init("/stock");
     });
 </script>
 

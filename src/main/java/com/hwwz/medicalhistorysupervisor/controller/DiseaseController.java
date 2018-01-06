@@ -21,6 +21,7 @@ import javax.validation.Valid;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -59,20 +60,9 @@ public class DiseaseController {
 
     @PostMapping(value = "/addPhotoSet")
     public String addTrainingSet(@RequestParam("file") MultipartFile[] files) throws Exception {
-        if(files!=null)
-        {
-            String fileName;
-            int i=0;
-            for(MultipartFile file:files)
-            {
-                fileName= fileReception.receiveSingle(file,GlobalMed.getDisease_path());
-                ++i;
-                if(fileName.equals(""))
-                {
-                    throw new NullPointerException("add Photo Set failed at "+i+"th photo");
-                }
-            }
-        }
+        List<String> nameList=new ArrayList<>();
+        nameList=fileReception.receiveMultiple(files,GlobalMed.getDisease_path());
+        //对文件名进行一些操作：
         return "disease/list";
     }
 

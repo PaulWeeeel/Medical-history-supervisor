@@ -4,6 +4,8 @@ import com.hwwz.medicalhistorysupervisor.configuration.GlobalMed;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class fileReception {
@@ -34,5 +36,26 @@ public class fileReception {
             return fileName;
         }
         return "";
+    }
+
+    public static List<String> receiveMultiple(MultipartFile[] files,String path)
+    {
+        List<String> nameList=new ArrayList<>();
+        if(files!=null)
+        {
+            String fileName;
+            int i=0;
+            for(MultipartFile file:files)
+            {
+                fileName= fileReception.receiveSingle(file,path);
+                ++i;
+                if(fileName.equals(""))
+                {
+                    throw new NullPointerException("add Photo Set failed at "+i+"th photo");
+                }
+                nameList.add(fileName);
+            }
+        }
+        return nameList;
     }
 }

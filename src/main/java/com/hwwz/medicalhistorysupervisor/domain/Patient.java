@@ -3,13 +3,13 @@ package com.hwwz.medicalhistorysupervisor.domain;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.validator.constraints.NotBlank;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 
@@ -36,7 +36,7 @@ public class Patient {
 
 	private Double totalFee;
 
-	private Timestamp lastDate;
+	private String lastDate;
 
 	private List<CaseHistory> caseHistoryList;
 
@@ -108,11 +108,11 @@ public class Patient {
         this.totalFee = totalFee;
     }
 
-    public Timestamp getLastDate() {
+    public String getLastDate() {
         return lastDate;
     }
 
-    public void setLastDate(Timestamp lastDate) {
+    public void setLastDate(String lastDate) {
         this.lastDate = lastDate;
     }
 
@@ -136,10 +136,7 @@ public class Patient {
 	}
 
 	public String findLastTime() {
-	    Date date = new Date(lastDate.getTime());
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
-        String time = simpleDateFormat.format(date);
-        return time;
+        return lastDate;
     }
 
     public CaseHistory findLastCaseHistory() {

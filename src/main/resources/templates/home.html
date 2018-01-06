@@ -199,11 +199,11 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr  th:each="paymentRecord : ${recentPaymentRecordList}">
-                                    <th scope="row" th:text="${paymentRecord.id}">1</th>
-                                    <td th:text="${paymentRecord.type}">进药</td>
-                                    <td th:text="${paymentRecord.number}">20000</td>
-                                    <td th:text="${paymentRecord.dateTime}">2017-12-14 10:32:39</td>
+                                <tr  th:each="Payment : ${recentPaymentList}">
+                                    <th scope="row" th:text="${Payment.id}">1</th>
+                                    <td th:text="${Payment.type}">进药</td>
+                                    <td th:text="${Payment.number}">20000</td>
+                                    <td th:text="${Payment.dateTime}">2017-12-14 10:32:39</td>
                                 </tr>
                                 </tbody>
                             </table>

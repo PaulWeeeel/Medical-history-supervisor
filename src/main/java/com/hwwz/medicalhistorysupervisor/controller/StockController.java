@@ -8,8 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-
 /**
  * @author: Aliweea
  * @date: 2017/12/8/008 13:30
@@ -28,22 +26,19 @@ public class StockController {
         return "/stock/list";
     }
 
-    @PostMapping(value = "/add")
-    public String add(@Valid Stock stock) {
+    @RequestMapping(value = "/add")
+    public void add(@RequestBody Stock stock) {
+        stock.setId(null);
         stockService.add(stock);
-        return "redirect:/stock/list";
     }
 
-    @PutMapping(value = "/edit")
-    public String edit(@Valid Stock stock) {
+    @RequestMapping(value = "/edit")
+    public void edit(@RequestBody Stock stock) {
         stockService.update(stock);
-        return "redirect:/stock/list";
     }
 
-
-    @DeleteMapping(value = "/delete")
-    public String delete(@RequestParam("id") Integer id) {
+    @RequestMapping(value = "/delete")
+    public void delete(@RequestParam("id") Integer id) {
         stockService.delete(id);
-        return "redirect:/stock/list";
     }
 }

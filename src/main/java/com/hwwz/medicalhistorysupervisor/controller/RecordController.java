@@ -1,15 +1,16 @@
 package com.hwwz.medicalhistorysupervisor.controller;
 
 import com.hwwz.medicalhistorysupervisor.configuration.Authorization;
-import com.hwwz.medicalhistorysupervisor.domain.PaymentRecord;
-import com.hwwz.medicalhistorysupervisor.service.PaymentRecordService;
+import com.hwwz.medicalhistorysupervisor.domain.Payment;
+import com.hwwz.medicalhistorysupervisor.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.validation.Valid;
-import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -22,7 +23,7 @@ import java.util.List;
 public class RecordController {
 	
 	@Autowired
-	private PaymentRecordService paymentRecordService;
+	private PaymentService paymentService;
 
 	@RequestMapping("/")
 	public String index() {
@@ -31,35 +32,24 @@ public class RecordController {
 
 	@GetMapping(value = "/list")
 	public String list(Model model) {
-		List<PaymentRecord> paymentRecordList = paymentRecordService.getAllPaymentRecords();
-		model.addAttribute("paymentRecords", paymentRecordList);
+		List<Payment> paymentList = paymentService.getAllPayments();
+		model.addAttribute("Payments", paymentList);
 		return "/record/list";
 	}
 
-	@PostMapping(value = "/add")
-	public String add(@Valid PaymentRecord paymentRecord) {
-		paymentRecord.setDateTime(new Timestamp(System.currentTimeMillis()));
-		paymentRecordService.add(paymentRecord);
-		return "redirect:/record/list";
+	@RequestMapping(value = "/add")
+	public void add(@RequestBody  Payment payment) {
+	    payment.setId(null);
+		paymentService.add(payment);
 	}
 
-
-	@GetMapping(value = "/toEdit", params = {"id"})
-	public String toEdit(Model model, @RequestParam("id") Integer id) {
-		PaymentRecord paymentRecord = paymentRecordService.getById(id);
-		model.addAttribute("paymentRecord", paymentRecord);
-		return "/record/edit";
+	@RequestMapping(value = "/edit")
+	public void edit(@RequestBody  Payment payment) {
+		paymentService.update(payment);
 	}
 
-	@PutMapping(value = "/edit")
-	public String edit(@Valid PaymentRecord paymentRecord) {
-		paymentRecordService.update(paymentRecord);
-		return "redirect:/record/list";
-	}
-
-	@DeleteMapping(value = "/delete", params = {"id"})
-	public String delete(@RequestParam("id") Integer id){
-		paymentRecordService.delete(id);
-		return "redirect:/record/list";
+	@RequestMapping(value = "/delete", params = {"id"})
+	public void delete(@RequestParam("id") Integer id){
+		paymentService.delete(id);
 	}
 }
