@@ -30,7 +30,7 @@ public class BaseServiceImpl implements BaseService {
     private StockRepository stockRepository;
 
     @Autowired
-    private PaymentRecordRepository paymentRecordRepository;
+    private PaymentRepository PaymentRepository;
     @Autowired
     private JwtUtil jwtUtil;
 
@@ -38,7 +38,7 @@ public class BaseServiceImpl implements BaseService {
     public void getRecentInfo(Model model, Integer size) {
         model.addAttribute("recentPatientList", patientRepository.getLastestPatients(size));
         model.addAttribute("recentCaseHistoryList", caseHistoryRepository.getLastestCaseHistories(size));
-        model.addAttribute("recentPaymentRecordList", paymentRecordRepository.getLastestPaymentRecords(size));
+        model.addAttribute("recentPaymentList", PaymentRepository.getLastestPayments(size));
         model.addAttribute("recentStockList", stockRepository.getLastestStocks(size));
     }
 

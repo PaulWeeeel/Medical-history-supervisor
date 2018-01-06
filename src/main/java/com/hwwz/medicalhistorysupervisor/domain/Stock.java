@@ -1,6 +1,6 @@
 package com.hwwz.medicalhistorysupervisor.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -78,7 +78,7 @@ public class Stock {
         return medicineRecordList;
     }
 
-    @JsonBackReference
+    @JsonIgnore
     public void setMedicineRecordList(List<MedicineRecord> medicineRecordList) {
         this.medicineRecordList = medicineRecordList;
     }
