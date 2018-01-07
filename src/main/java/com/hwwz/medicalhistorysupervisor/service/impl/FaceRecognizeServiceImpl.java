@@ -175,6 +175,8 @@ public class FaceRecognizeServiceImpl implements FaceRecognizeService {
             }
         }catch (Exception e) {
             e.printStackTrace();
+            System.out.println("get result: No face.");
+            return null;
         }
 
         if(!success) {
