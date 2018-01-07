@@ -128,14 +128,18 @@ public class RecognizeController {
 
         System.out.println(faceToken);
 
-        List<Patient> patients = patientRepository.findPatientByFaceToken(faceToken);
-
-        if(patients.isEmpty() || faceToken == null) {
-
+        if(faceToken == null) {
             return new ResJsonTemplate("404", new Date(), "Not found");
         }
         else {
-            return new ResJsonTemplate("200", new Date(), patients.get(0));
+            List<Patient> patients = patientRepository.findPatientByFaceToken(faceToken);
+
+            if (patients.isEmpty() || faceToken == null) {
+
+                return new ResJsonTemplate("404", new Date(), "Not found");
+            } else {
+                return new ResJsonTemplate("200", new Date(), patients.get(0));
+            }
         }
     }
 }
