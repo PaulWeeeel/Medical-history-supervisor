@@ -5,14 +5,12 @@ import com.hwwz.medicalhistorysupervisor.service.DataUrlConvertService;
 import com.hwwz.medicalhistorysupervisor.utils.ResJsonTemplate;
 import org.springframework.stereotype.Service;
 import sun.misc.BASE64Decoder;
+import sun.misc.BASE64Encoder;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.Date;
 
 /**
@@ -24,47 +22,47 @@ import java.util.Date;
 public class DataUrlConvertServiceImpl implements DataUrlConvertService{
 
     @Override
-    public String saveDataUrlToFile(String dataUrl) throws Exception {
+    public String saveDataUrlToFile(String dataUrl){
         BASE64Decoder decoder = new BASE64Decoder();
+
         String fileName = new String();
-
-
+        String filePath;
         String fileType = dataUrl.substring(dataUrl.indexOf('/') + 1, dataUrl.indexOf(';'));
         dataUrl = dataUrl.substring(dataUrl.indexOf(',') + 1);
 
-        //Base64解码
-        byte[] b = decoder.decodeBuffer(dataUrl);
-        for (int i = 0; i < b.length; ++i) {
-            if (b[i] < 0) {//调整异常数据
-                b[i] += 256;
+        try {
+            //Base64解码
+            byte[] b = decoder.decodeBuffer(dataUrl);
+            for (int i = 0; i < b.length; ++i) {
+                if (b[i] < 0) {//调整异常数据
+                    b[i] += 256;
+                }
             }
-        }
 
-        String filePath = GlobalMed.getPhoto_path();
+            fileName = "recognize_cache." + fileType;
+            filePath = GlobalMed.getPhoto_path() + fileName;
 
-        fileName = filePath + "recognize_cache." + fileType;
+            File dest = new File(filePath);
+            // 检测是否存在目录
+            if (!dest.getParentFile().exists()) {
+                dest.getParentFile().mkdirs();
+            }
 
-        File dest = new File(fileName);
-        // 检测是否存在目录
-        if (!dest.getParentFile().exists()) {
-            dest.getParentFile().mkdirs();
-        }
+            if (dest.exists()) {
+                dest.delete();
+            }
 
-        if (dest.exists()) {
-            dest.delete();
-        }
+            OutputStream out = new FileOutputStream(filePath);
+            out.write(b);
+            out.flush();
+            out.close();
 
-        OutputStream out = new FileOutputStream(fileName);
-        out.write(b);
-        out.flush();
-        out.close();
+            //BufferedImage bufferedImage;
 
-        //BufferedImage bufferedImage;
-
-        //try {
+            //try {
 
             //read image file
-            //bufferedImage = ImageIO.read(new File(fileName));
+            //bufferedImage = ImageIO.read(new File(ffilePath));
             //fileName = filePath + "recognize_cache.jpg";
 
             // create a blank, RGB, same width and height, and a white background
@@ -74,18 +72,41 @@ public class DataUrlConvertServiceImpl implements DataUrlConvertService{
             //newBufferedImage.createGraphics().drawImage(bufferedImage, 0, 0, Color.WHITE, null);
 
             // write to jpeg file
-            //ImageIO.write(newBufferedImage, "jpg", new File(fileName));
+            //ImageIO.write(newBufferedImage, "jpg", new File(filePath));
 
             //System.out.println("Done");
 
-        //} catch (IOException e) {
+            //} catch (IOException e) {
 
             //e.printStackTrace();
 
-        //}
-
+            //}
+        }catch (IOException e) {
+            return null;
+        }
 
         return fileName;
     }
 
+    @Override
+    public String convertFileToDataUrl (String fileName){
+        String dataUrl = new String();
+        String filePath = GlobalMed.getPhoto_path() + fileName;
+        File file = new File(filePath);
+
+        try {
+            //Base64编码
+            FileInputStream inputFile = new FileInputStream(file);
+            byte[] buffer = new byte[(int) file.length()];
+            inputFile.read(buffer);
+            inputFile.close();
+
+            dataUrl = "data:image/png;base64," + new BASE64Encoder().encode(buffer);
+
+        }catch (IOException e){
+            return null;
+        }
+
+        return dataUrl;
+    }
 }

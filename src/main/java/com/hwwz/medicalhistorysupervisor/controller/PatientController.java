@@ -5,6 +5,7 @@ import com.hwwz.medicalhistorysupervisor.configuration.GlobalMed;
 import com.hwwz.medicalhistorysupervisor.domain.CaseHistory;
 import com.hwwz.medicalhistorysupervisor.domain.Patient;
 import com.hwwz.medicalhistorysupervisor.service.CaseHistoryService;
+import com.hwwz.medicalhistorysupervisor.service.DataUrlConvertService;
 import com.hwwz.medicalhistorysupervisor.service.FaceRecognizeService;
 import com.hwwz.medicalhistorysupervisor.service.PatientService;
 import com.hwwz.medicalhistorysupervisor.utils.fileReception;
@@ -36,6 +37,9 @@ public class PatientController {
 
 	@Autowired
 	private FaceRecognizeService faceRecognizeService;
+
+	@Autowired
+	private DataUrlConvertService dataUrlConvertService;
 
 	private String photo_path;
 
@@ -90,6 +94,12 @@ public class PatientController {
 		try {
 			Patient patient = patientService.getPatientById(id);
 			List<CaseHistory> caseHistoryList = patient.getCaseHistoryList();
+			String url = patient.getPhotoURL();
+			try {
+				patient.setPhotoURL(dataUrlConvertService.convertFileToDataUrl(url.substring(url.lastIndexOf('/') + 1)));
+			}catch (Exception e){
+				patient.setPhotoURL(null);
+			}
 			model.addAttribute("patient", patient);
 			model.addAttribute("caseHistoryList", caseHistoryList);
 		} catch (Exception e) {

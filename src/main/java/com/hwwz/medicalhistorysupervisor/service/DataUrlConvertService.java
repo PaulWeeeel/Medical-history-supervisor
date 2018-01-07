@@ -9,5 +9,16 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public interface DataUrlConvertService {
-    public String saveDataUrlToFile (String dataUrl) throws Exception;
+    /**
+     * Convert a string of data url to file and return the absolute path
+     * @param dataUrl
+     * @return string of the face token of the user
+     */
+    public String saveDataUrlToFile (String dataUrl);
+    /**
+     * Convert a string of data url to file and return the absolute path
+     * @param fileName
+     * @return string of the face token of the user
+     */
+    public String convertFileToDataUrl (String fileName);
 }

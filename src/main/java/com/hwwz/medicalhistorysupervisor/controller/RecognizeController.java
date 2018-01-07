@@ -1,6 +1,7 @@
 package com.hwwz.medicalhistorysupervisor.controller;
 
 import com.hwwz.medicalhistorysupervisor.configuration.Authorization;
+import com.hwwz.medicalhistorysupervisor.configuration.GlobalMed;
 import com.hwwz.medicalhistorysupervisor.domain.Patient;
 import com.hwwz.medicalhistorysupervisor.repository.PatientRepository;
 import com.hwwz.medicalhistorysupervisor.service.*;
@@ -115,16 +116,18 @@ public class RecognizeController {
     @RequestMapping(value = "/face", method = RequestMethod.POST)
     public ResJsonTemplate recognize(@RequestBody String image){
 
-        String fileName = new String();
+        String fileName;
+        String filePath;
 
         try{
             fileName = dataUrlConvertService.saveDataUrlToFile(image);
+            filePath = GlobalMed.getPhoto_path() + fileName;
         }
         catch (Exception e){
             return new ResJsonTemplate("500", new Date(), "File error");
         }
 
-        String faceToken = faceRecognizeService.doRecognize(new File(fileName));
+        String faceToken = faceRecognizeService.doRecognize(new File(filePath));
 
         System.out.println(faceToken);
 

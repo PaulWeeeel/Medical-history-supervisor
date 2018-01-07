@@ -291,6 +291,7 @@
 
                     document.getElementById("patient-detail").removeAttribute("disabled");
                     patient_id = response.result.id.toString();
+                    clearInterval(timer);
                 }
                 else{
 
