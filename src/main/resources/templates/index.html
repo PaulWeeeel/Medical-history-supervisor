@@ -199,7 +199,7 @@
         <!--footer section end-->
         <div style="display: none">
             <video src="" id="video"></video>
-            <canvas id="canvas" width="320" height="180"></canvas>
+            <canvas id="canvas" width="720" height="720"></canvas>
         </div>
 
         <div class="wrapper">
@@ -249,7 +249,7 @@
 <script type="text/javascript" th:inline="javascript">
     /* video */
     // Prefer camera resolution nearest to 1280x720.
-    var constraints = { audio: false, video: { width: 320, height: 180 } };
+    var constraints = { audio: false, video: { width: 720, height: 720 } };
 
     navigator.mediaDevices.getUserMedia(constraints)
         .then(function(mediaStream) {
@@ -266,7 +266,7 @@
     function recognize() {
         var canvans = document.getElementById("canvas"),//get canvas interface
             context = canvas.getContext("2d");
-        context.drawImage(video, 0, 0, 320, 180);//draw the picture here
+        context.drawImage(video, 0, 0, 720, 720);//draw the picture here
         var imgData = canvans.toDataURL();//get in Base64format
 
         var basePath = [[${#httpServletRequest.getScheme() + "://" + #httpServletRequest.getServerName() + ":" + #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath()}]];
