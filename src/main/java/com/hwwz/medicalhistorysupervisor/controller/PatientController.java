@@ -64,8 +64,12 @@ public class PatientController {
 
 				File newFace = new File(GlobalMed.getPhoto_path() + fileName);
 				String faceToken = faceRecognizeService.addNewFace(newFace);
-				patient.setFaceToken(faceToken);
+				if(faceToken == null)
+				{
+					return "redirect:/patient/add";
+				}
 
+				patient.setFaceToken(faceToken);
 				patientService.addPatient(patient);
 			}
 		} catch (Exception e) {
