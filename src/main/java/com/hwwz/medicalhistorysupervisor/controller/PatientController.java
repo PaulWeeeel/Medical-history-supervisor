@@ -5,6 +5,7 @@ import com.hwwz.medicalhistorysupervisor.configuration.GlobalMed;
 import com.hwwz.medicalhistorysupervisor.domain.CaseHistory;
 import com.hwwz.medicalhistorysupervisor.domain.Patient;
 import com.hwwz.medicalhistorysupervisor.service.CaseHistoryService;
+import com.hwwz.medicalhistorysupervisor.service.FaceRecognizeService;
 import com.hwwz.medicalhistorysupervisor.service.PatientService;
 import com.hwwz.medicalhistorysupervisor.utils.fileReception;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.File;
 import java.util.List;
 
 /**
@@ -31,6 +33,9 @@ public class PatientController {
 
 	@Autowired
 	private CaseHistoryService caseHistoryService;
+
+	@Autowired
+	private FaceRecognizeService faceRecognizeService;
 
 	private String photo_path;
 
@@ -54,7 +59,13 @@ public class PatientController {
 			String fileName= fileReception.receiveSingle(file,GlobalMed.getPhoto_path());
 			if(!fileName.equals(""))
 			{
-				patient.setPhotoURL("/"+GlobalMed.getPhoto_dir()+fileName);
+				String url = "/"+GlobalMed.getPhoto_dir()+fileName;
+				patient.setPhotoURL(url);
+
+				File newFace = new File(GlobalMed.getPhoto_path() + fileName);
+				String faceToken = faceRecognizeService.addNewFace(newFace);
+				patient.setFaceToken(faceToken);
+
 				patientService.addPatient(patient);
 			}
 		} catch (Exception e) {
