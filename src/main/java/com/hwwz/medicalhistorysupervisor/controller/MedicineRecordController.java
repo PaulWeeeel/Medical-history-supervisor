@@ -10,6 +10,7 @@ import com.hwwz.medicalhistorysupervisor.service.CaseHistoryService;
 import com.hwwz.medicalhistorysupervisor.service.MedicineRecordService;
 import com.hwwz.medicalhistorysupervisor.service.PaymentService;
 import com.hwwz.medicalhistorysupervisor.service.StockService;
+import com.hwwz.medicalhistorysupervisor.utils.Common;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -74,9 +75,7 @@ public class MedicineRecordController {
 		//新增收支记录
 		Payment payment=new Payment();
 		payment.setType("开药");
-		Date d = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-		payment.setDateTime(sdf.format(d));
+		payment.setDateTime(Common.getCurTimeString());
 		payment.setNumber(fee);
 		paymentService.add(payment);
 

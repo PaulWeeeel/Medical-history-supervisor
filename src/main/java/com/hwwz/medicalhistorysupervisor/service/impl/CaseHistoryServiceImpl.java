@@ -5,6 +5,7 @@ import com.hwwz.medicalhistorysupervisor.domain.Patient;
 import com.hwwz.medicalhistorysupervisor.repository.CaseHistoryRepository;
 import com.hwwz.medicalhistorysupervisor.repository.PatientRepository;
 import com.hwwz.medicalhistorysupervisor.service.CaseHistoryService;
+import com.hwwz.medicalhistorysupervisor.utils.Common;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,9 +43,7 @@ public class CaseHistoryServiceImpl implements CaseHistoryService {
 
 	@Override
 	public void add(CaseHistory caseHistory, Integer patientId) {
-        Date d = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        caseHistory.setDateTime(sdf.format(d));
+        caseHistory.setDateTime(Common.getCurTimeString());
 		Patient patient = patientRepository.getOne(patientId);
 		caseHistory.setPatient(patient);
 		caseHistoryRepository.save(caseHistory);

@@ -10,6 +10,7 @@ import com.hwwz.medicalhistorysupervisor.service.CaseHistoryService;
 import com.hwwz.medicalhistorysupervisor.service.DiseaseService;
 import com.hwwz.medicalhistorysupervisor.service.PatientService;
 import com.hwwz.medicalhistorysupervisor.service.SymptomFigureService;
+import com.hwwz.medicalhistorysupervisor.utils.Common;
 import com.hwwz.medicalhistorysupervisor.utils.fileReception;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -94,9 +95,7 @@ public class CaseHistoryController {
 			symptomFigureService.add(symp);
 		}
 		Patient patient=patientService.getPatientById(patientId);
-		Date d = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-		patient.setLastDate(sdf.format(d));
+		patient.setLastDate(Common.getCurTimeString());
 		patientService.updatePatient(patient);
 
 		return "redirect:/patient/home/" + patientId;

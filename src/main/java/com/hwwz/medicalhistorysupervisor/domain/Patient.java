@@ -140,7 +140,7 @@ public class Patient {
     }
 
     public CaseHistory findLastCaseHistory() {
-        return caseHistoryList.get(caseHistoryList.size());
+        return caseHistoryList.get(caseHistoryList.size()-1);
     }
 
 	public String getPhotoURL() {

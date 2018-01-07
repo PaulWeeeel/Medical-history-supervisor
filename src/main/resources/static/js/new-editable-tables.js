@@ -106,7 +106,9 @@ var EditableTable = function () {
                     type: "post",
                     url: turl + '/delete?id=' + oTable.fnGetData(nRow)[0],
                     data: {},
-                    success: function () {}
+                    success: function () {
+                        alert("delete success!");
+                    }
                 });
                 oTable.fnDeleteRow(nRow);
             });
@@ -165,6 +167,14 @@ var EditableTable = function () {
                         "dateTime" : aData[3].value
                     }
                 }
+                else if (turl == "/disease") {
+                    myData = {
+                        // "id" : aData[0].value,
+                        "disease" : aData[0].value,
+                        "level" : aData[1].value,
+                        "riskDegree" : aData[2].value
+                    }
+                }
 
                 if ($(this).attr("data-mode") == "new") {
                 	/* A new stock to be added */
@@ -173,7 +183,9 @@ var EditableTable = function () {
                     	url: turl + '/add',
                     	contentType:"application/json;charset=utf-8",
                         data: JSON.stringify(myData),
-                    	success: function () {}
+                    	success: function () {
+                    	    alert("upload success!");
+                        }
                 	});
                 } else {
                     /* A exist data to be updated  */
@@ -182,7 +194,9 @@ var EditableTable = function () {
                     	url: turl + '/edit',
                     	contentType:"application/json;charset=utf-8",
                     	data: JSON.stringify(myData),
-                    	success: function () {}
+                    	success: function () {
+                    	    alert("edit success!");
+                        }
                 	});
                 }
 

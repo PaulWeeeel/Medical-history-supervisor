@@ -3,6 +3,7 @@ package com.hwwz.medicalhistorysupervisor.service.impl;
 import com.hwwz.medicalhistorysupervisor.domain.Payment;
 import com.hwwz.medicalhistorysupervisor.repository.PaymentRepository;
 import com.hwwz.medicalhistorysupervisor.service.PaymentService;
+import com.hwwz.medicalhistorysupervisor.utils.Common;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,9 +24,7 @@ public class PaymentServiceImpl implements PaymentService {
 
 	@Override
 	public void add(Payment Payment) {
-        Date d = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        Payment.setDateTime(sdf.format(d));
+        Payment.setDateTime(Common.getCurTimeString());
 		PaymentRepository.save(Payment);
 	}
 

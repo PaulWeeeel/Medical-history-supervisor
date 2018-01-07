@@ -1,14 +1,17 @@
 package com.hwwz.medicalhistorysupervisor.service.impl;
 
+import com.hwwz.medicalhistorysupervisor.domain.Patient;
 import com.hwwz.medicalhistorysupervisor.domain.User;
 import com.hwwz.medicalhistorysupervisor.repository.*;
 import com.hwwz.medicalhistorysupervisor.service.BaseService;
+import com.hwwz.medicalhistorysupervisor.utils.Common;
 import com.hwwz.medicalhistorysupervisor.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author: Aliweea
@@ -44,8 +47,10 @@ public class BaseServiceImpl implements BaseService {
 
     @Override
     public void getNumber(Model model) {
-        model.addAttribute("todayPatientNumber", patientRepository.getTodayPatient().size());
-        Double todayFee=caseHistoryRepository.getTodayPayment();
+        String curDate=Common.getCurDateString();
+        List<Patient> patients=patientRepository.getTodayPatient(curDate);
+        model.addAttribute("todayPatientNumber",patients.size());
+        Double todayFee=caseHistoryRepository.getTodayPayment(Common.getCurDateString());
         todayFee=(todayFee==null)?0:todayFee;
         model.addAttribute("todayPaymentNumber",todayFee );
         model.addAttribute("allCaseHistoryNumber", patientRepository.getTotalPatient().size());

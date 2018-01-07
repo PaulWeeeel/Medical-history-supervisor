@@ -3,6 +3,7 @@ package com.hwwz.medicalhistorysupervisor.service.impl;
 import com.hwwz.medicalhistorysupervisor.domain.Patient;
 import com.hwwz.medicalhistorysupervisor.repository.PatientRepository;
 import com.hwwz.medicalhistorysupervisor.service.PatientService;
+import com.hwwz.medicalhistorysupervisor.utils.Common;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -50,5 +51,5 @@ public class PatientServiceImpl implements PatientService {
 	}
 
 
-	public List<Patient> getTodayPatient(){return patientRepository.getTodayPatient();}
+	public List<Patient> getTodayPatient(){return patientRepository.getTodayPatient(Common.getCurDateString());}
 }
