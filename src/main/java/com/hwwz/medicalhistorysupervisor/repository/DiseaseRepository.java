@@ -8,4 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @date: 2017/12/4/004 0:28
  */
 public interface DiseaseRepository extends JpaRepository<Disease, String> {
+    Disease findDiseaseByDisease(String disease);
 }

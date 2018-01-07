@@ -44,7 +44,14 @@ public class BaseServiceImpl implements BaseService {
 
     @Override
     public void getNumber(Model model) {
-
+        model.addAttribute("todayPatientNumber", patientRepository.getTodayPatient().size());
+        Double todayFee=caseHistoryRepository.getTodayPayment();
+        todayFee=(todayFee==null)?0:todayFee;
+        model.addAttribute("todayPaymentNumber",todayFee );
+        model.addAttribute("allCaseHistoryNumber", patientRepository.getTotalPatient().size());
+        Double totalFee=caseHistoryRepository.getTotalPayment();
+        totalFee=(totalFee==null)?0:totalFee;
+        model.addAttribute("allPaymentNumber",totalFee );
     }
 
     @Override

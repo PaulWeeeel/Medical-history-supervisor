@@ -7,4 +7,5 @@ import java.util.List;
 public interface DiseaseService {
     List<Disease> getAllDiseases();
     void addDisease(Disease disease);
+    Disease getByName(String diseaseName);
 }

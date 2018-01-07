@@ -134,7 +134,7 @@ public class CaseHistory {
     public String findMedicineInfos() {
         StringBuffer stringBuffer = new StringBuffer();
         for (MedicineRecord medicineRecord : medicineRecordList) {
-            stringBuffer.append(medicineRecord.getMedicine() + medicineRecord.getTotalDose() + "粒, ");
+            stringBuffer.append(medicineRecord.getMedicine()+" " + medicineRecord.getTotalDose() + "粒, ");
         }
         int length = stringBuffer.length();
         if (length != 0) {

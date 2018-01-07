@@ -54,7 +54,7 @@ public class PatientController {
 			String fileName= fileReception.receiveSingle(file,GlobalMed.getPhoto_path());
 			if(!fileName.equals(""))
 			{
-				patient.setPhotoURL(fileName);
+				patient.setPhotoURL("/"+GlobalMed.getPhoto_dir()+fileName);
 				patientService.addPatient(patient);
 			}
 		} catch (Exception e) {

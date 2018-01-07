@@ -5,6 +5,8 @@ import com.hwwz.medicalhistorysupervisor.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ClassUtils;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +15,7 @@ import org.springframework.web.util.WebUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 
 /**
  * @author: Aliweea
@@ -30,7 +33,9 @@ public class BaseController {
 
     @RequestMapping("/index")
     @Authorization//有此标记的方法检查登录状态
-    public String index(Model model) {
+    public String index(Model model) throws Exception{
+
+
         baseService.getNumber(model);
         model.addAttribute("title", "hello");
         return "index";

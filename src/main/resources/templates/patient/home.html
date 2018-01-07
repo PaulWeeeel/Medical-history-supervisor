@@ -114,7 +114,7 @@
                             <div class="panel">
                                 <div class="panel-body">
                                     <div class="profile-pic text-center">
-                                        <img alt="" src="/images/photos/user1.png"/>
+                                        <img alt="" th:src="@{${patient.photoURL}}" src="/images/photos/user1.png"/>
                                     </div>
                                 </div>
                             </div>
@@ -193,9 +193,9 @@
                                         </li>
                                         <li>
                                             <div class="title">症状图</div>
-                                            <img th:each="url : ${caseHistory.getImageUrlList()}"
-                                                 th:src="@{url}"
-                                                 src="/images/disease/ganmao.jpg" style="width: 240px;height: 160px" alt=" /"/>
+                                            <img th:each=" url : ${caseHistory.getImageUrlList()}"
+                                                 th:src="@{${url.imageUrl}}"
+                                                 src="/images/photos/user3.png" style="width: 480px;height: 320px" alt="no pic for U"/>
                                         </li>
                                     </ul>
                                 </div>

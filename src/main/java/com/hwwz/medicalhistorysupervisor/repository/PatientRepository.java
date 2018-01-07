@@ -21,5 +21,9 @@ public interface PatientRepository  extends JpaRepository<Patient, Integer>{
 	nativeQuery = true)
 	List<Patient> getTodayPatient();
 
+	@Query(value="select * from patient as p,case_history as c where p.id=c.patient_id ",
+			nativeQuery = true)
+	List<Patient> getTotalPatient();
+
     List<Patient> findPatientByFaceToken(String faceToken);
 }

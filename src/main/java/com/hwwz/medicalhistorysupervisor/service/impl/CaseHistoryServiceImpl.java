@@ -59,4 +59,5 @@ public class CaseHistoryServiceImpl implements CaseHistoryService {
 	public void delete(Integer id) {
 		caseHistoryRepository.delete(id);
 	}
+
 }

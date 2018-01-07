@@ -19,6 +19,11 @@ spring:
     http:
       multipart:
         max-file-size: 100Mb
+    mvc:
+      static-path-pattern: /**
+#    resources:
+#      static-locations: classpath:/META-INF/resources/,classpath:/resources/,\
+#                          classpath:/static/,classpath:/public/
 
 JwtSetting:
   max-age: 18000000 #5小时

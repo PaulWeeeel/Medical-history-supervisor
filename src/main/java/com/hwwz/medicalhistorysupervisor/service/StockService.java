@@ -14,4 +14,5 @@ public interface StockService {
     public void delete(Integer id);
     public List<Stock> getAllStocks();
     public Stock getById(Integer id);
+    Stock getByName(String medicine);
 }

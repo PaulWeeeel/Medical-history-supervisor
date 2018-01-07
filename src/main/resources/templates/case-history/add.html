@@ -63,6 +63,8 @@
     <script src="/js/html5shiv.js"></script>
     <script src="/js/respond.min.js"></script>
     <![endif]-->
+
+
 </head>
 
 <body class="sticky-header">
@@ -163,17 +165,8 @@
                                 <div class="form-group">
                                     <label class="control-label col-md-3">病名</label>
                                     <div class="col-md-9">
-                                        <select name="disease" class="multi-select" multiple="" id="my_multi_select3">
-                                            <option value="AF">病1</option>
-                                            <option value="AL">病2</option>
-                                            <option value="DZ">病3</option>
-                                            <option value="AS">病4</option>
-                                            <option value="AD">病5</option>
-                                            <option value="AO">病6</option>
-                                            <option value="AI">病7</option>
-                                            <option value="AQ">病8</option>
-                                            <option value="AR">病9</option>
-                                            <option value="AM">病10</option>
+                                        <select  name="disease" class="multi-select" multiple="multiple" id="my_multi_select3">
+                                            <option th:each="disease : ${diseases}" th:value="${disease.disease}" th:text="${disease.disease}">病1</option>
                                         </select>
                                     </div>
                                 </div>

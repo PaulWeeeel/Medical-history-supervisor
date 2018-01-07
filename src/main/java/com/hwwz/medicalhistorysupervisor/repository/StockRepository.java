@@ -17,4 +17,6 @@ public interface StockRepository extends JpaRepository<Stock, Integer>  {
 
     @Query(value = "select * from stock order by id desc limit ?1", nativeQuery = true)
     List<Stock> getLastestStocks(Integer size);
+
+    Stock getStockByMedicine(String medicine);
 }

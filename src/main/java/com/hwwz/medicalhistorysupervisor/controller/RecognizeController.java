@@ -3,10 +3,7 @@ package com.hwwz.medicalhistorysupervisor.controller;
 import com.hwwz.medicalhistorysupervisor.configuration.Authorization;
 import com.hwwz.medicalhistorysupervisor.domain.Patient;
 import com.hwwz.medicalhistorysupervisor.repository.PatientRepository;
-import com.hwwz.medicalhistorysupervisor.service.DataUrlConvertService;
-import com.hwwz.medicalhistorysupervisor.service.FaceRecognizeService;
-import com.hwwz.medicalhistorysupervisor.service.VoiceFileConvertService;
-import com.hwwz.medicalhistorysupervisor.service.VoiceRecognizeService;
+import com.hwwz.medicalhistorysupervisor.service.*;
 import com.hwwz.medicalhistorysupervisor.utils.ResJsonTemplate;
 import org.bytedeco.javacpp.avcodec;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +38,9 @@ public class RecognizeController {
 
     @Autowired
     private DataUrlConvertService dataUrlConvertService;
+
+    @Autowired
+    private PatientService patientService;
 
     /**
      * get the user of a img file of the face
@@ -96,7 +96,9 @@ public class RecognizeController {
 
         File file = new File(filepath);
         String faceToken = faceRecognizeService.addNewFace(file);
+
         if(faceToken.length() != 0) {
+
             return new ResJsonTemplate("200", new Date(), faceToken);
         }
         else{

@@ -25,9 +25,11 @@ public class GlobalMed {
         if(!iscreated)
         {
             abs_path= ClassUtils.getDefaultClassLoader().getResource("").getPath();
-            photo_dir="photos/";
-            symptom_dir="symptoms/";
-            disease_dir="diseases/";
+            abs_path=abs_path.substring(0,abs_path.lastIndexOf("target"));
+            abs_path+="src/main/resources/static/";
+            photo_dir="images/photos/";
+            symptom_dir="images/symptoms/";
+            disease_dir="images/diseases/";
             photo_path=abs_path+photo_dir;
             symptom_path=abs_path+symptom_dir;
             disease_path=abs_path+disease_dir;

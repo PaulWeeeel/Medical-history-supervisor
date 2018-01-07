@@ -42,4 +42,9 @@ public class StockServiceImpl implements StockService {
     public Stock getById(Integer id) {
         return stockRepository.getOne(id);
     }
+
+    @Override
+    public Stock getByName(String medicine) {
+        return stockRepository.getStockByMedicine(medicine);
+    }
 }

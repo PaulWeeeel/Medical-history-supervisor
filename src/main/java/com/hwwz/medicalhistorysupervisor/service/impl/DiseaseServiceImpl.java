@@ -23,4 +23,9 @@ public class DiseaseServiceImpl implements DiseaseService {
     public void addDisease(Disease disease){
         diseaseRepository.save(disease);
     }
+
+    @Override
+    public  Disease getByName(String diseaseName){
+        return diseaseRepository.findDiseaseByDisease(diseaseName);
+    }
 }

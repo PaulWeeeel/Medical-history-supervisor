@@ -24,4 +24,10 @@ public interface CaseHistoryRepository extends JpaRepository<CaseHistory, Intege
 
 	@Query(value = "select * from case_history where patient_id=? order by id desc limit 1", nativeQuery = true)
 	CaseHistory getLastestCaseHistoryByPatientId(Integer patientId);
+
+	@Query(value = "select sum(fee) from case_history where date_time=CURRENT_DATE ", nativeQuery = true)
+	Double getTodayPayment();
+
+	@Query(value = "select sum(fee) from case_history ", nativeQuery = true)
+	Double getTotalPayment();
 }
