@@ -2,6 +2,7 @@ package com.hwwz.medicalhistorysupervisor.configuration;
 
 import org.springframework.util.ClassUtils;
 
+import javax.websocket.DecodeException;
 import java.io.File;
 
 
@@ -27,6 +28,13 @@ public class GlobalMed {
             abs_path= ClassUtils.getDefaultClassLoader().getResource("").getPath();
             abs_path=abs_path.substring(0,abs_path.lastIndexOf("target"));
             abs_path+="src/main/resources/static/";
+            try{
+                abs_path = java.net.URLDecoder.decode(abs_path,"utf-8");
+            }
+            catch (Exception e)
+            {
+                System.out.println("Decode Error:"+e.getMessage());
+            }
             photo_dir="images/photos/";
             symptom_dir="images/symptoms/";
             disease_dir="images/diseases/";
@@ -52,7 +60,7 @@ public class GlobalMed {
         }
     }
 
-    public static String getAbs_path() {
+    public static String getAbs_path(){
         init();
         return abs_path;
     }

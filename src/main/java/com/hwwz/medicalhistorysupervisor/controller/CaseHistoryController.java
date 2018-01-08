@@ -58,7 +58,7 @@ public class CaseHistoryController {
 	}
 
 	@PostMapping(value = "/add")
-	public String add(HttpServletRequest request, HttpServletResponse response, @RequestParam("files") MultipartFile[] files) {
+	public String add(HttpServletRequest request, HttpServletResponse response, @RequestParam("files") MultipartFile[] files){
         Integer patientId = Integer.valueOf(request.getParameter("patientId"));
         String onset = request.getParameter("onset");
         String[] diseases=request.getParameterValues("disease");

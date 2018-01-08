@@ -55,7 +55,7 @@ public class PatientController {
 	}
 
 	@PostMapping(value = "/add")
-	public String add(@RequestParam("photo")MultipartFile file,@Valid Patient patient, BindingResult bindingResult) throws Exception {
+	public String add(@RequestParam("photo")MultipartFile file,@Valid Patient patient,Model model, BindingResult bindingResult) throws Exception {
 		if (bindingResult.hasErrors()) {
 			throw new Exception(bindingResult.getFieldError().getDefaultMessage());
 		}
@@ -70,7 +70,8 @@ public class PatientController {
 				String faceToken = faceRecognizeService.addNewFace(newFace);
 				if(faceToken == null)
 				{
-					return "redirect:/patient/add";
+					model.addAttribute("error","没有识别出病人脸部特征，换一张图试试？");
+					return "patient/add";
 				}
 
 				patient.setFaceToken(faceToken);
