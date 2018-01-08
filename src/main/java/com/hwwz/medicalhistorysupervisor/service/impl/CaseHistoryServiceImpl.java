@@ -43,6 +43,7 @@ public class CaseHistoryServiceImpl implements CaseHistoryService {
 
 	@Override
 	public void add(CaseHistory caseHistory, Integer patientId) {
+
         caseHistory.setDateTime(Common.getCurTimeString());
 		Patient patient = patientRepository.getOne(patientId);
 		caseHistory.setPatient(patient);

@@ -9,7 +9,7 @@ import java.util.List;
  * @date: 2017/12/8/008 11:57
  */
 public interface MedicineRecordService {
-	public void add(MedicineRecord medicineRecordRecord);
+	public void add(MedicineRecord medicineRecordRecord,Integer patientId);
 	public List<MedicineRecord> getAllMedicineRecord();
 	public MedicineRecord getById(Integer id);
 	public List<MedicineRecord> getByCaseHistoryId(Integer caseHistoryId);

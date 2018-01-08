@@ -1,4 +1,4 @@
-package com.hwwz.medicalhistorysupervisor.properties;
+package com.hwwz.medicalhistorysupervisor.configuration;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;

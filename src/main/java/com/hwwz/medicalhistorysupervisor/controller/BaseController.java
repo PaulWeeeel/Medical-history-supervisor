@@ -34,8 +34,6 @@ public class BaseController {
     @RequestMapping("/index")
     @Authorization//有此标记的方法检查登录状态
     public String index(Model model) throws Exception{
-
-
         baseService.getNumber(model);
         model.addAttribute("title", "hello");
         return "index";
@@ -53,16 +51,6 @@ public class BaseController {
         return "register";
     }
 
-//    @PostMapping("/register")
-//    public String register(@RequestParam("username") String username,
-//                           @RequestParam("password1") String password1,
-//                           @RequestParam("password2") String password2){
-//        if (baseService.register(username, password1, password2)){
-//            return "index";
-//        }else {
-//            return "register";
-//        }
-//    }
 
     @PostMapping("/register")
     public String register(HttpServletRequest request, HttpServletResponse response){
@@ -89,6 +77,7 @@ public class BaseController {
         if (!(token=baseService.login(username,password)).equals("")){
             //登录成功，返回服务器生成的token
             model.addAttribute("token",token);
+            baseService.getNumber(model);
             return "index";
         }else {
             //登录失败
