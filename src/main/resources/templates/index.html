@@ -35,7 +35,6 @@
                 document.cookie="token="+cval+";expires="+exp.toTimeString();
         }
     </script>
-    <script src="/js/voice-recorder.js"></script>
 </head>
 
 <body class="sticky-header" onload="setToken()">
@@ -225,12 +224,6 @@
                 </div>
             </div>
         </div>
-
-        <span style="white-space:pre">        </span><audio controls="autoplay"></audio>
-        <input class="btn btn-primary" type="button" value="Start" onclick="startRecording()"/>
-        <input class="btn btn-primary" type="submit" value="Upload" onclick="obtainRecord()"/>
-        <input class="btn btn-primary" type="button" value="Stop" onclick="stopRecord()"/>
-        <input class="btn btn-primary" type="button" value="Replay" onclick="playRecord()"/>
     </div>
     <!-- main content end-->
 </section>
@@ -248,7 +241,7 @@
 
 <script type="text/javascript" th:inline="javascript">
     /* video */
-    // Prefer camera resolution nearest to 1280x720.
+    // Prefer camera resolution nearest to 720x720.
     var constraints = { audio: false, video: { width: 720, height: 720 } };
 
     navigator.mediaDevices.getUserMedia(constraints)
@@ -292,6 +285,8 @@
                     document.getElementById("patient-detail").removeAttribute("disabled");
                     patient_id = response.result.id.toString();
                     clearInterval(timer);
+
+                    alert("检测到库中已有病人！");
                 }
                 else{
 
@@ -300,7 +295,7 @@
             },
             error: function () {
                 clearInterval(timer);
-                alert("与服务器连接错误，请刷新页面！");
+                alert("人脸监测中断！");
             },
             complete: function () {
 
@@ -311,38 +306,6 @@
     function queryDetail() {
         window.location="/patient/home/" + patient_id;
     }
-</script>
-
-<script type="text/javascript" th:inline="javascript">
-
-    /* Audio */
-    var recorder;
-    var audio = document.querySelector('audio');
-
-    function startRecording() {
-        HZRecorder.get(function (rec) {
-            recorder = rec;
-            recorder.start();
-        });
-    }
-
-    function obtainRecord(){
-        var record = recorder.getBlob();
-        var basePath = [[${#httpServletRequest.getScheme() + "://" + #httpServletRequest.getServerName() + ":" + #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath()}]];
-
-        recorder.upload(basePath,  function (result) {
-            console.log(result);
-        });
-        debugger;
-    };
-
-    function stopRecord(){
-        recorder.stop();
-    };
-
-    function playRecord(){
-        recorder.play(audio);
-    };
 </script>
 
 </body>

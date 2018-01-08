@@ -94,12 +94,12 @@ public class PatientController {
 		try {
 			Patient patient = patientService.getPatientById(id);
 			List<CaseHistory> caseHistoryList = patient.getCaseHistoryList();
-			String url = patient.getPhotoURL();
-			try {
-				patient.setPhotoURL(dataUrlConvertService.convertFileToDataUrl(url.substring(url.lastIndexOf('/') + 1)));
-			}catch (Exception e){
-				patient.setPhotoURL(null);
-			}
+			//String url = patient.getPhotoURL();
+			//try {
+			//	patient.setPhotoURL(dataUrlConvertService.convertFileToDataUrl(GlobalMed.getPhoto_path() + url.substring(url.lastIndexOf('/') + 1)));
+			//}catch (Exception e){
+			//	patient.setPhotoURL(null);
+			//}
 			model.addAttribute("patient", patient);
 			model.addAttribute("caseHistoryList", caseHistoryList);
 		} catch (Exception e) {

@@ -89,9 +89,9 @@ public class DataUrlConvertServiceImpl implements DataUrlConvertService{
     }
 
     @Override
-    public String convertFileToDataUrl (String fileName){
+    public String convertFileToDataUrl (String filePath){
         String dataUrl = new String();
-        String filePath = GlobalMed.getPhoto_path() + fileName;
+        String fileType = filePath.substring(filePath.lastIndexOf('.') + 1);
         File file = new File(filePath);
 
         try {
@@ -101,7 +101,7 @@ public class DataUrlConvertServiceImpl implements DataUrlConvertService{
             inputFile.read(buffer);
             inputFile.close();
 
-            dataUrl = "data:image/png;base64," + new BASE64Encoder().encode(buffer);
+            dataUrl = "data:image/" + fileType + ";base64," + new BASE64Encoder().encode(buffer);
 
         }catch (IOException e){
             return null;

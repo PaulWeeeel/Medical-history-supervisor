@@ -63,7 +63,7 @@ public class RecognizeController {
 
         //voiceFileConvertService.convert(fileName, fileName.substring(0, fileName.indexOf('.')) + "_temp.wav", avcodec.AV_CODEC_ID_PCM_S16LE, 8000, 16,1);
         //File file = new File(fileName.substring(0, fileName.indexOf('.')) + "_temp.wav");
-        File file = new File(fileName);
+        File file = new File(GlobalMed.getPhoto_path() + fileName);
         String result = voiceRecognizeService.doRecognize(file);
 
         return new ResJsonTemplate("200", new Date(), result);

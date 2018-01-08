@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
@@ -68,6 +68,7 @@
             <!--obj.outerHTML=obj.outerHTML;-->
         <!--}-->
     <!--</script>-->
+    <script src="/js/voice-recorder.js"></script>
 </head>
 
 <body class="sticky-header">
@@ -201,7 +202,16 @@
                                 <div class="form-group">
                                     <label class="control-label col-md-3">地址</label>
                                     <div class="col-md-6 col-sm-6">
-                                        <textarea form="addPatientForm" name="address" rows="5" cols="60" class="form-control"></textarea>
+                                        <textarea form="addPatientForm" name="address" rows="5" cols="60" class="form-control" id="address"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3"></label>
+                                    <div class="col-md-9">
+                                        <input class="btn btn-primary" type="button" value="开始录音" onclick="startRecording()"/>
+                                        <input class="btn btn-primary" type="button" value="上传识别" onclick="obtainRecord()"/>
+                                        <img src="/images/voice.png" id="recording_icon" hidden="true"/><label id="recording_label" hidden="true">  正在录制音频......</label>
                                     </div>
                                 </div>
 
@@ -309,6 +319,35 @@
 
 <!--common scripts for all pages-->
 <script src="/js/scripts.js"></script>
+
+<script type="text/javascript" th:inline="javascript">
+
+    /* Audio */
+    var recorder;
+    var audio = document.querySelector('audio');
+
+    function startRecording() {
+        HZRecorder.get(function (rec) {
+            recorder = rec;
+            recorder.start();
+        });
+        document.getElementById("recording_icon").removeAttribute("hidden");
+        document.getElementById("recording_label").removeAttribute("hidden");
+    }
+
+    function obtainRecord(){
+        recorder.stop();
+        document.getElementById("recording_icon").setAttribute("hidden", "true");
+        document.getElementById("recording_label").setAttribute("hidden", "true");
+        var record = recorder.getBlob();
+        var basePath = [[${#httpServletRequest.getScheme() + "://" + #httpServletRequest.getServerName() + ":" + #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath()}]];
+
+        recorder.upload(basePath,  function (result) {
+            $('#address').html(result);
+        });
+    };
+
+</script>
 
 </body>
 </html>
