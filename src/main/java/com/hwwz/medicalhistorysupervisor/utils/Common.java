@@ -17,4 +17,13 @@ public class Common {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         return sdf.format(d);
     }
+
+    public static Double nullToZero(Object obj)
+    {
+        if(obj==null)
+        {
+            return 0d;
+        }
+        return (Double) obj;
+    }
 }

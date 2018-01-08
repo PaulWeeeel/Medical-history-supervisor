@@ -174,6 +174,10 @@ var EditableTable = function () {
                         "level" : aData[1].value,
                         "riskDegree" : aData[2].value
                     }
+                }else if (turl == "/case-history") {
+                    saveRow(oTable, nEditing, turl);
+                    nEditing = null;
+                    return;
                 }
 
                 if ($(this).attr("data-mode") == "new") {

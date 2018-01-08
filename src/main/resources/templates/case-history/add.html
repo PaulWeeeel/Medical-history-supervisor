@@ -303,9 +303,8 @@
                                                                 <thead>
                                                                 <tr>
                                                                     <th>药名</th>
-                                                                    <th>总量（粒）</th>
-                                                                    <th>用药时长（小时）</th>
-                                                                    <th>间隔（小时）</th>
+                                                                    <th>用药时长（天）</th>
+                                                                    <th>每日次数</th>
                                                                     <th>编辑</th>
                                                                     <th>删除</th>
                                                                 </tr>
@@ -431,9 +430,8 @@
                     type:"post",
                     data:{
                         "medicine":myArr[0],
-                        "totalDose":myArr[1],
-                        "duration":myArr[2],
-                        "timeInterval":myArr[3],
+                        "duration":myArr[1],
+                        "timeInterval":myArr[2],
                         "patientId": $("#in_patientID").val()
                     },
                     dataType:"text",
@@ -468,10 +466,10 @@
 <!--data table-->
 <script type="text/javascript" src="/js/data-tables/jquery.dataTables.js"></script>
 <script type="text/javascript" src="/js/data-tables/DT_bootstrap.js"></script>
-<script src="/js/editable-table.js"></script>
+<script src="/js/new-editable-tables.js"></script>
 <script>
     jQuery(document).ready(function() {
-        EditableTable.init();
+        EditableTable.init("/case-history");
     });
 </script>
 </body>

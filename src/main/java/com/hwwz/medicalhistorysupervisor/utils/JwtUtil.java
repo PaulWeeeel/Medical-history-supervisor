@@ -1,6 +1,6 @@
 package com.hwwz.medicalhistorysupervisor.utils;
 
-import com.hwwz.medicalhistorysupervisor.properties.JwtSetting;
+import com.hwwz.medicalhistorysupervisor.configuration.JwtSetting;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;

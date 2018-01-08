@@ -34,8 +34,6 @@ public class BaseController {
     @RequestMapping("/index")
     @Authorization//有此标记的方法检查登录状态
     public String index(Model model) throws Exception{
-
-
         baseService.getNumber(model);
         model.addAttribute("title", "hello");
         return "index";
@@ -89,6 +87,7 @@ public class BaseController {
         if (!(token=baseService.login(username,password)).equals("")){
             //登录成功，返回服务器生成的token
             model.addAttribute("token",token);
+            baseService.getNumber(model);
             return "index";
         }else {
             //登录失败

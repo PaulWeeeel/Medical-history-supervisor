@@ -51,12 +51,10 @@ public class BaseServiceImpl implements BaseService {
         List<Patient> patients=patientRepository.getTodayPatient(curDate);
         model.addAttribute("todayPatientNumber",patients.size());
         Double todayFee=caseHistoryRepository.getTodayPayment(Common.getCurDateString());
-        todayFee=(todayFee==null)?0:todayFee;
-        model.addAttribute("todayPaymentNumber",todayFee );
+        model.addAttribute("todayPaymentNumber",Common.nullToZero(todayFee) );
         model.addAttribute("allCaseHistoryNumber", patientRepository.getTotalPatient().size());
         Double totalFee=caseHistoryRepository.getTotalPayment();
-        totalFee=(totalFee==null)?0:totalFee;
-        model.addAttribute("allPaymentNumber",totalFee );
+        model.addAttribute("allPaymentNumber",Common.nullToZero(totalFee) );
     }
 
     @Override
