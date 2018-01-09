@@ -135,7 +135,7 @@
                                         <tr  class="gradeA" th:each="patient : ${patientList}">
                                             <th scope="row" th:text="${patient.id}">1</th>
                                             <td th:text="${patient.name}">小红</td>
-                                            <td th:text="${patient.gender}">女</td>
+                                            <td th:text="${patient.gender}==true?'男':'女'">女</td>
                                             <td th:text="${patient.age}">18</td>
                                             <td th:text="${patient.occupation}">学生</td>
                                             <td th:text="${patient.phone}">15319635864</td>
