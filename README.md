@@ -5,10 +5,13 @@ Add local dependency:
 remove the dependencies of jpa first
 
 no need to cmd at ..\Medical-history-supervisor
+ps:no blank space should be involved in the path
+  for windows cmd it should be / rather than \
 
-mvn install:install-file -Dfile= [localdir] src\libs\Msc.jar -DgroupId=iflytek -DartifactId=iflytek-voice -Dversion=1.0 -Dpackaging=jar
+mvn install:install-file -Dfile=[localdir]src\libs\Msc.jar -DgroupId=iflytek -DartifactId=iflytek-voice -Dversion=1.0 -Dpackaging=jar
 
-mvn install:install-file -Dfile= [localdir]src\libs\FaceppSDK.jar -DgroupId=facepp -DartifactId=facepp_face -Dversion=1.0 -Dpackaging=jar
+mvn install:install-file -Dfile=[localdir]src\libs\FaceppSDK.jar -DgroupId=facepp -DartifactId=facepp_face -Dversion=1.0 -Dpackaging=jar
+
 
 add back the dependencies of jpa finally
 
